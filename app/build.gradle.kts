@@ -26,4 +26,6 @@ android {
 
 dependencies {
     implementation(projects.core.navigation)
+    implementation(projects.core.designsystem)
+    implementation(libs.androidx.appcompat)
 }
