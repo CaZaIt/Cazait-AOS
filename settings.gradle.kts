@@ -15,9 +15,12 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CazaitAndroid"
-include(":app")
-include(":core:domain")
-include(":core:data")
-include(":feature:signin")
-include(":feature:splash")
-include(":core:navigation")
+include(
+    ":app",
+    ":core:domain",
+    ":core:data",
+    ":core:navigation",
+    ":core:designsystem",
+    ":feature:signin",
+    ":feature:splash",
+)
