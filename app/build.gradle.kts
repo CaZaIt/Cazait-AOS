@@ -25,7 +25,12 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.navigation)
     implementation(projects.core.designsystem)
+    implementation(projects.feature.mypage)
+    implementation(projects.feature.home)
+    implementation(projects.feature.viewmore)
+    implementation(projects.feature.map)
+    implementation(projects.feature.signin)
+    implementation(projects.feature.splash)
     implementation(libs.androidx.appcompat)
 }

@@ -93,7 +93,7 @@ fun CazaitTheme(
 
     CompositionLocalProvider(
         LocalDarkTheme provides darkTheme,
-        LocalTypography provides Typography
+        LocalTypography provides Typography,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

@@ -19,7 +19,6 @@ include(
     ":app",
     ":core:domain",
     ":core:data",
-    ":core:navigation",
     ":core:designsystem",
     ":core:ui",
     ":feature:signin",
