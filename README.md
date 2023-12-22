@@ -1,5 +1,5 @@
 <h1 align="center">
-  CaZaIt-Android-Private
+  CaZaIt-Android
 </h1>
 <p align="center">
   카자잇 안드로이드
