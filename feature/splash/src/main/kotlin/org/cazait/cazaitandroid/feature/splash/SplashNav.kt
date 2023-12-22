@@ -17,6 +17,7 @@ fun NavController.navigateSplash(navOptions: NavOptions) {
 fun NavGraphBuilder.splashNavGraph(
     padding: PaddingValues,
     onSplashFinished: () -> Unit,
+    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = SplashNav.route) {
         SplashRoute(

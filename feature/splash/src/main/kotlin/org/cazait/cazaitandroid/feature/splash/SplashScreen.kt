@@ -9,7 +9,7 @@ fun SplashScreen(
     actions: SplashActions,
     onSplashFinished: () -> Unit,
 ) {
-
+    onSplashFinished()
 }
 
 @Composable

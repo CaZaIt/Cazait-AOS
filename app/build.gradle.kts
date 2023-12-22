@@ -33,4 +33,5 @@ dependencies {
     implementation(projects.feature.signin)
     implementation(projects.feature.splash)
     implementation(libs.androidx.appcompat)
+    implementation(libs.kotlinx.immutable)
 }
