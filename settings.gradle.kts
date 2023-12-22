@@ -21,6 +21,11 @@ include(
     ":core:data",
     ":core:navigation",
     ":core:designsystem",
+    ":core:ui",
     ":feature:signin",
     ":feature:splash",
+    ":feature:home",
+    ":feature:map",
+    ":feature:mypage",
+    ":feature:viewmore",
 )
