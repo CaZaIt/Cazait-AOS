@@ -1,47 +1,37 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    id("cazait.android.application")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
     namespace = "org.cazait.cazaitandroid"
-    compileSdk = 33
 
     defaultConfig {
         applicationId = "org.cazait.cazaitandroid"
-        minSdk = 28
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 }
 
 dependencies {
-
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(projects.core.designsystem)
+    implementation(projects.feature.mypage)
+    implementation(projects.feature.home)
+    implementation(projects.feature.viewmore)
+    implementation(projects.feature.map)
+    implementation(projects.feature.signin)
+    implementation(projects.feature.splash)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.kotlinx.immutable)
 }

@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -14,9 +15,16 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CazaitAndroid"
-include(":app")
-include(":core:domain")
-include(":core:data")
-include(":feature:signin")
-include(":feature:splash")
-include(":core:navigation")
+include(
+    ":app",
+    ":core:domain",
+    ":core:data",
+    ":core:designsystem",
+    ":core:ui",
+    ":feature:signin",
+    ":feature:splash",
+    ":feature:home",
+    ":feature:map",
+    ":feature:mypage",
+    ":feature:viewmore",
+)
