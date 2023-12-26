@@ -16,7 +16,7 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = White,
-    onPrimary = Neon01,
+    onPrimary = Black,
     primaryContainer = Graphite,
     onPrimaryContainer = White,
     inversePrimary = Green03,
@@ -42,7 +42,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Neon01,
+    primary = Black,
     onPrimary = White,
     primaryContainer = White,
     onPrimaryContainer = Black,
@@ -59,7 +59,7 @@ private val LightColorScheme = lightColorScheme(
     onError = White,
     errorContainer = Red01,
     onErrorContainer = Red06,
-    surface = Black,
+    surface = White,
     onSurface = DuskGray,
     inverseSurface = Yellow05,
     inverseOnSurface = White,

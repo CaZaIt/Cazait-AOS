@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 object HomeNav {
     val iconResId = R.drawable.ic_home
     val iconResIdSelected = R.drawable.ic_home_selected
-    val route: String = "home"
+    const val route: String = "home"
 }
 
 fun NavController.navigateHome(navOptions: NavOptions) {

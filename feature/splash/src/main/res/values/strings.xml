@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_description_title">카페,\n자리 있어?</string>
+    <string name="app_description_description">카페를 갔는데 자리가 없어 결국 되돌아가기만 했던 당신, 이젠 카페에 자리가 있는지 먼저 확인 해보는 건 어때요?</string>
+    <string name="app_description_start">시작하기</string>
+</resources>
