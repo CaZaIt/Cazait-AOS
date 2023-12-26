@@ -102,8 +102,7 @@ internal fun MainScreen(
                     )
                     splashNavGraph(
                         padding = padding,
-                        onSplashFinished = { navigator.navigate(tab = MainTab.HOME) },
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+                        onClickStart = { navigator.navigate(tab = MainTab.HOME) },
                     )
                 }
             }
