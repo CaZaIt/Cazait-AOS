@@ -25,13 +25,19 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.designsystem)
     implementation(projects.feature.mypage)
     implementation(projects.feature.home)
     implementation(projects.feature.viewmore)
     implementation(projects.feature.map)
     implementation(projects.feature.signin)
     implementation(projects.feature.splash)
+
+    implementation(projects.core.repo.signin.impl)
+
+    implementation(projects.core.http)
+
+    implementation(projects.core.designsystem)
+
     implementation(libs.androidx.appcompat)
     implementation(libs.kotlinx.immutable)
 }

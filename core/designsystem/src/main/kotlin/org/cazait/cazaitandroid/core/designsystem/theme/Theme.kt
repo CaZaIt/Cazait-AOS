@@ -32,13 +32,14 @@ private val DarkColorScheme = darkColorScheme(
     onError = Red05,
     errorContainer = Red04,
     onErrorContainer = Red01,
-    surface = Graphite,
+    surface = DarkGray,
     onSurface = White,
     inverseSurface = Neon05,
     inverseOnSurface = Black,
     outline = DarkGray,
     outlineVariant = Cosmos,
     scrim = Black,
+    background = Graphite,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -65,7 +66,8 @@ private val LightColorScheme = lightColorScheme(
     inverseOnSurface = White,
     outline = LightGray,
     outlineVariant = DarkGray,
-    scrim = Black,
+    scrim = White,
+    background = Beige,
 )
 
 val LocalDarkTheme = compositionLocalOf { true }

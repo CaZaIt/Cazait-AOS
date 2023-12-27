@@ -11,6 +11,8 @@ import androidx.navigation.navOptions
 import org.cazait.cazaitandroid.feature.home.navigateHome
 import org.cazait.cazaitandroid.feature.map.navigateMap
 import org.cazait.cazaitandroid.feature.mypage.navigateMyPage
+import org.cazait.cazaitandroid.feature.signin.navigateSignIn
+import org.cazait.cazaitandroid.feature.splash.SplashNav
 import org.cazait.cazaitandroid.feature.viewmore.navigateViewMore
 
 internal class MainNavigator(
@@ -20,7 +22,7 @@ internal class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = org.cazait.cazaitandroid.feature.splash.SplashNav.route
+    val startDestination = SplashNav.route
 
     val currentTab: MainTab?
         @Composable get() = currentDestination
@@ -42,6 +44,10 @@ internal class MainNavigator(
             MainTab.MY_PAGE -> navController.navigateMyPage(navOptions)
             MainTab.VIEW_MORE -> navController.navigateViewMore(navOptions)
         }
+    }
+
+    fun navigateSignIn() {
+        navController.navigateSignIn()
     }
 
     @Composable
