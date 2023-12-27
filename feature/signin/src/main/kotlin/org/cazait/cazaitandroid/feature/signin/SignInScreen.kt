@@ -3,6 +3,7 @@ package org.cazait.cazaitandroid.feature.signin
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -80,7 +81,10 @@ internal fun SignInScreen(
             )
         }
         Spacer(modifier = Modifier.height(9.dp))
-        Text(text = stringResource(id = R.string.do_sign_up))
+        Text(
+            modifier = Modifier.clickable { onClickSignUp() },
+            text = stringResource(id = R.string.do_sign_up),
+        )
     }
 }
 

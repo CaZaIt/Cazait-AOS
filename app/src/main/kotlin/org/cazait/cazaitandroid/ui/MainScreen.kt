@@ -83,23 +83,23 @@ internal fun MainScreen(
                     startDestination = navigator.startDestination,
                 ) {
                     homeNavGraph(
-                        padding = padding,
-                        onCafeClick = {},
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onCafeClick = {},
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     mapNavGraph(
-                        padding = padding,
-                        onCafeClick = {},
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onCafeClick = {},
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     myPageNavGraph(
-                        padding = padding,
-                        onCafeClick = {},
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onCafeClick = {},
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     viewMoreNavGraph(
-                        padding = padding,
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     splashNavGraph(
                         onClickStart = { navigator.navigateSignIn() },

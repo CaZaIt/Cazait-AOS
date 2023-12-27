@@ -1,6 +1,5 @@
 package org.cazait.cazaitandroid.feature.home
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -17,10 +16,9 @@ fun NavController.navigateHome(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.homeNavGraph(
-    padding: PaddingValues,
-    onCafeClick: () -> Unit,
-    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
+//    padding: PaddingValues,
+//    onCafeClick: () -> Unit,
+//    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
-    composable(route = HomeNav.route) {
-    }
+    composable(route = HomeNav.route) {}
 }
