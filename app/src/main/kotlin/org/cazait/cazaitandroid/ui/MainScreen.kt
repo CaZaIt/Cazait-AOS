@@ -46,6 +46,7 @@ import org.cazait.cazaitandroid.core.designsystem.theme.surfaceDim
 import org.cazait.cazaitandroid.feature.home.homeNavGraph
 import org.cazait.cazaitandroid.feature.map.mapNavGraph
 import org.cazait.cazaitandroid.feature.mypage.myPageNavGraph
+import org.cazait.cazaitandroid.feature.signin.signInNavGraph
 import org.cazait.cazaitandroid.feature.splash.splashNavGraph
 import org.cazait.cazaitandroid.feature.viewmore.viewMoreNavGraph
 import org.cazait.cazaitandroid.rememberMainNavigator
@@ -82,27 +83,28 @@ internal fun MainScreen(
                     startDestination = navigator.startDestination,
                 ) {
                     homeNavGraph(
-                        padding = padding,
-                        onCafeClick = {},
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onCafeClick = {},
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     mapNavGraph(
-                        padding = padding,
-                        onCafeClick = {},
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onCafeClick = {},
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     myPageNavGraph(
-                        padding = padding,
-                        onCafeClick = {},
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onCafeClick = {},
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     viewMoreNavGraph(
-                        padding = padding,
-                        onShowErrorSnackbar = onShowErrorSnackbar,
+//                        padding = padding,
+//                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     splashNavGraph(
-                        padding = padding,
-                        onSplashFinished = { navigator.navigate(tab = MainTab.HOME) },
+                        onClickStart = { navigator.navigateSignIn() },
+                    )
+                    signInNavGraph(
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                 }

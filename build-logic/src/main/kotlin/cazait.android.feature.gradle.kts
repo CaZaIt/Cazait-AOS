@@ -17,6 +17,7 @@ configureHiltAndroid()
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
+    implementation(project(":core:ui"))
     implementation(project(":core:designsystem"))
 
     val libs = project.extensions.libs

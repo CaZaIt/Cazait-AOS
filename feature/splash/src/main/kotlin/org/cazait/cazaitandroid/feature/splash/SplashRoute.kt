@@ -1,30 +1,12 @@
 package org.cazait.cazaitandroid.feature.splash
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 
 @Composable
 fun SplashRoute(
-    padding: PaddingValues,
-    onSplashFinished: () -> Unit,
-    coordinator: SplashCoordinator = rememberSplashCoordinator(),
+    onClickStart: () -> Unit,
 ) {
-    val uiState by coordinator.screenStateFlow.collectAsState()
-    val actions = rememberSplashActions(coordinator)
     SplashScreen(
-        uiState = uiState,
-        actions = actions,
-        onSplashFinished = onSplashFinished,
+        onClickStart = onClickStart,
     )
-}
-
-@Composable
-fun rememberSplashActions(coordinator: SplashCoordinator): SplashActions {
-    return remember(coordinator) {
-        SplashActions(
-        )
-    }
 }
