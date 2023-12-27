@@ -1,24 +1,21 @@
 package org.cazait.cazaitandroid.feature.signin
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
 object SignInNav {
-    val route: String = "sign_in"
+    const val route: String = "signIn"
 }
 
-fun NavController.navigateSignIn(navOptions: NavOptions) {
-    navigate(SignInNav.route, navOptions)
+fun NavController.navigateSignIn() {
+    navigate(SignInNav.route)
 }
 
-fun NavGraphBuilder.SignInNavGraph(
-    padding: PaddingValues,
-    onCafeClick: () -> Unit,
+fun NavGraphBuilder.signInNavGraph(
+    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = SignInNav.route) {
-
+        SignInRoute(onShowErrorSnackbar)
     }
 }

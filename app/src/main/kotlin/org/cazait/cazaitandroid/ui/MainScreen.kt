@@ -46,6 +46,7 @@ import org.cazait.cazaitandroid.core.designsystem.theme.surfaceDim
 import org.cazait.cazaitandroid.feature.home.homeNavGraph
 import org.cazait.cazaitandroid.feature.map.mapNavGraph
 import org.cazait.cazaitandroid.feature.mypage.myPageNavGraph
+import org.cazait.cazaitandroid.feature.signin.signInNavGraph
 import org.cazait.cazaitandroid.feature.splash.splashNavGraph
 import org.cazait.cazaitandroid.feature.viewmore.viewMoreNavGraph
 import org.cazait.cazaitandroid.rememberMainNavigator
@@ -101,8 +102,10 @@ internal fun MainScreen(
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     splashNavGraph(
-                        padding = padding,
-                        onClickStart = { navigator.navigate(tab = MainTab.HOME) },
+                        onClickStart = { navigator.navigateSignIn() },
+                    )
+                    signInNavGraph(
+                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                 }
             }
