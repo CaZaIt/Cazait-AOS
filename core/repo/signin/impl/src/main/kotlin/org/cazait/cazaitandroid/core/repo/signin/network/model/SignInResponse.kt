@@ -7,5 +7,5 @@ internal data class SignInResponse(
     val code: Int,
     val result: String,
     val message: String,
-    val data: UserInformationResponse
+    val data: UserInformationResponse,
 )

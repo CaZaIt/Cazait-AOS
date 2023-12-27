@@ -39,7 +39,7 @@ private val DarkColorScheme = darkColorScheme(
     outline = DarkGray,
     outlineVariant = Cosmos,
     scrim = Black,
-    background = Graphite
+    background = Graphite,
 )
 
 private val LightColorScheme = lightColorScheme(
