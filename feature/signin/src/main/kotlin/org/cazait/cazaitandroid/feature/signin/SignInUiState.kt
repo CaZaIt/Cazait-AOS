@@ -1,9 +1,6 @@
 package org.cazait.cazaitandroid.feature.signin
 
-import org.cazait.cazaitandroid.core.repo.signin.api.model.AccessToken
-import org.cazait.cazaitandroid.core.repo.signin.api.model.AccountName
-import org.cazait.cazaitandroid.core.repo.signin.api.model.RefreshToken
-import org.cazait.cazaitandroid.core.repo.signin.api.model.UserId
+import org.cazait.cazaitandroid.core.repo.signin.api.model.UserInformation
 
 internal sealed interface SignInUiState {
     val accountNameInput: String
@@ -25,10 +22,7 @@ internal sealed interface SignInUiState {
     ) : SignInUiState
 
     data class Success(
-        val userId: UserId,
-        val accountName: AccountName,
-        val accessToken: AccessToken,
-        val refreshToken: RefreshToken,
+        val userInformation: UserInformation,
     ) : SignInUiState {
         override val accountNameInput: String = ""
         override val password: String = ""

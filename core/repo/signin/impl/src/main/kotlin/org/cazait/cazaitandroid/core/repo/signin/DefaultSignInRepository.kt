@@ -16,6 +16,6 @@ internal class DefaultSignInRepository @Inject constructor(
         accountName: AccountName,
         password: Password,
     ): UserInformation = signInApi.postSignIn(
-        SignInRequest(accountName.name, password.word)
+        SignInRequest(accountName.name, password.word),
     ).data.toData()
 }

@@ -11,6 +11,6 @@ import java.util.UUID
 internal fun UserInformationResponse.toData(): UserInformation = UserInformation(
     userId = UserId(UUID.fromString(id)),
     accountName = AccountName(accountName),
-    accessToken = AccessToken(UUID.fromString(accessToken)),
-    refreshToken = RefreshToken(UUID.fromString(refreshToken)),
+    accessToken = AccessToken(accessToken),
+    refreshToken = RefreshToken(refreshToken),
 )
