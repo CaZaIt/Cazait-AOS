@@ -1,5 +1,6 @@
 package org.cazait.cazaitandroid.feature.splash.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,15 +18,17 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.SunsetOrange
+import org.cazait.cazaitandroid.core.designsystem.theme.surfaceDim
 import org.cazait.cazaitandroid.feature.splash.R
 
 @Composable
 internal fun AppDescriptionCard(
     onClickStart: () -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     val cardTitle = stringResource(id = R.string.app_description_title)
     val annotatedString = buildAnnotatedString {
@@ -51,16 +54,17 @@ internal fun AppDescriptionCard(
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceDim,
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(top = 74.dp, bottom = 84.dp)
                 .padding(horizontal = 48.dp),
         ) {
             Text(
                 text = annotatedString,
-                style = CazaitTheme.typography.displayMediumR,
+                style = CazaitTheme.typography.displayLargeR,
             )
             Spacer(modifier = Modifier.height(17.dp))
             Text(
@@ -83,5 +87,16 @@ internal fun AppDescriptionCard(
                 )
             }
         }
+    }
+}
+
+@Composable
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+private fun AppDescriptionCardPreview() {
+    CazaitTheme {
+        AppDescriptionCard(
+            onClickStart = {},
+        )
     }
 }
