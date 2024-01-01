@@ -11,16 +11,6 @@ internal sealed interface SignInUiState {
         override val password: String = "",
     ) : SignInUiState
 
-    data class Loading(
-        override val accountNameInput: String,
-        override val password: String,
-    ) : SignInUiState
-
-    data class Failed(
-        override val accountNameInput: String,
-        override val password: String,
-    ) : SignInUiState
-
     data class Success(
         val userInformation: UserInformation,
     ) : SignInUiState {

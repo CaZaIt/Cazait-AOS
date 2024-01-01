@@ -50,7 +50,9 @@ internal fun SignInScreen(
         )
         Spacer(modifier = Modifier.height(74.dp))
         Text(
-            modifier = Modifier.padding(start = 16.dp).align(Alignment.Start),
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .align(Alignment.Start),
             text = "LOGIN",
             style = CazaitTheme.typography.bodyLargeR,
         )

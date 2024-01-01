@@ -7,6 +7,8 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import org.cazait.cazaitandroid.feature.signin.usecase.PostSignInUseCase
 import org.cazait.cazaitandroid.feature.signin.usecase.PostSignInUseCaseImpl
+import org.cazait.cazaitandroid.feature.signin.usecase.UpdateUserInformationToLocalUseCase
+import org.cazait.cazaitandroid.feature.signin.usecase.UpdateUserInformationToLocalUseCaseImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -16,4 +18,10 @@ internal abstract class UseCaseBindModule {
     abstract fun postSignInUseCase(
         dataSource: PostSignInUseCaseImpl,
     ): PostSignInUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun updateUserInformationToLocalUseCase(
+        dataSource: UpdateUserInformationToLocalUseCaseImpl,
+    ): UpdateUserInformationToLocalUseCase
 }

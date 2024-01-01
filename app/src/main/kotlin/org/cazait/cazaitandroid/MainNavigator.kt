@@ -50,6 +50,16 @@ internal class MainNavigator(
         navController.navigateSignIn()
     }
 
+    fun navigateHome() {
+        navController.navigateHome(navOptions {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        })
+    }
+
     @Composable
     fun shouldShowBottomBar(): Boolean {
         val currentRoute = currentDestination?.route ?: return false

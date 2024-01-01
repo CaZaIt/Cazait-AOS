@@ -74,18 +74,19 @@ internal fun MainScreen(
     Scaffold(
         content = { padding ->
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.surfaceDim),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surfaceDim),
             ) {
                 NavHost(
                     navController = navigator.navController,
                     startDestination = navigator.startDestination,
                 ) {
                     homeNavGraph(
-//                        padding = padding,
+                        padding = padding,
 //                        onCafeClick = {},
-//                        onShowErrorSnackbar = onShowErrorSnackbar,
+                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     mapNavGraph(
 //                        padding = padding,
@@ -105,6 +106,7 @@ internal fun MainScreen(
                         onClickStart = { navigator.navigateSignIn() },
                     )
                     signInNavGraph(
+                        onSignInSuccess = { navigator.navigateHome() },
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                 }
@@ -135,22 +137,23 @@ fun MainBottomBar(
         exit = fadeOut() + slideOut { IntOffset(0, it.height) },
     ) {
         Row(
-            modifier = Modifier
-                .navigationBarsPadding()
-                .padding(horizontal = 8.dp)
-                .padding(bottom = 28.dp)
-                .fillMaxSize()
-                .height(56.dp)
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.outline,
-                    shape = RoundedCornerShape(28.dp),
-                )
-                .background(
-                    color = MaterialTheme.colorScheme.surface,
-                    shape = RoundedCornerShape(28.dp),
-                )
-                .padding(horizontal = 28.dp),
+            modifier =
+                Modifier
+                    .navigationBarsPadding()
+                    .padding(horizontal = 8.dp)
+                    .padding(bottom = 28.dp)
+                    .fillMaxSize()
+                    .height(56.dp)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.outline,
+                        shape = RoundedCornerShape(28.dp),
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.surface,
+                        shape = RoundedCornerShape(28.dp),
+                    )
+                    .padding(horizontal = 28.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             tabs.forEach { tab ->
@@ -171,18 +174,20 @@ private fun RowScope.MainBottomBarItem(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier.weight(1f).fillMaxHeight().selectable(
-            selected = selected,
-            indication = null,
-            interactionSource = remember { MutableInteractionSource() },
-            onClick = onClick,
-        ),
+        modifier =
+            Modifier.weight(1f).fillMaxHeight().selectable(
+                selected = selected,
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = onClick,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            imageVector = ImageVector.vectorResource(
-                if (selected) tab.iconResIdSelected else tab.iconResId,
-            ),
+            imageVector =
+                ImageVector.vectorResource(
+                    if (selected) tab.iconResIdSelected else tab.iconResId,
+                ),
             contentDescription = tab.contentDescription,
             modifier = Modifier.size(48.dp),
         )
