@@ -16,6 +16,7 @@ internal fun HomeRoute(
         homeViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
     }
     HomeScreen(
-        padding = padding
+        padding = padding,
+        onClickCafe = {},
     )
 }

@@ -15,14 +15,14 @@ import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 @Composable
 fun CazaitCard(
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.surface,
+    color: Color = MaterialTheme.colorScheme.primaryContainer,
     content: @Composable () -> Unit,
 ) {
     Surface(
         modifier = modifier,
         color = color,
-        shape = RoundedCornerShape(32.dp),
-        shadowElevation = 11.dp,
+        shape = RoundedCornerShape(12.dp),
+        shadowElevation = 16.dp,
         content = content,
     )
 }
@@ -32,7 +32,7 @@ fun CazaitCard(
     modifier: Modifier = Modifier,
     enabled: Boolean = false,
     onClick: () -> Unit = {},
-    color: Color = MaterialTheme.colorScheme.surface,
+    color: Color = MaterialTheme.colorScheme.primaryContainer,
     content: @Composable () -> Unit,
 ) {
     Surface(
@@ -40,8 +40,8 @@ fun CazaitCard(
         enabled = enabled,
         modifier = modifier,
         color = color,
-        shape = RoundedCornerShape(32.dp),
-        shadowElevation = 11.dp,
+        shape = RoundedCornerShape(12.dp),
+        shadowElevation = 16.dp,
         content = content,
     )
 }
