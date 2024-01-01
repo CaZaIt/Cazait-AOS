@@ -10,10 +10,13 @@ internal object SignInNav {
 }
 
 fun NavController.navigateSignIn() {
-    navigate(SignInNav.route, navOptions = navOptions {
-        popUpTo(graph.startDestinationId) { inclusive = true }
-        launchSingleTop = true
-    })
+    navigate(
+        route = SignInNav.route,
+        navOptions = navOptions {
+            popUpTo(graph.startDestinationId) { inclusive = true }
+            launchSingleTop = true
+        },
+    )
 }
 
 fun NavGraphBuilder.signInNavGraph(

@@ -103,6 +103,7 @@ internal fun MainScreen(
                     )
                     splashNavGraph(
                         onClickStart = { navigator.navigateSignIn() },
+                        onUserInformationStored = { navigator.navigateHome() }
                     )
                     signInNavGraph(
                         onSignInSuccess = { navigator.navigateHome() },

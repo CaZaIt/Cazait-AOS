@@ -15,4 +15,7 @@ internal fun HomeRoute(
     LaunchedEffect(true) {
         homeViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
     }
+    HomeScreen(
+        padding = padding
+    )
 }

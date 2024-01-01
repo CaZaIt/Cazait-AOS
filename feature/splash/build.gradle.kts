@@ -7,5 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.repo.signin.api)
+
     implementation(libs.kotlinx.immutable)
 }

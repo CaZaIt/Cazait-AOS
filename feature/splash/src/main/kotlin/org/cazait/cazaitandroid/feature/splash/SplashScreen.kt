@@ -31,7 +31,7 @@ import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.feature.splash.components.AppDescriptionCard
 
 @Composable
-fun SplashScreen(
+internal fun SplashScreen(
     onClickStart: () -> Unit,
 ) {
     var showBottomBar by remember { mutableStateOf(false) }
@@ -44,7 +44,9 @@ fun SplashScreen(
         modifier = Modifier.background(MaterialTheme.colorScheme.background),
         content = { paddingValues ->
             Box(
-                modifier = Modifier.padding(paddingValues).fillMaxSize(),
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
             ) {
                 AnimatedVisibility(
                     modifier = Modifier.align(Alignment.Center),
@@ -56,7 +58,9 @@ fun SplashScreen(
                             id = org.cazait.cazaitandroid.core.ui.R.drawable.logo_cazait_main,
                         ),
                         contentDescription = "logo",
-                        modifier = Modifier.align(Alignment.Center).size(142.dp),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(142.dp),
                     )
                 }
             }
