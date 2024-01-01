@@ -9,10 +9,12 @@ object SplashNav {
 
 fun NavGraphBuilder.splashNavGraph(
     onClickStart: () -> Unit,
+    onUserInformationStored: () -> Unit,
 ) {
     composable(route = SplashNav.route) {
         SplashRoute(
             onClickStart = onClickStart,
+            onUserInformationStored = onUserInformationStored
         )
     }
 }

@@ -26,6 +26,7 @@ include(
     ":core:designsystem",
     ":core:ui",
     ":core:http",
+    ":core:testing",
 
     ":feature:signin",
     ":feature:splash",

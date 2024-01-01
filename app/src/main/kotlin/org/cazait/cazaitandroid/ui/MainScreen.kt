@@ -7,7 +7,6 @@ import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,12 +14,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -74,7 +73,8 @@ internal fun MainScreen(
     Scaffold(
         content = { padding ->
             Box(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.surfaceDim),
             ) {
@@ -83,9 +83,9 @@ internal fun MainScreen(
                     startDestination = navigator.startDestination,
                 ) {
                     homeNavGraph(
-//                        padding = padding,
+                        padding = padding,
 //                        onCafeClick = {},
-//                        onShowErrorSnackbar = onShowErrorSnackbar,
+                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     mapNavGraph(
 //                        padding = padding,
@@ -103,8 +103,10 @@ internal fun MainScreen(
                     )
                     splashNavGraph(
                         onClickStart = { navigator.navigateSignIn() },
+                        onUserInformationStored = { navigator.navigateHome() }
                     )
                     signInNavGraph(
+                        onSignInSuccess = { navigator.navigateHome() },
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                 }
@@ -135,21 +137,15 @@ fun MainBottomBar(
         exit = fadeOut() + slideOut { IntOffset(0, it.height) },
     ) {
         Row(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .navigationBarsPadding()
-                .padding(horizontal = 8.dp)
-                .padding(bottom = 28.dp)
-                .fillMaxSize()
+                .fillMaxWidth()
                 .height(56.dp)
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.outline,
-                    shape = RoundedCornerShape(28.dp),
-                )
                 .background(
                     color = MaterialTheme.colorScheme.surface,
-                    shape = RoundedCornerShape(28.dp),
                 )
+                .padding(vertical = 8.dp)
                 .padding(horizontal = 28.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -171,16 +167,21 @@ private fun RowScope.MainBottomBarItem(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier.weight(1f).fillMaxHeight().selectable(
-            selected = selected,
-            indication = null,
-            interactionSource = remember { MutableInteractionSource() },
-            onClick = onClick,
-        ),
+        modifier =
+        Modifier
+            .weight(1f)
+            .fillMaxHeight()
+            .selectable(
+                selected = selected,
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = onClick,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            imageVector = ImageVector.vectorResource(
+            imageVector =
+            ImageVector.vectorResource(
                 if (selected) tab.iconResIdSelected else tab.iconResId,
             ),
             contentDescription = tab.contentDescription,

@@ -9,21 +9,26 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun SignInRoute(
-    onShowErrorSnackBar: (throwable: Throwable) -> Unit,
+    onSignInSuccess: () -> Unit,
+    onShowErrorSnackbar: (throwable: Throwable) -> Unit,
     signInViewModel: SignInViewModel = hiltViewModel(),
 ) {
     val signInUiState by signInViewModel.signInUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        signInViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackBar(throwable) }
+        signInViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
     }
 
-    SignInScreen(
-        accountName = signInUiState.accountNameInput,
-        password = signInUiState.password,
-        onAccountNameChange = signInViewModel::updateAccountName,
-        onPasswordChange = signInViewModel::updatePassword,
-        onClickSignIn = signInViewModel::signIn,
-        onClickSignUp = {},
-    )
+    if (signInUiState is SignInUiState.None) {
+        SignInScreen(
+            accountName = signInUiState.accountNameInput,
+            password = signInUiState.password,
+            onAccountNameChange = signInViewModel::inputAccountName,
+            onPasswordChange = signInViewModel::inputPassword,
+            onClickSignIn = signInViewModel::signIn,
+            onClickSignUp = {},
+        )
+    } else if (signInUiState is SignInUiState.Success) {
+        onSignInSuccess()
+    }
 }

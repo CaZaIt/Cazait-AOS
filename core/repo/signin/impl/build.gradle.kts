@@ -6,6 +6,9 @@ plugins {
 
 android {
     namespace = "org.cazait.cazaitandroid.core.repo.signin"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 dependencies {
@@ -17,6 +20,7 @@ dependencies {
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.kotlinx.datetime)
 
-    testImplementation(libs.junit4)
-    testImplementation(libs.kotlin.test)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.coroutines.test)
 }
