@@ -51,7 +51,7 @@ class StoredUserPreferencesDataSourceTest {
     @Test
     fun 저장된_유저_정보는_불러오는_유저_정보와_같다() {
         testCoroutineScope.runTest {
-            
+
             testDataSource.updateStoredUser(
                 StoredUser(
                     userId = testUserId,
