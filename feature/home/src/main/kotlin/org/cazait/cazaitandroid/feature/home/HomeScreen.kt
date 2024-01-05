@@ -1,14 +1,19 @@
 package org.cazait.cazaitandroid.feature.home
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
@@ -38,33 +44,72 @@ internal fun HomeScreen(
     Column(
         modifier = modifier
             .padding(padding)
+            .background(color = MaterialTheme.colorScheme.primaryContainer)
             .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = MaterialTheme.colorScheme.background,
-            shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
+        HomeTopBar()
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
         ) {
-            Row(
-                modifier = Modifier.padding(28.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_it),
-                    contentDescription = "Cazait Icon",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .align(Alignment.CenterVertically),
-                )
-                SearchingTextField(modifier = Modifier.weight(1f))
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_alarm_normal),
-                    contentDescription = "Notification",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .align(Alignment.CenterVertically),
-                )
+            item { HomeColumnTitle() }
+            item {
+                CazaitCard {
+
+                }
             }
+        }
+    }
+}
+
+@Composable
+private fun HomeColumnTitle() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = stringResource(id = R.string.home_cafes_column_title),
+            style = CazaitTheme.typography.titleLargeBL
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Image(
+            imageVector = ImageVector.vectorResource(R.drawable.ic_filter),
+            contentDescription = "filter",
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(id = R.string.distance),
+            style = CazaitTheme.typography.titleMediumB
+        )
+    }
+}
+
+@Composable
+private fun HomeTopBar() {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.background,
+        shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
+    ) {
+        Row(
+            modifier = Modifier.padding(28.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_it),
+                contentDescription = "Cazait Icon",
+                modifier = Modifier
+                    .size(40.dp)
+                    .align(Alignment.CenterVertically),
+            )
+            SearchingTextField(modifier = Modifier.weight(1f))
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_alarm_normal),
+                contentDescription = "Notification",
+                modifier = Modifier
+                    .size(40.dp)
+                    .align(Alignment.CenterVertically),
+            )
         }
     }
 }
@@ -87,7 +132,8 @@ private fun SearchingTextField(
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_search),
-                        contentDescription = "Search Icon"
+                        contentDescription = "Search Icon",
+                        tint = White,
                     )
                     Text(
                         text = stringResource(id = R.string.search),

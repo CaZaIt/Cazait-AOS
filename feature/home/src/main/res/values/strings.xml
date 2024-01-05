@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">search</string>
+    <string name="home_cafes_column_title">카페 확인하기</string>
+    <string name="distance">거리순</string>
 </resources>
