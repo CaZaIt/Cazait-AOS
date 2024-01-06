@@ -10,11 +10,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemScope
+import androidx.compose.foundation.lazy.grid.LazyGridScope
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,10 +36,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
+import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
+import org.cazait.cazaitandroid.feature.home.component.HomeCongestionCafeItem
 
 @Composable
 internal fun HomeScreen(
@@ -51,47 +59,7 @@ internal fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         HomeTopBar()
-        when (uiState) {
-            is HomeUiState.Success -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                ) {
-                    item { HomeColumnTitle() }
-                    items(uiState.congestionCafes.asList()) {
-                        CazaitCard {
-                            Text(text = it.cafe.name.asString())
-                        }
-                    }
-                }
-            }
-
-            else -> {
-
-            }
-        }
-
-    }
-}
-
-@Composable
-private fun HomeColumnTitle() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(
-            text = stringResource(id = R.string.home_cafes_column_title),
-            style = CazaitTheme.typography.titleLargeBL
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Image(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_filter),
-            contentDescription = "filter",
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = stringResource(id = R.string.distance),
-            style = CazaitTheme.typography.titleMediumB
-        )
+        HomeContent(uiState)
     }
 }
 
@@ -122,6 +90,37 @@ private fun HomeTopBar() {
                     .align(Alignment.CenterVertically),
             )
         }
+    }
+}
+
+@Composable
+private fun HomeContent(uiState: HomeUiState) {
+    when (uiState) {
+        is HomeUiState.Success -> CongestionCafeGrid(
+            uiState.congestionCafes.asList()
+                .toImmutableList()
+        )
+
+        else -> Unit
+    }
+}
+
+@Composable
+private fun CongestionCafeGrid(cafes: ImmutableList<CongestionCafe>) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .background(color = White),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        header { HomeColumnTitle() }
+        items(cafes) {
+            HomeCongestionCafeItem(congestionCafe = it)
+        }
+        footer { Spacer(modifier = Modifier.height(32.dp)) }
     }
 }
 
@@ -159,6 +158,43 @@ private fun SearchingTextField(
                 unfocusedContainerColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
             ),
+        )
+    }
+}
+
+private fun LazyGridScope.header(
+    content: @Composable LazyGridItemScope.() -> Unit,
+) {
+    item(span = { GridItemSpan(this.maxLineSpan) }, content = content)
+}
+
+private fun LazyGridScope.footer(
+    content: @Composable LazyGridItemScope.() -> Unit,
+) {
+    item(span = { GridItemSpan(this.maxLineSpan) }, content = content)
+}
+
+@Composable
+private fun HomeColumnTitle() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.home_cafes_column_title),
+            style = CazaitTheme.typography.titleLargeBL
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Image(
+            imageVector = ImageVector.vectorResource(R.drawable.ic_filter),
+            contentDescription = "filter",
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(id = R.string.distance),
+            style = CazaitTheme.typography.titleMediumB
         )
     }
 }

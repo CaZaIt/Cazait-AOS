@@ -5,11 +5,6 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 internal sealed interface HomeUiState {
     data object Loading : HomeUiState
 
-    data class Location(
-        val latitude: Double,
-        val longitude: Double,
-    ) : HomeUiState
-
     data class Success(
         val congestionCafes: CongestionCafes,
     ) : HomeUiState

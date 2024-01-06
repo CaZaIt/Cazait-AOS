@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = White,
+    primary = SunsetOrange,
     onPrimary = Black,
     primaryContainer = Graphite,
     onPrimaryContainer = White,
@@ -43,7 +43,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Black,
+    primary = SunsetOrange,
     onPrimary = White,
     primaryContainer = White,
     onPrimaryContainer = Black,

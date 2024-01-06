@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.cazait.cazaitandroid.core.location.LocationDetails
 import org.cazait.cazaitandroid.core.location.usecase.GetLocationUseCase
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
@@ -28,22 +29,24 @@ internal class HomeViewModel @Inject constructor(
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
 
+    private val _currentLocation = MutableStateFlow(LocationDetails(0.0, 0.0))
+    val currentLocation = _currentLocation.asStateFlow()
+
     private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     fun fetchCongestionCafes(
         sortBy: SortBy = SortBy.DISTANCE,
-        limit: DistanceLimit = DistanceLimit(1000),
+        limit: DistanceLimit = DistanceLimit(2000),
     ) {
-        val state = _uiState.value
-        if (state !is HomeUiState.Location) return
+        _uiState.update { HomeUiState.Loading }
 
         viewModelScope.launch {
             flow {
                 emit(
                     getCongestionCafesUseCase(
-                        latitude = Latitude(state.latitude),
-                        longitude = Longitude(state.longitude),
+                        latitude = Latitude(_currentLocation.value.latitude),
+                        longitude = Longitude(_currentLocation.value.longitude),
                         sortBy = sortBy,
                         limit = limit,
                     )
@@ -64,13 +67,12 @@ internal class HomeViewModel @Inject constructor(
         when (event) {
             PermissionEvent.Granted -> {
                 viewModelScope.launch {
+                    var isFirstLocationCollected = false
                     getLocationUseCase().collect { location ->
-                        if (_uiState.value is HomeUiState.Loading) {
-                            _uiState.value = HomeUiState.Location(
-                                latitude = location?.latitude ?: 37.0,
-                                longitude = location?.longitude ?: 126.0
-                            )
+                        _currentLocation.update { location ?: LocationDetails(37.0, 126.0) }
+                        if (!isFirstLocationCollected) {
                             fetchCongestionCafes()
+                            isFirstLocationCollected = true
                         }
                     }
                 }
