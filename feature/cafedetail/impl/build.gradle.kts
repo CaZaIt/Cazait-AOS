@@ -7,5 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.mainNavGraph)
+    implementation(projects.feature.cafedetail.api)
     implementation(libs.kotlinx.immutable)
 }

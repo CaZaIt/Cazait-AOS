@@ -31,11 +31,13 @@ include(
     ":core:testing",
     ":core:location",
 
+    ":feature:main-nav-graph",
     ":feature:signin",
     ":feature:splash",
     ":feature:home",
     ":feature:map",
     ":feature:mypage",
     ":feature:viewmore",
-    ":feature:cafedetail",
+    ":feature:cafedetail:impl",
+    ":feature:cafedetail:api",
 )

@@ -11,27 +11,28 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.collectLatest
 import org.cazait.cazaitandroid.core.location.extension.hasLocationPermission
+import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
+
+private val permissions = persistentListOf(
+    Manifest.permission.ACCESS_COARSE_LOCATION,
+    Manifest.permission.ACCESS_FINE_LOCATION
+)
 
 @SuppressLint("MissingPermission")
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 internal fun HomeRoute(
     padding: PaddingValues,
+    onCafeClick: (Cafe) -> Unit,
     onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by homeViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val locationPermissionState =
-        rememberMultiplePermissionsState(
-            permissions =
-            listOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        )
+    val locationPermissionState = rememberMultiplePermissionsState(permissions)
 
     LaunchedEffect(true) {
         homeViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
@@ -39,17 +40,15 @@ internal fun HomeRoute(
     LaunchedEffect(!context.hasLocationPermission()) {
         locationPermissionState.launchMultiplePermissionRequest()
     }
-    when {
-        locationPermissionState.allPermissionsGranted -> {
-            LaunchedEffect(Unit) {
-                homeViewModel.handlePermission(PermissionEvent.Granted)
-            }
+    LaunchedEffect(locationPermissionState) {
+        if (locationPermissionState.allPermissionsGranted) {
+            homeViewModel.handlePermission(PermissionEvent.Granted)
         }
     }
 
     HomeScreen(
         padding = padding,
-//        onClickCafe = {},
+        onClickCafe = onCafeClick,
         uiState = uiState,
     )
 }

@@ -41,13 +41,14 @@ import kotlinx.collections.immutable.toImmutableList
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
+import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.feature.home.component.HomeCongestionCafeItem
 
 @Composable
 internal fun HomeScreen(
     padding: PaddingValues,
-//    onClickCafe: () -> Unit,
+    onClickCafe: (Cafe) -> Unit,
     uiState: HomeUiState,
     modifier: Modifier = Modifier,
 ) {
@@ -59,7 +60,10 @@ internal fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         HomeTopBar()
-        HomeContent(uiState)
+        HomeContent(
+            uiState = uiState,
+            onClickCafe = onClickCafe,
+        )
     }
 }
 
@@ -94,11 +98,14 @@ private fun HomeTopBar() {
 }
 
 @Composable
-private fun HomeContent(uiState: HomeUiState) {
+private fun HomeContent(
+    uiState: HomeUiState,
+    onClickCafe: (Cafe) -> Unit,
+) {
     when (uiState) {
         is HomeUiState.Success -> CongestionCafeGrid(
-            uiState.congestionCafes.asList()
-                .toImmutableList()
+            cafes = uiState.congestionCafes.asList().toImmutableList(),
+            onClickCafe = onClickCafe,
         )
 
         else -> Unit
@@ -106,7 +113,10 @@ private fun HomeContent(uiState: HomeUiState) {
 }
 
 @Composable
-private fun CongestionCafeGrid(cafes: ImmutableList<CongestionCafe>) {
+private fun CongestionCafeGrid(
+    cafes: ImmutableList<CongestionCafe>,
+    onClickCafe: (Cafe) -> Unit,
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -116,8 +126,14 @@ private fun CongestionCafeGrid(cafes: ImmutableList<CongestionCafe>) {
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         header { HomeColumnTitle() }
-        items(cafes) {
-            HomeCongestionCafeItem(congestionCafe = it)
+        items(
+            items = cafes,
+            key = { item: CongestionCafe -> item.cafe.id.toString() },
+        ) { congestionCafe ->
+            HomeCongestionCafeItem(
+                congestionCafe = congestionCafe,
+                onClick = { onClickCafe(congestionCafe.cafe) },
+            )
         }
         footer { Spacer(modifier = Modifier.height(32.dp)) }
     }
@@ -205,7 +221,7 @@ private fun HomeScreenPreview() {
     CazaitTheme {
         HomeScreen(
             padding = PaddingValues(0.dp),
-//            onClickCafe = {},
+            onClickCafe = {},
             uiState = HomeUiState.Loading,
         )
     }
