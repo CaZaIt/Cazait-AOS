@@ -22,6 +22,7 @@ include(
     ":core:repo:signin:impl",
     ":core:repo:home:api",
     ":core:repo:home:impl",
+    ":core:repo:cafedetail:api",
 
     ":core:domain",
     ":core:data",
