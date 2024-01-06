@@ -23,6 +23,7 @@ include(
     ":core:repo:home:api",
     ":core:repo:home:impl",
     ":core:repo:cafedetail:api",
+    ":core:repo:cafedetail:impl",
 
     ":core:domain",
     ":core:data",
