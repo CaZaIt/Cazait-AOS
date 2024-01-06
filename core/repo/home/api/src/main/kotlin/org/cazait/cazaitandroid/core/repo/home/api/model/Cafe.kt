@@ -13,4 +13,3 @@ data class Cafe(
 value class Cafes(private val values: List<Cafe>) {
     fun asList(): List<Cafe> = values
 }
-

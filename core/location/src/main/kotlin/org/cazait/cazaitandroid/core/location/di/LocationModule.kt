@@ -35,6 +35,6 @@ internal abstract class UseCaseBindModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGetLocationUseCase(
-        dataSource: GetLocationUseCaseImpl
+        dataSource: GetLocationUseCaseImpl,
     ): GetLocationUseCase
 }

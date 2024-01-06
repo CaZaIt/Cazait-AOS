@@ -10,7 +10,7 @@ interface GetLocationUseCase {
 }
 
 internal class GetLocationUseCaseImpl @Inject constructor(
-    private val locationService: LocationService
-): GetLocationUseCase {
+    private val locationService: LocationService,
+) : GetLocationUseCase {
     override fun invoke(): Flow<LocationDetails?> = locationService.requestLocationUpdates()
 }

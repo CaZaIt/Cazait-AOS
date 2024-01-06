@@ -47,7 +47,7 @@ import org.cazait.cazaitandroid.feature.home.component.HomeCongestionCafeItem
 @Composable
 internal fun HomeScreen(
     padding: PaddingValues,
-    onClickCafe: () -> Unit,
+//    onClickCafe: () -> Unit,
     uiState: HomeUiState,
     modifier: Modifier = Modifier,
 ) {
@@ -206,7 +206,7 @@ private fun HomeScreenPreview() {
     CazaitTheme {
         HomeScreen(
             padding = PaddingValues(0.dp),
-            onClickCafe = {},
+//            onClickCafe = {},
             uiState = HomeUiState.Loading,
         )
     }

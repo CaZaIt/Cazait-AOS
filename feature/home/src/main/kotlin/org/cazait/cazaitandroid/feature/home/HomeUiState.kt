@@ -13,6 +13,6 @@ internal sealed interface HomeUiState {
 }
 
 internal sealed interface PermissionEvent {
-    data object Granted: PermissionEvent
-    data object Revoked: PermissionEvent
+    data object Granted : PermissionEvent
+    data object Revoked : PermissionEvent
 }

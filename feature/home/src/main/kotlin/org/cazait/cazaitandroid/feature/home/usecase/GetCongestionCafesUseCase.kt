@@ -13,7 +13,7 @@ internal interface GetCongestionCafesUseCase {
         latitude: Latitude,
         longitude: Longitude,
         sortBy: SortBy,
-        limit: DistanceLimit
+        limit: DistanceLimit,
     ): CongestionCafes
 }
 

@@ -14,6 +14,6 @@ internal abstract class UseCaseBindModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGetCongestionCafesUseCase(
-        datasource: GetCongestionCafesUseCaseImpl
+        datasource: GetCongestionCafesUseCaseImpl,
     ): GetCongestionCafesUseCase
 }

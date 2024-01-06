@@ -2,26 +2,16 @@ package org.cazait.cazaitandroid.feature.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.os.Looper
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import kotlinx.coroutines.flow.collectLatest
-import org.cazait.cazaitandroid.core.location.LocationDetails
 import org.cazait.cazaitandroid.core.location.extension.hasLocationPermission
 
 @SuppressLint("MissingPermission")
@@ -59,7 +49,7 @@ internal fun HomeRoute(
 
     HomeScreen(
         padding = padding,
-        onClickCafe = {},
+//        onClickCafe = {},
         uiState = uiState,
     )
 }
