@@ -16,7 +16,6 @@ import org.cazait.cazaitandroid.core.repo.signin.api.model.RefreshToken
 import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
 import org.cazait.cazaitandroid.core.repo.signin.api.model.UserId
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.UUID

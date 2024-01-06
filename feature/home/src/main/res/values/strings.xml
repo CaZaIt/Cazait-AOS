@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">search</string>
+    <string name="home_cafes_column_title">카페 확인하기</string>
+    <string name="distance">거리순</string>
+    <string name="congestion_free">원할</string>
+    <string name="congestion_close">영업 종료</string>
+    <string name="congestion_normal">보통</string>
+    <string name="congestion_crowded">혼잡</string>
+    <string name="congestion_very_crowded">매우 혼잡</string>
+</resources>

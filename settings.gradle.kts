@@ -20,6 +20,8 @@ include(
 
     ":core:repo:signin:api",
     ":core:repo:signin:impl",
+    ":core:repo:home:api",
+    ":core:repo:home:impl",
 
     ":core:domain",
     ":core:data",
@@ -27,6 +29,7 @@ include(
     ":core:ui",
     ":core:http",
     ":core:testing",
+    ":core:location",
 
     ":feature:signin",
     ":feature:splash",
