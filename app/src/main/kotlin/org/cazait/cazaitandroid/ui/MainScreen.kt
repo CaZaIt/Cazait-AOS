@@ -1,5 +1,6 @@
 package org.cazait.cazaitandroid.ui
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -73,8 +74,7 @@ internal fun MainScreen(
     Scaffold(
         content = { padding ->
             Box(
-                modifier =
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.surfaceDim),
             ) {

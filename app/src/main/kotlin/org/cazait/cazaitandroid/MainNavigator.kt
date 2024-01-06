@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import org.cazait.cazaitandroid.feature.home.HomeNav
 import org.cazait.cazaitandroid.feature.home.navigateHome
 import org.cazait.cazaitandroid.feature.map.navigateMap
 import org.cazait.cazaitandroid.feature.mypage.navigateMyPage
@@ -22,7 +23,8 @@ internal class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = SplashNav.route
+    var startDestination = SplashNav.route
+        private set
 
     val currentTab: MainTab?
         @Composable get() = currentDestination
@@ -51,12 +53,12 @@ internal class MainNavigator(
     }
 
     fun navigateHome() {
+        startDestination = HomeNav.route
         navController.navigateHome(navOptions {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
+            popUpTo(HomeNav.route) {
+                inclusive = true
             }
             launchSingleTop = true
-            restoreState = true
         })
     }
 

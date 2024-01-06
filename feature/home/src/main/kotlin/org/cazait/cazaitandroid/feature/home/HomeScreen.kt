@@ -111,8 +111,7 @@ private fun CongestionCafeGrid(cafes: ImmutableList<CongestionCafe>) {
         columns = GridCells.Fixed(2),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .background(color = White),
+            .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {

@@ -37,4 +37,5 @@ include(
     ":feature:map",
     ":feature:mypage",
     ":feature:viewmore",
+    ":feature:cafedetail",
 )
