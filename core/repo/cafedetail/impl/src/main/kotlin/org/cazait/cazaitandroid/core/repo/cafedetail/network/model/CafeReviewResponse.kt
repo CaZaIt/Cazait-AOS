@@ -18,3 +18,13 @@ internal data class CafeReviewResponse(
     @SerialName("content")
     val content: String,
 )
+
+@Serializable
+internal data class CafeReviewResponses(
+    @SerialName("reviewResponses")
+    val reviewResponses: List<CafeReviewResponse>,
+    @SerialName("totalElements")
+    val totalElements: Int,
+    @SerialName("isLast")
+    val isLast: Boolean,
+)

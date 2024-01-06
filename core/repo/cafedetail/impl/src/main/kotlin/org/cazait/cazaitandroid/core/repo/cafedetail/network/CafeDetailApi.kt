@@ -13,7 +13,7 @@ internal interface CafeDetailApi {
         cafeId: String
     ): GetCafeMenusResponse
 
-    @GET("/api/reviews/{cafeId}")
+    @GET("/api/reviews/{cafeId}/all")
     suspend fun getCafeReviews(
         @Path("cafeId")
         cafeId: String,

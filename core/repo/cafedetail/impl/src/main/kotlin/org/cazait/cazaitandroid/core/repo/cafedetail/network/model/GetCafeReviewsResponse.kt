@@ -12,5 +12,5 @@ internal data class GetCafeReviewsResponse(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: List<CafeReviewResponse>,
+    val data: CafeReviewResponses,
 )

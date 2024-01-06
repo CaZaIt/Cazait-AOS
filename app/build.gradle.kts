@@ -37,9 +37,9 @@ dependencies {
     implementation(projects.feature.cafedetail.impl)
 
     implementation(projects.core.repo.signin.impl)
-
     implementation(projects.core.repo.home.api)
     implementation(projects.core.repo.home.impl)
+    implementation(projects.core.repo.cafedetail.impl)
 
     implementation(projects.core.http)
 

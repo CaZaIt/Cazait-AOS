@@ -40,8 +40,8 @@ internal fun HomeRoute(
     LaunchedEffect(!context.hasLocationPermission()) {
         locationPermissionState.launchMultiplePermissionRequest()
     }
-    LaunchedEffect(locationPermissionState) {
-        if (locationPermissionState.allPermissionsGranted) {
+    if (locationPermissionState.allPermissionsGranted) {
+        LaunchedEffect(Unit) {
             homeViewModel.handlePermission(PermissionEvent.Granted)
         }
     }

@@ -2,11 +2,12 @@ package org.cazait.cazaitandroid.feature.cafedetail
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import java.util.UUID
 
 @Composable
-fun CafeDetailScreen(
-    cafeId: UUID,
+internal fun CafeDetailScreen(
+    uiState: CafeDetailUiState,
 ) {
-    Text(text = cafeId.toString())
+    if (uiState.menuUiState is CafeDetailMenuUiState.Success) {
+        Text(text = uiState.menuUiState.cafeMenus.toString())
+    }
 }

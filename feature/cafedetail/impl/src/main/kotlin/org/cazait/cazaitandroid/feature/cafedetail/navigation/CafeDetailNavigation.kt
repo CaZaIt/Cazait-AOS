@@ -17,7 +17,7 @@ internal fun NavController.navigateCafeDetail(cafeId: String) {
 
 internal fun NavGraphBuilder.cafeDetailNavGraph(
     onNavArgError: () -> Unit,
-    onShowErrorSnackbar: (throwable: Throwable) -> Unit,
+    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = CafeDetailNav.route("{cafeId}"),
         arguments = listOf(
@@ -32,7 +32,10 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
             onShowErrorSnackbar(it)
             onNavArgError()
         }.onSuccess { cafeId ->
-            CafeDetailRoute(cafeId)
+            CafeDetailRoute(
+                cafeId,
+                onShowErrorSnackbar = onShowErrorSnackbar
+            )
         }
     }
 }
