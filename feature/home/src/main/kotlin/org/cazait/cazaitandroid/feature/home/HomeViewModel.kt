@@ -12,6 +12,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
+import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
+import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
+import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCase
 import javax.inject.Inject
 
@@ -25,9 +29,19 @@ internal class HomeViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    init {
+    fun fetchCongestionCafes(
+        latitude: Double,
+        longitude: Double,
+        sortBy: SortBy = SortBy.DISTANCE,
+        limit: DistanceLimit = DistanceLimit(1000),
+    ) {
         viewModelScope.launch {
-            flow { emit(getCongestionCafesUseCase()) }
+            flow { emit(getCongestionCafesUseCase(
+                latitude = Latitude(latitude),
+                longitude = Longitude(longitude),
+                sortBy = sortBy,
+                limit = limit,
+            )) }
                 .map(HomeUiState::Success)
                 .catch {
                     it.printStackTrace()

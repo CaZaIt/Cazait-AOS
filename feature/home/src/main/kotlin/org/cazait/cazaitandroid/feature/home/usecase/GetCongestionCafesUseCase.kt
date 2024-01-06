@@ -9,18 +9,28 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
 import javax.inject.Inject
 
 internal interface GetCongestionCafesUseCase {
-    suspend operator fun invoke(): CongestionCafes
+    suspend operator fun invoke(
+        latitude: Latitude,
+        longitude: Longitude,
+        sortBy: SortBy,
+        limit: DistanceLimit
+    ): CongestionCafes
 }
 
 internal class GetCongestionCafesUseCaseImpl @Inject constructor(
     private val homeRepository: HomeRepository,
 ) : GetCongestionCafesUseCase {
-    override suspend fun invoke(): CongestionCafes {
+    override suspend fun invoke(
+        latitude: Latitude,
+        longitude: Longitude,
+        sortBy: SortBy,
+        limit: DistanceLimit,
+    ): CongestionCafes {
         return homeRepository.getAllCongestionCafes(
-            latitude = Latitude(0.0),
-            longitude = Longitude(0.0),
-            sort = SortBy.CONGESTION,
-            limit = DistanceLimit(0),
+            latitude = latitude,
+            longitude = longitude,
+            sort = sortBy,
+            limit = limit,
         )
     }
 }

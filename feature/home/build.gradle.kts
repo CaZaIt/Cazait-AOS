@@ -9,5 +9,7 @@ android {
 dependencies {
     implementation(projects.core.repo.home.api)
 
+    implementation(libs.accompanist.permissions)
+    implementation(libs.play.services.location)
     implementation(libs.kotlinx.immutable)
 }

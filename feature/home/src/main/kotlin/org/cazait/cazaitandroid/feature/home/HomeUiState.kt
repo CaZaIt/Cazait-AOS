@@ -8,3 +8,5 @@ internal sealed interface HomeUiState {
         val congestionCafes: CongestionCafes,
     ) : HomeUiState
 }
+
+internal data class LocationDetails(val latitude: Double, val longitude: Double)

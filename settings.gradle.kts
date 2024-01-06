@@ -29,6 +29,7 @@ include(
     ":core:ui",
     ":core:http",
     ":core:testing",
+    ":core:location",
 
     ":feature:signin",
     ":feature:splash",

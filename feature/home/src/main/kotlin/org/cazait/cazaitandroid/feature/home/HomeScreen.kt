@@ -36,6 +36,7 @@ import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
+import org.cazait.cazaitandroid.feature.home.permission.LocationPermissionRequest
 
 @Composable
 internal fun HomeScreen(
@@ -52,20 +53,26 @@ internal fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         HomeTopBar()
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-        ) {
-            item { HomeColumnTitle() }
-            if (uiState is HomeUiState.Success) {
-                items(uiState.congestionCafes.asList()) {
-                    CazaitCard {
-                        Text(text = it.cafe.name.asString())
+        when (uiState) {
+            is HomeUiState.Success -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                ) {
+                    item { HomeColumnTitle() }
+                    items(uiState.congestionCafes.asList()) {
+                        CazaitCard {
+                            Text(text = it.cafe.name.asString())
+                        }
                     }
                 }
             }
+            is HomeUiState.Loading -> {
+                
+            }
         }
+
     }
 }
 
@@ -158,7 +165,10 @@ private fun SearchingTextField(
 }
 
 @Composable
-internal fun HomeLoading() {
+internal fun HomeLoading(onPermissionGranted: (latitude: Double, longitude: Double) -> Unit) {
+    LocationPermissionRequest {
+
+    }
 }
 
 @Composable
