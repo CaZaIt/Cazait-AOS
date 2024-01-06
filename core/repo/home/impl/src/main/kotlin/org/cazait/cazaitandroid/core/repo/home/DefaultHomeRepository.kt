@@ -24,6 +24,6 @@ internal class DefaultHomeRepository @Inject constructor(
             longitude.asString(),
             sort.name,
             limit.asString()
-        ).data.toData()
+        ).data[0].toData()
     }
 }

@@ -1,10 +1,13 @@
 package org.cazait.cazaitandroid.core.repo.home.di
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import org.cazait.cazaitandroid.core.repo.home.DefaultHomeRepository
+import org.cazait.cazaitandroid.core.repo.home.api.HomeRepository
 import org.cazait.cazaitandroid.core.repo.home.network.HomeApi
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -25,4 +28,13 @@ internal object HomeRepoModule {
             .client(okHttpClient).build()
             .create(HomeApi::class.java)
     }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal abstract class HomeRepoBindModule {
+    @Binds
+    abstract fun bindHomeRepository(
+        dataSource: DefaultHomeRepository,
+    ): HomeRepository
 }

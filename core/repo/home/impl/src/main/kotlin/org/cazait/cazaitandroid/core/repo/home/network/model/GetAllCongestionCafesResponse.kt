@@ -12,5 +12,5 @@ data class GetAllCongestionCafesResponse(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: List<CongestionCafeResponse>,
+    val data: List<List<CongestionCafeResponse>>,
 )

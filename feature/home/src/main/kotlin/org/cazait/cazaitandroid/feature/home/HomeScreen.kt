@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,11 +35,13 @@ import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
+import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 
 @Composable
 internal fun HomeScreen(
     padding: PaddingValues,
     onClickCafe: () -> Unit,
+    uiState: HomeUiState,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -55,9 +58,11 @@ internal fun HomeScreen(
                 .padding(horizontal = 20.dp)
         ) {
             item { HomeColumnTitle() }
-            item {
-                CazaitCard {
-
+            if (uiState is HomeUiState.Success) {
+                items(uiState.congestionCafes.asList()) {
+                    CazaitCard {
+                        Text(text = it.cafe.name.asString())
+                    }
                 }
             }
         }
@@ -161,6 +166,10 @@ internal fun HomeLoading() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun HomeScreenPreview() {
     CazaitTheme {
-        HomeScreen(padding = PaddingValues(0.dp), onClickCafe = {})
+        HomeScreen(
+            padding = PaddingValues(0.dp),
+            onClickCafe = {},
+            uiState = HomeUiState.Loading,
+        )
     }
 }

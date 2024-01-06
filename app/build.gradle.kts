@@ -33,6 +33,7 @@ dependencies {
     implementation(projects.feature.splash)
 
     implementation(projects.core.repo.signin.impl)
+    implementation(projects.core.repo.home.impl)
 
     implementation(projects.core.http)
 
