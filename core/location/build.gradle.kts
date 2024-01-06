@@ -12,6 +12,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.location)
+
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.coroutines.test)

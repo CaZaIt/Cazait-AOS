@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.cazait.cazaitandroid.core.location.usecase.GetLocationUseCase
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class HomeViewModel @Inject constructor(
     private val getCongestionCafesUseCase: GetCongestionCafesUseCase,
+    private val getLocationUseCase: GetLocationUseCase,
 ) : ViewModel() {
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
@@ -30,18 +32,23 @@ internal class HomeViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     fun fetchCongestionCafes(
-        latitude: Double,
-        longitude: Double,
         sortBy: SortBy = SortBy.DISTANCE,
         limit: DistanceLimit = DistanceLimit(1000),
     ) {
+        val state = _uiState.value
+        if (state !is HomeUiState.Location) return
+
         viewModelScope.launch {
-            flow { emit(getCongestionCafesUseCase(
-                latitude = Latitude(latitude),
-                longitude = Longitude(longitude),
-                sortBy = sortBy,
-                limit = limit,
-            )) }
+            flow {
+                emit(
+                    getCongestionCafesUseCase(
+                        latitude = Latitude(state.latitude),
+                        longitude = Longitude(state.longitude),
+                        sortBy = sortBy,
+                        limit = limit,
+                    )
+                )
+            }
                 .map(HomeUiState::Success)
                 .catch {
                     it.printStackTrace()
@@ -50,6 +57,28 @@ internal class HomeViewModel @Inject constructor(
                 .collect { success ->
                     _uiState.update { success }
                 }
+        }
+    }
+
+    fun handlePermission(event: PermissionEvent) {
+        when (event) {
+            PermissionEvent.Granted -> {
+                viewModelScope.launch {
+                    getLocationUseCase().collect { location ->
+                        if (_uiState.value is HomeUiState.Loading) {
+                            _uiState.value = HomeUiState.Location(
+                                latitude = location?.latitude ?: 37.0,
+                                longitude = location?.longitude ?: 126.0
+                            )
+                            fetchCongestionCafes()
+                        }
+                    }
+                }
+            }
+
+            PermissionEvent.Revoked -> {
+                _uiState.update { HomeUiState.RevokedPermissions }
+            }
         }
     }
 }

@@ -35,8 +35,6 @@ import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
-import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
-import org.cazait.cazaitandroid.feature.home.permission.LocationPermissionRequest
 
 @Composable
 internal fun HomeScreen(
@@ -68,8 +66,9 @@ internal fun HomeScreen(
                     }
                 }
             }
-            is HomeUiState.Loading -> {
-                
+
+            else -> {
+
             }
         }
 
@@ -161,13 +160,6 @@ private fun SearchingTextField(
                 focusedContainerColor = Color.Transparent,
             ),
         )
-    }
-}
-
-@Composable
-internal fun HomeLoading(onPermissionGranted: (latitude: Double, longitude: Double) -> Unit) {
-    LocationPermissionRequest {
-
     }
 }
 

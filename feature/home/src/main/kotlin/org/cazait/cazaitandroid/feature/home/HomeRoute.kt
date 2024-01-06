@@ -21,6 +21,8 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.flow.collectLatest
+import org.cazait.cazaitandroid.core.location.LocationDetails
+import org.cazait.cazaitandroid.core.location.extension.hasLocationPermission
 
 @SuppressLint("MissingPermission")
 @OptIn(ExperimentalPermissionsApi::class)
@@ -32,24 +34,6 @@ internal fun HomeRoute(
 ) {
     val uiState by homeViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    var currentLocation by remember {
-        mutableStateOf(LocationDetails(0.0, 0.0))
-    }
-    val fusedLocationClient = remember {
-        LocationServices.getFusedLocationProviderClient(context)
-    }
-    val locationCallback = remember {
-        object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult) {
-                for (lo in p0.locations) {
-                    currentLocation = LocationDetails(
-                        latitude = lo.latitude,
-                        longitude = lo.longitude,
-                    )
-                }
-            }
-        }
-    }
     val locationPermissionState =
         rememberMultiplePermissionsState(
             permissions =
@@ -60,30 +44,17 @@ internal fun HomeRoute(
         )
 
     LaunchedEffect(true) {
+        homeViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
+    }
+    LaunchedEffect(!context.hasLocationPermission()) {
         locationPermissionState.launchMultiplePermissionRequest()
     }
-
-    LaunchedEffect(key1 = locationPermissionState.allPermissionsGranted) {
-        val locationRequest = LocationRequest.Builder(10000L)
-            .setIntervalMillis(10000L)
-            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-            .build()
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper(),
-        )
-    }
-
-    LaunchedEffect(key1 = currentLocation) {
-        homeViewModel.fetchCongestionCafes(
-            latitude = currentLocation.latitude,
-            longitude = currentLocation.longitude,
-        )
-    }
-
-    LaunchedEffect(true) {
-        homeViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
+    when {
+        locationPermissionState.allPermissionsGranted -> {
+            LaunchedEffect(Unit) {
+                homeViewModel.handlePermission(PermissionEvent.Granted)
+            }
+        }
     }
 
     HomeScreen(
