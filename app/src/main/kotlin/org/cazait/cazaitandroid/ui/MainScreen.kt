@@ -88,7 +88,7 @@ internal fun MainScreen(
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     mapNavGraph(
-//                        padding = padding,
+                        padding = padding,
 //                        onCafeClick = {},
 //                        onShowErrorSnackbar = onShowErrorSnackbar,
                     )

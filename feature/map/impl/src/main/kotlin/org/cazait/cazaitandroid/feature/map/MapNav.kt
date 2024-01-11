@@ -1,5 +1,6 @@
 package org.cazait.cazaitandroid.feature.map
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -16,10 +17,13 @@ fun NavController.navigateMap(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.mapNavGraph(
-//    padding: PaddingValues,
+    padding: PaddingValues,
 //    onCafeClick: () -> Unit,
 //    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = MapNav.route) {
+        MapScreen(
+            padding = padding,
+        )
     }
 }

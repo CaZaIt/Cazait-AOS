@@ -337,3 +337,4 @@ obj/
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,macos,windows,kotlin,java,intellij+all
+/feature/map/src/main/res/values/key.xml
