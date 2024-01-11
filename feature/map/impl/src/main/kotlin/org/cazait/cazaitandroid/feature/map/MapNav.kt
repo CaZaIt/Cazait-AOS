@@ -19,11 +19,12 @@ fun NavController.navigateMap(navOptions: NavOptions) {
 fun NavGraphBuilder.mapNavGraph(
     padding: PaddingValues,
 //    onCafeClick: () -> Unit,
-//    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
+    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = MapNav.route) {
-        MapScreen(
+        MapRoute(
             padding = padding,
+            onShowErrorSnackbar = onShowErrorSnackbar
         )
     }
 }

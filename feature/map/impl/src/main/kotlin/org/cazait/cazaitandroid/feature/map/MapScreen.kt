@@ -25,6 +25,9 @@ import com.naver.maps.map.compose.MarkerState
 import com.naver.maps.map.compose.NaverMap
 import com.naver.maps.map.compose.rememberCameraPositionState
 import com.naver.maps.map.compose.rememberFusedLocationSource
+import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
+import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
+import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 
 private val seoul = LatLng(37.532600, 127.024612)
 private val initialPosition = CameraPosition(seoul, 11.0)
@@ -33,6 +36,7 @@ private val initialPosition = CameraPosition(seoul, 11.0)
 @Composable
 internal fun MapScreen(
     padding: PaddingValues,
+    mapUiState: MapUiState,
 ) {
     var mapProperties by remember {
         mutableStateOf(
@@ -56,21 +60,23 @@ internal fun MapScreen(
     Box(
         Modifier
             .padding(padding)
-            .fillMaxSize()) {
+            .fillMaxSize()
+    ) {
         NaverMap(
             cameraPositionState = cameraPositionState,
             locationSource = rememberFusedLocationSource(),
             properties = mapProperties,
             uiSettings = mapUiSettings,
         ) {
-            Marker(
-                state = MarkerState(position = LatLng(37.532600, 127.024612)),
-                captionText = "Marker in Seoul"
-            )
-            Marker(
-                state = MarkerState(position = LatLng(37.390791, 127.096306)),
-                captionText = "Marker in Pangyo"
-            )
+            if (mapUiState is MapUiState.Success) {
+                mapUiState.cafes.asList().forEach { store ->
+                    Marker(
+                        state = MarkerState(
+                            position = store.toLatLng()
+                        )
+                    )
+                }
+            }
         }
         Column {
             Button(onClick = {
@@ -90,3 +96,11 @@ internal fun MapScreen(
         }
     }
 }
+
+internal fun LatLng(latitude: Latitude, longitude: Longitude): LatLng =
+    LatLng(latitude.asDouble(), longitude.asDouble())
+
+internal fun CongestionCafe.toLatLng(): LatLng = LatLng(
+    latitude = cafe.latitude,
+    longitude = cafe.longitude,
+)

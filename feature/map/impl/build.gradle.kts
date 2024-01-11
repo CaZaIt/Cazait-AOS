@@ -24,6 +24,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.repo.home.api)
+    implementation(projects.core.location)
+
+    implementation(libs.accompanist.permissions)
+    implementation(libs.play.services.location)
     implementation(libs.naver.map.compose)
     implementation(libs.naver.map.location)
     implementation(libs.naver.map.sdk)
