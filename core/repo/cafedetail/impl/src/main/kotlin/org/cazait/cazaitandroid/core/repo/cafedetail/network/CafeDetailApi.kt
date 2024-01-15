@@ -1,6 +1,7 @@
 package org.cazait.cazaitandroid.core.repo.cafedetail.network
 
 import org.cazait.cazaitandroid.core.repo.cafedetail.network.model.GetCafeMenusResponse
+import org.cazait.cazaitandroid.core.repo.cafedetail.network.model.GetCafeResponse
 import org.cazait.cazaitandroid.core.repo.cafedetail.network.model.GetCafeReviewsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,7 +11,7 @@ internal interface CafeDetailApi {
     @GET("/api/menus/cafe/{cafeId}")
     suspend fun getCafeMenus(
         @Path("cafeId")
-        cafeId: String
+        cafeId: String,
     ): GetCafeMenusResponse
 
     @GET("/api/reviews/{cafeId}/all")
@@ -24,4 +25,10 @@ internal interface CafeDetailApi {
         @Query("nums")
         nums: Int,
     ): GetCafeReviewsResponse
+
+    @GET("/api/cafes/{cafeId}")
+    suspend fun getCafeBy(
+        @Path("cafeId")
+        cafeId: String,
+    ): GetCafeResponse
 }

@@ -11,5 +11,8 @@ dependencies {
 
     implementation(projects.feature.mainNavGraph)
     implementation(projects.feature.cafedetail.api)
+
+    implementation(libs.toolbar.compose)
+    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.kotlinx.immutable)
 }

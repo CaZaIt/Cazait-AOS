@@ -21,5 +21,8 @@ internal fun CafeDetailRoute(
         viewModel.fetchCafeDetails(cafeId = CafeId(cafeId))
         viewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
     }
-    CafeDetailScreen(uiState)
+    CafeDetailScreen(
+        uiState = uiState,
+        onClickTab = { viewModel.switchTab() }
+    )
 }

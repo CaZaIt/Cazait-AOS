@@ -1,6 +1,7 @@
 package org.cazait.cazaitandroid.core.repo.cafedetail
 
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.CafeDetailRepository
+import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeId
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeMenus
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeReviews
@@ -23,5 +24,8 @@ internal class DefaultCafeDetailRepository @Inject constructor(
             index = 0,
             nums = 50,
         ).data.toData()
+
+    override suspend fun getCafeBy(cafeId: CafeId): Cafe =
+        cafeDetailApi.getCafeBy(cafeId.asUUID().toString()).toData()
 }
 

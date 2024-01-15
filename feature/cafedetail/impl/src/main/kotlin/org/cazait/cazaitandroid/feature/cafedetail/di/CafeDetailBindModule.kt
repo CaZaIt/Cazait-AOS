@@ -10,6 +10,8 @@ import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavController
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavGraph
 import org.cazait.cazaitandroid.feature.cafedetail.navigation.CafeDetailNavControllerImpl
 import org.cazait.cazaitandroid.feature.cafedetail.navigation.CafeDetailNavGraphImpl
+import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeByIdUseCase
+import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeByIdUseCaseImpl
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeMenusUseCase
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeMenusUseCaseImpl
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeReviewsUseCase
@@ -43,4 +45,10 @@ internal abstract class UseCaseBindModule {
     abstract fun bindGetCafeReviewsUseCase(
         dataSource: GetCafeReviewsUseCaseImpl,
     ): GetCafeReviewsUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetCafeByIdUseCase(
+        dataSource: GetCafeByIdUseCaseImpl,
+    ): GetCafeByIdUseCase
 }

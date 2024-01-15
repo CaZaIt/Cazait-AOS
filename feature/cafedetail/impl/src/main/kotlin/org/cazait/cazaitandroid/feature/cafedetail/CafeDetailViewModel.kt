@@ -13,14 +13,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeId
+import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeByIdUseCase
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeMenusUseCase
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeReviewsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 internal class CafeDetailViewModel @Inject constructor(
-    private val getCafeReviewsUseCase: GetCafeReviewsUseCase,
+    private val getCafeByIdUseCase: GetCafeByIdUseCase,
     private val getCafeMenusUseCase: GetCafeMenusUseCase,
+    private val getCafeReviewsUseCase: GetCafeReviewsUseCase,
 ) : ViewModel() {
     private val _cafeDetailUiState: MutableStateFlow<CafeDetailUiState> =
         MutableStateFlow(CafeDetailUiState())
@@ -31,6 +33,16 @@ internal class CafeDetailViewModel @Inject constructor(
 
     fun fetchCafeDetails(cafeId: CafeId) {
         viewModelScope.launch {
+            launch {
+                flow { emit(getCafeByIdUseCase(cafeId)) }.map(CafeDetailInfoUiState::Success)
+                    .catch {
+                        it.printStackTrace()
+                        _errorFlow.emit(it)
+                    }
+                    .collect { success ->
+                        _cafeDetailUiState.update { it.copy(cafeDetailInfoUiState = success) }
+                    }
+            }
             launch {
                 flow { emit(getCafeMenusUseCase(cafeId)) }.map(CafeDetailMenuUiState::Success)
                     .catch {
@@ -54,8 +66,7 @@ internal class CafeDetailViewModel @Inject constructor(
         }
     }
 
-    private fun handleError(throwable: Throwable) {
-        throwable.printStackTrace()
-        _errorFlow.tryEmit(throwable)
+    fun switchTab() {
+        _cafeDetailUiState.update { it.copy(currentTab = it.currentTab.switch()) }
     }
 }
