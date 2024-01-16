@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_price_with_unit">%1$s원</string>
+    <string name="check_store_address_with_map"><![CDATA[매장 위치 확인 >]]></string>
+    <string name="cafe_menu">카페 메뉴</string>
+    <string name="score_and_review">평점 및 후기</string>
+</resources>

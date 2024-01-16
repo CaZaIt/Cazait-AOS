@@ -26,6 +26,6 @@ internal class DefaultCafeDetailRepository @Inject constructor(
         ).data.toData()
 
     override suspend fun getCafeBy(cafeId: CafeId): Cafe =
-        cafeDetailApi.getCafeBy(cafeId.asUUID().toString()).toData()
+        cafeDetailApi.getCafeBy(cafeId.asUUID().toString()).data.toData()
 }
 

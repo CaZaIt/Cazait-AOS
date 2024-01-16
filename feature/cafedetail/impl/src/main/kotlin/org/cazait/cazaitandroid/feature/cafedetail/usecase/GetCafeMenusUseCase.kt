@@ -10,8 +10,8 @@ internal interface GetCafeMenusUseCase {
 }
 
 internal class GetCafeMenusUseCaseImpl @Inject constructor(
-    private val cafeDetailRepository: CafeDetailRepository
-): GetCafeMenusUseCase {
+    private val cafeDetailRepository: CafeDetailRepository,
+) : GetCafeMenusUseCase {
     override suspend fun invoke(cafeId: CafeId): CafeMenus {
         return cafeDetailRepository.getCafeMenus(cafeId)
     }
