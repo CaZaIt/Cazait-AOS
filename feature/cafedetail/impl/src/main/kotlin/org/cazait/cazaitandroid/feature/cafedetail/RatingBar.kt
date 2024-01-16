@@ -1,7 +1,6 @@
 package org.cazait.cazaitandroid.feature.cafedetail
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -11,6 +10,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.cazait.cazaitandroid.core.designsystem.component.noRippleClickable
 
 @Composable
 internal fun RatingBar(
@@ -29,7 +29,7 @@ internal fun RatingBar(
                 contentDescription = "별점",
                 modifier = Modifier
                     .size(ratingSize)
-                    .clickable { onRatingChanged(count) },
+                    .noRippleClickable { onRatingChanged(count + 1) },
             )
         }
     }
