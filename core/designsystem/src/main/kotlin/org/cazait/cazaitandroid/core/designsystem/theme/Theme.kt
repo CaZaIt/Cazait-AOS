@@ -17,12 +17,12 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFD17B49), // Darker shade of SunsetOrange
-    onPrimary = Color(0xFF000000), // Black for contrast on primary
+    onPrimary = White, // Black for contrast on primary
     primaryContainer = Color(0xFF2C2C2C), // Dark gray for primary container
     onPrimaryContainer = Color(0xFFFFFFFF), // White on primary container
     inversePrimary = Color(0xFF39A2DB), // Inverse of Neon01, considering readability
-    secondary = Color(0xFF4CAF50), // Same as Green04, or a darker shade for dark theme
-    onSecondary = Color(0xFFFFFFFF), // White for contrast on secondary
+    secondary = Gray06, // Same as Green04, or a darker shade for dark theme
+    onSecondary = White, // White for contrast on secondary
     secondaryContainer = Color(0xFF1B5E20), // Darker shade of Green01
     onSecondaryContainer = Color(0xFF4CAF50), // Green04 for contrast on secondary container
     tertiary = Color(0xFFFFEB3B), // Same as Yellow01, or a darker shade for dark theme
@@ -33,14 +33,14 @@ private val DarkColorScheme = darkColorScheme(
     onError = Color(0xFFFFFFFF), // White for contrast on error
     errorContainer = Color(0xFFB71C1C), // Darker shade of Red01
     onErrorContainer = Color(0xFFF44336), // Red06 for contrast on error container
-    surface = Color(0xFF121212), // Darker shade for surface
+    surface = Gray07, // Darker shade for surface
     onSurface = Color(0xFFFFFFFF), // White for contrast on surface
     inverseSurface = Color(0xFF3E2723), // Darker shade of Yellow05
     inverseOnSurface = Color(0xFFFFFFFF), // White for contrast on inverse surface
     outline = Color(0xFFBDBDBD), // Lighter shade of LightGray
     outlineVariant = Color(0xFF757575), // Same as DarkGray, or adjust for visibility
     scrim = Color(0xFF121212), // Dark shade for scrim
-    background = Color(0xFF3E2723), // Darker shade of Beige
+    background = Gray08,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -49,7 +49,7 @@ private val LightColorScheme = lightColorScheme(
     primaryContainer = White,
     onPrimaryContainer = Black,
     inversePrimary = Neon01,
-    secondary = Green04,
+    secondary = Black,
     onSecondary = White,
     secondaryContainer = Green01,
     onSecondaryContainer = Green04,
@@ -66,7 +66,7 @@ private val LightColorScheme = lightColorScheme(
     inverseSurface = Yellow05,
     inverseOnSurface = White,
     outline = LightGray,
-    outlineVariant = DarkGray,
+    outlineVariant = Gray04,
     scrim = White,
     background = Beige,
 )

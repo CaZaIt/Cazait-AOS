@@ -1,13 +1,11 @@
 package org.cazait.cazaitandroid.feature.cafedetail
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,13 +42,7 @@ internal fun ReviewCard(
                     .fillMaxWidth()
                     .padding(bottom = 2.dp)
             ) {
-                repeat(5) { count ->
-                    Image(
-                        imageVector = ImageVector.vectorResource(
-                            id = if (count < review.score.asInt()) R.drawable.ic_star_fill else R.drawable.ic_star
-                        ), contentDescription = null, modifier = Modifier.size(24.dp)
-                    )
-                }
+                RatingBar(rating = review.score.asInt(), ratingSize = 24.dp)
                 Spacer(Modifier.weight(1f))
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_emergency),

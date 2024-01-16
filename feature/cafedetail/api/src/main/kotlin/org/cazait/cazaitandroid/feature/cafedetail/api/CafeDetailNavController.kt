@@ -7,3 +7,9 @@ interface CafeDetailNavController : CazaitNavController<CafeDetailNavControllerI
 data class CafeDetailNavControllerInfo(
     val cafeId: String,
 )
+
+interface ReviewEditorNavController : CazaitNavController<ReviewEditorNavControllerInfo>
+
+data class ReviewEditorNavControllerInfo(
+    val cafeId: String,
+)

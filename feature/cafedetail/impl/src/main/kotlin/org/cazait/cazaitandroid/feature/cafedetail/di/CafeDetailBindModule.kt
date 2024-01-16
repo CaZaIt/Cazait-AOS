@@ -8,8 +8,10 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavController
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavGraph
+import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavController
 import org.cazait.cazaitandroid.feature.cafedetail.navigation.CafeDetailNavControllerImpl
 import org.cazait.cazaitandroid.feature.cafedetail.navigation.CafeDetailNavGraphImpl
+import org.cazait.cazaitandroid.feature.cafedetail.navigation.ReviewEditorNavControllerImpl
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeByIdUseCase
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeByIdUseCaseImpl
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeMenusUseCase
@@ -24,6 +26,11 @@ internal abstract class CafeDetailBindModule {
     abstract fun cafeDetailNavControllerImpl(
         dataSource: CafeDetailNavControllerImpl,
     ): CafeDetailNavController
+
+    @Binds
+    abstract fun reviewEditorNavControllerImpl(
+        dataSource: ReviewEditorNavControllerImpl,
+    ): ReviewEditorNavController
 
     @Binds
     abstract fun cafeDetailNavGraphImpl(

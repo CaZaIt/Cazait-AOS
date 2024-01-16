@@ -113,6 +113,8 @@ internal fun MainScreen(
                     cafeDetailNavGraph.buildNavGraph(
                         navGraphBuilder = this,
                         navInfo = CafeDetailNavGraphInfo(
+                            onEditReviewClick = { navigator.navigateReviewEditor(it) },
+                            onBackButtonClick = { navigator.popBackStack() },
                             onNavArgError = { navigator.popBackStack() },
                             onShowErrorSnackbar = onShowErrorSnackbar,
                         )

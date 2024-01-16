@@ -12,6 +12,7 @@ import java.util.UUID
 @Composable
 internal fun CafeDetailRoute(
     cafeId: UUID,
+    onEditReviewClick: (cafeId: String) -> Unit,
     onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
     viewModel: CafeDetailViewModel = hiltViewModel(),
 ) {
@@ -22,6 +23,7 @@ internal fun CafeDetailRoute(
         viewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackbar(throwable) }
     }
     CafeDetailScreen(
+        onEditReviewClick = { onEditReviewClick(cafeId.toString()) },
         detailUiState = uiState,
     )
 }

@@ -10,6 +10,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavController
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavControllerInfo
+import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavController
+import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavControllerInfo
 import org.cazait.cazaitandroid.feature.home.HomeNav
 import org.cazait.cazaitandroid.feature.home.navigateHome
 import org.cazait.cazaitandroid.feature.map.navigateMap
@@ -22,6 +24,7 @@ import javax.inject.Inject
 internal class MainNavigator(
     val navController: NavHostController,
     private val cafeDetailNavController: CafeDetailNavController,
+    private val reviewEditorNavController: ReviewEditorNavController,
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navController
@@ -67,6 +70,13 @@ internal class MainNavigator(
         )
     }
 
+    fun navigateReviewEditor(cafeId: String) {
+        reviewEditorNavController.navigate(
+            navController = navController,
+            navInfo = ReviewEditorNavControllerInfo(cafeId)
+        )
+    }
+
     fun navigateHome() {
         startDestination = HomeNav.route
         navController.navigateHome(navOptions {
@@ -77,6 +87,7 @@ internal class MainNavigator(
         })
     }
 
+
     @Composable
     fun shouldShowBottomBar(): Boolean {
         val currentRoute = currentDestination?.route ?: return false
@@ -85,11 +96,13 @@ internal class MainNavigator(
 
     class Factory @Inject constructor(
         private val cafeDetailNavController: CafeDetailNavController,
+        private val reviewEditorNavController: ReviewEditorNavController,
     ) {
-        fun create(navController: NavHostController) : MainNavigator {
+        fun create(navController: NavHostController): MainNavigator {
             return MainNavigator(
                 navController = navController,
                 cafeDetailNavController = cafeDetailNavController,
+                reviewEditorNavController = reviewEditorNavController,
             )
         }
     }

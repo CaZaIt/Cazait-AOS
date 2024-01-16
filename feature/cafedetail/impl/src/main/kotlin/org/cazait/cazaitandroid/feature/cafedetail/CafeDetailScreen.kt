@@ -20,8 +20,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,6 +55,7 @@ import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeReviews
 
 @Composable
 internal fun CafeDetailScreen(
+    onEditReviewClick: () -> Unit,
     detailUiState: CafeDetailUiState,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -61,7 +65,7 @@ internal fun CafeDetailScreen(
             }
 
             is CafeDetailUiState.Success -> {
-                MenuReviewContent(detailUiState)
+                MenuReviewContent(onEditReviewClick, detailUiState)
             }
         }
     }
@@ -74,21 +78,42 @@ internal fun LoadingContent() {
 
 @Composable
 private fun MenuReviewContent(
+    onEditReviewClick: () -> Unit,
     detailUiState: CafeDetailUiState.Success,
 ) {
     val collapsingToolbarScaffoldState = rememberCollapsingToolbarScaffoldState()
 
-    CollapsingToolbarScaffold(modifier = Modifier.fillMaxSize(),
-        state = collapsingToolbarScaffoldState,
-        scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
-        toolbar = {
-            CafeBackgroundHeader(
-                cafeName = detailUiState.cafeDetailInfo.name,
-                address = detailUiState.cafeDetailInfo.address,
-                cafeImages = detailUiState.cafeDetailInfo.cafeImages,
-            )
-        }) {
-        MenuReviewContent(detailUiState.menus, detailUiState.reviews)
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                modifier = Modifier.size(56.dp),
+                onClick = onEditReviewClick,
+                shape = CircleShape,
+            ) {
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_review),
+                    contentDescription = "리뷰 쓰기 버튼",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    ) { contentPadding ->
+        CollapsingToolbarScaffold(
+            modifier = Modifier
+                .padding(contentPadding)
+                .fillMaxSize(),
+            state = collapsingToolbarScaffoldState,
+            scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
+            toolbar = {
+                CafeBackgroundHeader(
+                    cafeName = detailUiState.cafeDetailInfo.name,
+                    address = detailUiState.cafeDetailInfo.address,
+                    cafeImages = detailUiState.cafeDetailInfo.cafeImages,
+                )
+            }
+        ) {
+            MenuReviewContent(detailUiState.menus, detailUiState.reviews)
+        }
     }
 }
 

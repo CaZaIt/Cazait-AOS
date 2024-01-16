@@ -8,6 +8,8 @@ import javax.inject.Inject
 internal class CafeDetailNavGraphImpl @Inject constructor() : CafeDetailNavGraph {
     override fun buildNavGraph(navGraphBuilder: NavGraphBuilder, navInfo: CafeDetailNavGraphInfo) {
         navGraphBuilder.cafeDetailNavGraph(
+            navInfo.onEditReviewClick,
+            navInfo.onBackButtonClick,
             navInfo.onNavArgError,
             navInfo.onShowErrorSnackbar,
         )
