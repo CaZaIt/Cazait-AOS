@@ -24,55 +24,52 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import org.cazait.cazaitandroid.core.designsystem.component.CazaitBackTopBar
 import org.cazait.cazaitandroid.core.designsystem.component.SecondaryButton
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.Gray01
-import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReviewEditorScreen(
-    cafeId: UUID,
+//    cafeId: UUID,
     onBackButtonClick: () -> Unit,
-    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
-    viewModel: ReviewEditorViewModel = hiltViewModel(),
+//    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
+//    viewModel: ReviewEditorViewModel = hiltViewModel(),
 ) {
     var editedReview by remember { mutableStateOf("") }
     var editedRating by remember { mutableIntStateOf(5) }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            CazaitBackTopBar(
-                title = R.string.edit_review,
-                onBackButtonClick = onBackButtonClick
-            )
-        }
-    ) { contentPadding ->
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+        CazaitBackTopBar(
+            title = R.string.edit_review,
+            onBackButtonClick = onBackButtonClick,
+        )
+    }) { contentPadding ->
         Column(
             modifier = Modifier
                 .padding(contentPadding)
                 .fillMaxSize()
                 .padding(horizontal = 28.dp)
-                .padding(top = 44.dp),
+                .padding(
+                    top = 44.dp,
+                ),
         ) {
             Text(
                 text = stringResource(R.string.review_editor_guide1),
                 style = CazaitTheme.typography.titleMediumB,
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier.padding(bottom = 4.dp),
             )
             RatingBar(
                 rating = editedRating,
                 ratingSize = 56.dp,
                 modifier = Modifier.padding(bottom = 28.dp),
-                onRatingChanged = { editedRating = it }
+                onRatingChanged = { editedRating = it },
             )
             Text(
                 text = stringResource(R.string.review_editor_guide2),
                 style = CazaitTheme.typography.titleMediumB,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
             )
             TextField(
                 value = editedReview,
@@ -96,7 +93,7 @@ fun ReviewEditorScreen(
                     focusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     unfocusedPlaceholderColor = Gray01,
-                )
+                ),
             )
             SecondaryButton(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -105,7 +102,7 @@ fun ReviewEditorScreen(
                 Text(
                     text = stringResource(R.string.do_edit),
                     style = CazaitTheme.typography.titleMediumB,
-                    modifier = Modifier.padding(horizontal = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp),
                 )
             }
         }
@@ -118,9 +115,9 @@ fun ReviewEditorScreen(
 private fun PreviewReviewEditorScreen() {
     CazaitTheme {
         ReviewEditorScreen(
-            cafeId = UUID.randomUUID(),
-            onShowErrorSnackbar = {},
-            onBackButtonClick = {}
+//            cafeId = UUID.randomUUID(),
+//            onShowErrorSnackbar = {},
+            onBackButtonClick = {},
         )
     }
 }

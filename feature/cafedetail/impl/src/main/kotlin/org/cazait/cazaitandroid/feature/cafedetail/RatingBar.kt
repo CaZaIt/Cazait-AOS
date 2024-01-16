@@ -24,12 +24,12 @@ internal fun RatingBar(
         repeat(maxRating) { count ->
             Image(
                 imageVector = ImageVector.vectorResource(
-                    id = if (count < rating) R.drawable.ic_star_fill else R.drawable.ic_star
+                    id = if (count < rating) R.drawable.ic_star_fill else R.drawable.ic_star,
                 ),
                 contentDescription = "별점",
                 modifier = Modifier
                     .size(ratingSize)
-                    .clickable { onRatingChanged(count) }
+                    .clickable { onRatingChanged(count) },
             )
         }
     }

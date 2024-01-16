@@ -49,7 +49,7 @@ internal class HomeViewModel @Inject constructor(
                         longitude = Longitude(_currentLocation.value.longitude),
                         sortBy = sortBy,
                         limit = limit,
-                    )
+                    ),
                 )
             }
                 .map(HomeUiState::Success)

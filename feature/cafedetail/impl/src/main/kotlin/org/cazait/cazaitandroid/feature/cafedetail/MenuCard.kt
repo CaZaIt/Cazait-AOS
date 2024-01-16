@@ -40,7 +40,7 @@ internal fun MenuCard(
         Row(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             NetworkImage(
                 imageUrl = menu.imageUrl.asString(),
@@ -49,31 +49,31 @@ internal fun MenuCard(
                     .size(width = 100.dp, height = 84.dp)
                     .align(Alignment.CenterVertically)
                     .border(width = 1.dp, color = SunsetOrange, shape = RoundedCornerShape(5.dp))
-                    .padding(1.dp)
+                    .padding(1.dp),
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         text = menu.name.asString(),
-                        style = CazaitTheme.typography.titleMediumB
+                        style = CazaitTheme.typography.titleMediumB,
                     )
                     Text(
                         text = stringResource(
                             R.string.menu_price_with_unit,
-                            menu.price.asInt()
+                            menu.price.asInt(),
                         ),
                         style = CazaitTheme.typography.titleSmallM,
-                        color = Red03
+                        color = Red03,
                     )
                 }
                 Text(
                     text = menu.description.asString(),
-                    style = CazaitTheme.typography.bodySmallR
+                    style = CazaitTheme.typography.bodySmallR,
                 )
             }
         }
@@ -91,8 +91,8 @@ private fun PreviewMenuCard() {
                 name = MenuName("아메리카노"),
                 description = MenuDescription("우리나라 원두를 사용하여 더욱 달달한 풍미가 살아있는 아메리카노"),
                 price = MenuPrice(3500),
-                imageUrl = MenuImage("")
-            )
+                imageUrl = MenuImage(""),
+            ),
         )
     }
 }

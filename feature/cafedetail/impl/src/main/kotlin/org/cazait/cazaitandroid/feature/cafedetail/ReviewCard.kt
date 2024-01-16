@@ -35,30 +35,30 @@ internal fun ReviewCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(vertical = 12.dp, horizontal = 20.dp)
+                .padding(vertical = 12.dp, horizontal = 20.dp),
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 2.dp)
+                    .padding(bottom = 2.dp),
             ) {
                 RatingBar(rating = review.score.asInt(), ratingSize = 24.dp)
                 Spacer(Modifier.weight(1f))
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_emergency),
-                    contentDescription = "신고 버튼"
+                    contentDescription = "신고 버튼",
                 )
             }
 
             Text(
                 text = review.reviewerNickname.asString(),
                 style = CazaitTheme.typography.titleSmallB,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
             )
 
             Text(
                 text = review.content.asString(),
-                style = CazaitTheme.typography.bodyMediumR
+                style = CazaitTheme.typography.bodyMediumR,
             )
         }
     }
@@ -74,11 +74,11 @@ private fun PreviewMenuCard() {
         cafeName = CafeName(""),
         reviewerNickname = ReviewerNickname("화양동 뚜벅초"),
         score = ReviewScore(4),
-        content = ReviewContent("카페 분위기가 너무 좋네요~~ 또 오고 싶습니다.")
+        content = ReviewContent("카페 분위기가 너무 좋네요~~ 또 오고 싶습니다."),
     )
     CazaitTheme {
         ReviewCard(
-            review = fakeReview
+            review = fakeReview,
         )
     }
 }

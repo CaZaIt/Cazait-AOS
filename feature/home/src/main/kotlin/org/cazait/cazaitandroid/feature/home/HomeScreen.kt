@@ -123,7 +123,7 @@ private fun CongestionCafeGrid(
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
         header { HomeColumnTitle() }
         items(
@@ -162,7 +162,7 @@ private fun SearchingTextField(
                     )
                     Text(
                         text = stringResource(id = R.string.search),
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             },
@@ -195,11 +195,11 @@ private fun HomeColumnTitle() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(id = R.string.home_cafes_column_title),
-            style = CazaitTheme.typography.titleLargeBL
+            style = CazaitTheme.typography.titleLargeBL,
         )
         Spacer(modifier = Modifier.weight(1f))
         Image(
@@ -209,7 +209,7 @@ private fun HomeColumnTitle() {
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = stringResource(id = R.string.distance),
-            style = CazaitTheme.typography.titleMediumB
+            style = CazaitTheme.typography.titleMediumB,
         )
     }
 }

@@ -93,10 +93,10 @@ private fun MenuReviewContent(
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_review),
                     contentDescription = "리뷰 쓰기 버튼",
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
-        }
+        },
     ) { contentPadding ->
         CollapsingToolbarScaffold(
             modifier = Modifier
@@ -110,7 +110,7 @@ private fun MenuReviewContent(
                     address = detailUiState.cafeDetailInfo.address,
                     cafeImages = detailUiState.cafeDetailInfo.cafeImages,
                 )
-            }
+            },
         ) {
             MenuReviewContent(detailUiState.menus, detailUiState.reviews)
         }
@@ -147,11 +147,11 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
                 whenExpanded = Alignment.BottomCenter,
             ),
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
-        color = MaterialTheme.colorScheme.primaryContainer
+        color = MaterialTheme.colorScheme.primaryContainer,
     ) {
         ConstraintLayout {
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Row(
                     modifier = Modifier
@@ -163,14 +163,14 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
                     Text(
                         text = cafeName.asString(),
                         modifier = Modifier.padding(end = 12.dp),
-                        style = CazaitTheme.typography.titleLargeBL
+                        style = CazaitTheme.typography.titleLargeBL,
                     )
 
                     Text(
                         text = stringResource(R.string.check_store_address_with_map),
                         modifier = Modifier.align(Alignment.Bottom),
                         style = CazaitTheme.typography.bodySmallR,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
                     )
 
                     Spacer(modifier = Modifier.weight(1f))
@@ -179,7 +179,7 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
                         contentDescription = "찜하기 버튼",
                         modifier = Modifier
                             .size(26.dp)
-                            .align(Alignment.CenterVertically)
+                            .align(Alignment.CenterVertically),
                     )
                 }
                 Text(
@@ -192,7 +192,7 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 28.dp)
+                .padding(horizontal = 28.dp),
         ) {
             val canvasWidth = size.width
             val yPosition = size.height
@@ -203,7 +203,7 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
                 start = Offset(0f, yPosition),
                 end = Offset(canvasWidth, yPosition),
                 pathEffect = pathEffect,
-                strokeWidth = 1.dp.toPx()
+                strokeWidth = 1.dp.toPx(),
             )
         }
     }
@@ -220,7 +220,7 @@ private fun MenuReviewContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
+            .background(color = MaterialTheme.colorScheme.primaryContainer),
     ) {
         MenuReviewTabs(pagerState)
         MenuReviewPager(pagerState, menus, reviews)
@@ -234,15 +234,15 @@ private fun MenuReviewTabs(pagerState: PagerState) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 72.dp, vertical = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         TabItem(
             title = R.string.cafe_menu,
-            isSelected = pagerState.currentPage == 0
+            isSelected = pagerState.currentPage == 0,
         )
         TabItem(
             title = R.string.score_and_review,
-            isSelected = pagerState.currentPage == 1
+            isSelected = pagerState.currentPage == 1,
         )
     }
 }
@@ -255,7 +255,7 @@ private fun TabItem(
     Text(
         text = stringResource(title),
         style = CazaitTheme.typography.titleMediumB,
-        color = if (isSelected) SunsetOrange else Black
+        color = if (isSelected) SunsetOrange else Black,
     )
 }
 
@@ -278,7 +278,7 @@ private fun MenuReviewPager(
 private fun MenuList(menus: CafeMenus) {
     LazyColumnContent(
         items = menus.asList().toImmutableList(),
-        key = { it.menuId.asInt() }
+        key = { it.menuId.asInt() },
     ) { menu ->
         MenuCard(menu = menu)
     }
@@ -288,7 +288,7 @@ private fun MenuList(menus: CafeMenus) {
 private fun ReviewList(reviews: CafeReviews) {
     LazyColumnContent(
         items = reviews.asList().toImmutableList(),
-        key = { it.reviewId.asUUID().toString() }
+        key = { it.reviewId.asUUID().toString() },
     ) { review ->
         ReviewCard(review = review)
     }

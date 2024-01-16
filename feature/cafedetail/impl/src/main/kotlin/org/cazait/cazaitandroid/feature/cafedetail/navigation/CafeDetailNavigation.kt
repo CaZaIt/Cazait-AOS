@@ -11,9 +11,7 @@ import org.cazait.cazaitandroid.feature.cafedetail.ReviewEditorScreen
 import java.util.UUID
 
 internal fun NavController.navigateCafeDetail(cafeId: String) {
-    navigate(CafeDetailNav.createRoute(cafeId), navOptions {
-        restoreState = true
-    })
+    navigate(CafeDetailNav.createRoute(cafeId), navOptions { restoreState = true })
 }
 
 internal fun NavController.navigateReviewEditor(cafeId: String) {
@@ -26,12 +24,13 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
     onNavArgError: () -> Unit,
     onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
-    composable(route = CafeDetailNav.createRoute("{cafeId}"),
+    composable(
+        route = CafeDetailNav.createRoute("{cafeId}"),
         arguments = listOf(
             navArgument("cafeId") {
                 type = NavType.StringType
-            }
-        )
+            },
+        ),
     ) { navBackStackEntry ->
         runCatching {
             UUID.fromString(navBackStackEntry.arguments?.getString("cafeId"))
@@ -42,7 +41,7 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
             CafeDetailRoute(
                 cafeId,
                 onEditReviewClick = onEditReviewClick,
-                onShowErrorSnackbar = onShowErrorSnackbar
+                onShowErrorSnackbar = onShowErrorSnackbar,
             )
         }
     }
@@ -52,19 +51,19 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
         arguments = listOf(
             navArgument("cafeId") {
                 type = NavType.StringType
-            }
-        )
+            },
+        ),
     ) { navBackStackEntry ->
         runCatching {
             UUID.fromString(navBackStackEntry.arguments?.getString("cafeId"))
         }.onFailure {
             onShowErrorSnackbar(it)
             onNavArgError()
-        }.onSuccess { cafeId ->
+        }.onSuccess {
             ReviewEditorScreen(
-                cafeId,
+//                cafeId,
                 onBackButtonClick = onBackButtonClick,
-                onShowErrorSnackbar = onShowErrorSnackbar
+//                onShowErrorSnackbar = onShowErrorSnackbar
             )
         }
     }

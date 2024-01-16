@@ -26,7 +26,7 @@ fun NavGraphBuilder.homeNavGraph(
         HomeRoute(
             padding = padding,
             onCafeClick = onCafeClick,
-            onShowErrorSnackbar = onShowErrorSnackbar
+            onShowErrorSnackbar = onShowErrorSnackbar,
         )
     }
 }

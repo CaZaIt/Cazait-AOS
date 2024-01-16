@@ -14,7 +14,7 @@ internal class DefaultCafeDetailRepository @Inject constructor(
     private val cafeDetailApi: CafeDetailApi,
 ) : CafeDetailRepository {
     override suspend fun getCafeMenus(cafeId: CafeId): CafeMenus = CafeMenus(
-        cafeDetailApi.getCafeMenus(cafeId.asUUID().toString()).data.map(CafeMenuResponse::toData)
+        cafeDetailApi.getCafeMenus(cafeId.asUUID().toString()).data.map(CafeMenuResponse::toData),
     )
 
     override suspend fun getCafeReviews(cafeId: CafeId): CafeReviews =
@@ -28,4 +28,3 @@ internal class DefaultCafeDetailRepository @Inject constructor(
     override suspend fun getCafeBy(cafeId: CafeId): Cafe =
         cafeDetailApi.getCafeBy(cafeId.asUUID().toString()).data.toData()
 }
-

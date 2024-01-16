@@ -18,7 +18,7 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 
 private val permissions = persistentListOf(
     Manifest.permission.ACCESS_COARSE_LOCATION,
-    Manifest.permission.ACCESS_FINE_LOCATION
+    Manifest.permission.ACCESS_FINE_LOCATION,
 )
 
 @SuppressLint("MissingPermission")

@@ -42,30 +42,30 @@ internal fun HomeCongestionCafeItem(
     CazaitCard(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable { onClick() },
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 12.dp)
+                .padding(bottom = 12.dp),
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             NetworkImage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(124.dp),
-                imageUrl = congestionCafe.cafe.cafeImages.asList().getOrNull(0)?.asString()
+                imageUrl = congestionCafe.cafe.cafeImages.asList().getOrNull(0)?.asString(),
             )
             Spacer(modifier = Modifier.height(12.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
+                    .padding(horizontal = 12.dp),
             ) {
                 Row {
                     Text(
                         text = congestionCafe.cafe.name.asString(),
-                        style = CazaitTheme.typography.titleLargeB
+                        style = CazaitTheme.typography.titleLargeB,
                     )
                 }
                 Spacer(modifier = Modifier.height(4.dp))
@@ -87,7 +87,7 @@ internal fun HomeCongestionCafeItem(
                 ) {
                     Text(
                         text = stringResource(id = congestionCafe.congestion.toStringRes()),
-                        style = CazaitTheme.typography.titleLargeB
+                        style = CazaitTheme.typography.titleLargeB,
                     )
                 }
             }
