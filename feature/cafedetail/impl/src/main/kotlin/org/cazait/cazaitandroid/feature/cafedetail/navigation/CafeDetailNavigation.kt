@@ -47,7 +47,8 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
         }
     }
 
-    composable(route = ReviewEditorNav.createRoute("{cafeId}"),
+    composable(
+        route = ReviewEditorNav.createRoute("{cafeId}"),
         arguments = listOf(
             navArgument("cafeId") {
                 type = NavType.StringType

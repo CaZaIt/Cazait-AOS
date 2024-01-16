@@ -1,6 +1,5 @@
 package org.cazait.cazaitandroid.feature.cafedetail
 
-import android.widget.RatingBar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

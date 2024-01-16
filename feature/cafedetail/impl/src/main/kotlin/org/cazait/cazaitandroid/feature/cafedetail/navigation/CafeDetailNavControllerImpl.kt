@@ -17,5 +17,4 @@ internal class ReviewEditorNavControllerImpl @Inject constructor() : ReviewEdito
     override fun navigate(navController: NavController, navInfo: ReviewEditorNavControllerInfo) {
         navController.navigateReviewEditor(navInfo.cafeId)
     }
-
 }

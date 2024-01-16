@@ -100,7 +100,7 @@ fun ReviewEditorScreen(
             )
             SecondaryButton(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                onClick = { viewModel.editReview(cafeId, editedRating, editedReview) },
+                onClick = { /* viewModel.editReview(cafeId, editedRating, editedReview) */ },
             ) {
                 Text(
                     text = stringResource(R.string.do_edit),

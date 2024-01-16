@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReviewEditorViewModel @Inject constructor() : ViewModel() {
-    fun editReview(
-        cafeId: UUID,
-        rating: Int,
-        review: String,
-    ) = Unit
+//    fun editReview(
+//        cafeId: UUID,
+//        rating: Int,
+//        review: String,
+//    )
 }
