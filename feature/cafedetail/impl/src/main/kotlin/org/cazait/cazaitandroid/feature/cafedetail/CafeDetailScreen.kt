@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -46,6 +48,7 @@ import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeImage
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeImages
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeMenus
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeName
+import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeReviews
 
 @Composable
 internal fun CafeDetailScreen(
@@ -75,8 +78,7 @@ private fun MenuReviewContent(
 ) {
     val collapsingToolbarScaffoldState = rememberCollapsingToolbarScaffoldState()
 
-    CollapsingToolbarScaffold(
-        modifier = Modifier.fillMaxSize(),
+    CollapsingToolbarScaffold(modifier = Modifier.fillMaxSize(),
         state = collapsingToolbarScaffoldState,
         scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
         toolbar = {
@@ -86,7 +88,7 @@ private fun MenuReviewContent(
                 cafeImages = detailUiState.cafeDetailInfo.cafeImages,
             )
         }) {
-        MenuReviewContent(detailUiState.menus)
+        MenuReviewContent(detailUiState.menus, detailUiState.reviews)
     }
 }
 
@@ -186,6 +188,7 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
 @Composable
 private fun MenuReviewContent(
     menus: CafeMenus,
+    reviews: CafeReviews,
 ) {
     val pagerState = rememberPagerState(initialPage = 0) { 2 }
 
@@ -193,45 +196,92 @@ private fun MenuReviewContent(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.primaryContainer)
-            .padding(horizontal = 28.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 40.dp, vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = stringResource(R.string.cafe_menu),
-                style = CazaitTheme.typography.titleMediumB,
-                color = if (pagerState.currentPage == 0) SunsetOrange else Black
-            )
-            Text(
-                text = stringResource(R.string.score_and_review),
-                style = CazaitTheme.typography.titleMediumB,
-                color = if (pagerState.currentPage == 1) SunsetOrange else Black
-            )
-        }
-        HorizontalPager(
-            state = pagerState
-        ) { currentPage ->
-            when (currentPage) {
-                0 -> LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(
-                        items = menus.asList(),
-                        key = { it.menuId.asInt() }
-                    ) { menu ->
-                        MenuCard(menu = menu)
-                    }
-                }
+        MenuReviewTabs(pagerState)
+        MenuReviewPager(pagerState, menus, reviews)
+    }
+}
 
-                1 -> {
-                    Box(modifier = Modifier.fillMaxSize())
-                }
-            }
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun MenuReviewTabs(pagerState: PagerState) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 72.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        TabItem(
+            title = R.string.cafe_menu,
+            isSelected = pagerState.currentPage == 0
+        )
+        TabItem(
+            title = R.string.score_and_review,
+            isSelected = pagerState.currentPage == 1
+        )
+    }
+}
+
+@Composable
+private fun TabItem(
+    title: Int,
+    isSelected: Boolean,
+) {
+    Text(
+        text = stringResource(title),
+        style = CazaitTheme.typography.titleMediumB,
+        color = if (isSelected) SunsetOrange else Black
+    )
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun MenuReviewPager(
+    pagerState: PagerState,
+    menus: CafeMenus,
+    reviews: CafeReviews,
+) {
+    HorizontalPager(state = pagerState) { page ->
+        when (page) {
+            0 -> MenuList(menus)
+            1 -> ReviewList(reviews)
+        }
+    }
+}
+
+@Composable
+private fun MenuList(menus: CafeMenus) {
+    LazyColumnContent(
+        items = menus.asList().toImmutableList(),
+        key = { it.menuId.asInt() }
+    ) { menu ->
+        MenuCard(menu = menu)
+    }
+}
+
+@Composable
+private fun ReviewList(reviews: CafeReviews) {
+    LazyColumnContent(
+        items = reviews.asList().toImmutableList(),
+        key = { it.reviewId.asUUID().toString() }
+    ) { review ->
+        ReviewCard(review = review)
+    }
+}
+
+@Composable
+private fun <T> LazyColumnContent(
+    items: List<T>,
+    key: (T) -> Any,
+    content: @Composable (item: T) -> Unit,
+) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(20.dp),
+    ) {
+        items(items = items, key = key) { item ->
+            content(item)
         }
     }
 }
