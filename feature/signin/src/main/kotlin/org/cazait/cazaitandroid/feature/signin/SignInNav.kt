@@ -26,7 +26,7 @@ fun NavGraphBuilder.signInNavGraph(
     composable(route = SignInNav.route) {
         SignInRoute(
             onSignInSuccess = onSignInSuccess,
-            onShowErrorSnackbar = onShowErrorSnackbar
+            onShowErrorSnackbar = onShowErrorSnackbar,
         )
     }
 }

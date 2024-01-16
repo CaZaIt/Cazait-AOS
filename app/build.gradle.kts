@@ -31,9 +31,15 @@ dependencies {
     implementation(projects.feature.map)
     implementation(projects.feature.signin)
     implementation(projects.feature.splash)
+    implementation(projects.feature.mainNavGraph)
+
+    implementation(projects.feature.cafedetail.api)
+    implementation(projects.feature.cafedetail.impl)
 
     implementation(projects.core.repo.signin.impl)
+    implementation(projects.core.repo.home.api)
     implementation(projects.core.repo.home.impl)
+    implementation(projects.core.repo.cafedetail.impl)
 
     implementation(projects.core.http)
 

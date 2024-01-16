@@ -22,7 +22,7 @@ fun CazaitCard(
         modifier = modifier,
         color = color,
         shape = RoundedCornerShape(12.dp),
-        shadowElevation = 16.dp,
+        shadowElevation = 8.dp,
         content = content,
     )
 }
