@@ -28,6 +28,7 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.CafeImages
 import org.cazait.cazaitandroid.core.repo.home.api.model.CafeName
 import org.cazait.cazaitandroid.core.repo.home.api.model.Congestion
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
+import org.cazait.cazaitandroid.core.repo.home.api.model.Distance
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.feature.home.R
@@ -121,6 +122,7 @@ private fun PreviewHomeCongestionCafeItem() {
                     longitude = Longitude(0.0),
                 ),
                 congestion = Congestion.FREE,
+                distance = Distance(200)
             )
         )
     }

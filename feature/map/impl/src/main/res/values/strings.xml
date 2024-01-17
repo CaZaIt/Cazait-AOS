@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">영업 종료</string>
+    <string name="free">쾌적</string>
+    <string name="normal">보통</string>
+    <string name="crowded">혼잡</string>
+    <string name="very_crowded">매우 혼잡</string>
+</resources>

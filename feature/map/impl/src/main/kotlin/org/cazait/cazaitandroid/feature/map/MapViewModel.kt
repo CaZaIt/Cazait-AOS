@@ -67,6 +67,13 @@ internal class MapViewModel @Inject constructor(
         }
     }
 
+    fun onClickMap() {
+        val state = _uiState.value
+        if (state !is MapUiState.Success) return
+
+        _uiState.value = state.copy(clickedCafe = null)
+    }
+
     private fun fetchCongestionCafes(
         sortBy: SortBy = SortBy.DISTANCE,
         limit: DistanceLimit = DistanceLimit(2000),

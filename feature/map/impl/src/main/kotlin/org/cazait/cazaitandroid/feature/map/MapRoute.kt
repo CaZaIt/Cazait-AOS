@@ -60,7 +60,8 @@ internal fun MapRoute(
     MapScreen(
         padding = padding,
         uiState = uiState,
-        onClickCafe = viewModel::onClickCafe
+        onClickCafe = viewModel::onClickCafe,
+        onClickMap = viewModel::onClickMap,
     )
 }
 

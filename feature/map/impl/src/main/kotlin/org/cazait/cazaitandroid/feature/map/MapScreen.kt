@@ -37,6 +37,7 @@ internal fun MapScreen(
     padding: PaddingValues,
     uiState: MapUiState,
     onClickCafe: (CongestionCafe) -> Unit,
+    onClickMap: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -48,6 +49,7 @@ internal fun MapScreen(
         MapScreen(
             uiState = uiState,
             onClickCafe = onClickCafe,
+            onClickMap = onClickMap,
         )
         if (uiState is MapUiState.DeniedPermissions) {
             PermissionRequireBar(
@@ -71,39 +73,55 @@ internal fun MapScreen(
 internal fun MapScreen(
     uiState: MapUiState,
     onClickCafe: (CongestionCafe) -> Unit,
+    onClickMap: () -> Unit,
+    onClickCafeDetail: () -> Unit = {},
 ) {
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
         position = initialPosition
     }
 
-    NaverMap(
+    Box(
         modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState,
-        locationSource = rememberFusedLocationSource(),
-        properties = MapProperties(locationTrackingMode = LocationTrackingMode.NoFollow),
-        uiSettings = MapUiSettings(
-            isLocationButtonEnabled = true,
-            isZoomGesturesEnabled = true,
-        ),
+        contentAlignment = Alignment.Center,
     ) {
-        if (uiState is MapUiState.Success) {
-            uiState.cafes.asList().forEach { store ->
-                Marker(
-                    state = MarkerState(
-                        position = store.toLatLng(),
-                    ),
-                    icon = OverlayImage.fromResource(
-                        if (uiState.clickedCafe == store) {
-                            R.drawable.ic_marker_clicked
-                        } else {
-                            R.drawable.ic_marker
+        NaverMap(
+            modifier = Modifier.fillMaxSize(),
+            cameraPositionState = cameraPositionState,
+            locationSource = rememberFusedLocationSource(),
+            properties = MapProperties(locationTrackingMode = LocationTrackingMode.NoFollow),
+            uiSettings = MapUiSettings(
+                isLocationButtonEnabled = true,
+                isZoomGesturesEnabled = true,
+            ),
+            onMapClick = { _, _ -> onClickMap() },
+        ) {
+            if (uiState is MapUiState.Success) {
+                uiState.cafes.asList().forEach { store ->
+                    Marker(
+                        state = MarkerState(
+                            position = store.toLatLng(),
+                        ),
+                        icon = OverlayImage.fromResource(
+                            if (uiState.clickedCafe == store) {
+                                R.drawable.ic_marker_clicked
+                            } else {
+                                R.drawable.ic_marker
+                            },
+                        ),
+                        tag = store,
+                        onClick = {
+                            onClickCafe(it.tag as CongestionCafe)
+                            true
                         },
-                    ),
-                    tag = store,
-                    onClick = {
-                        onClickCafe(it.tag as CongestionCafe)
-                        false
-                    },
+                    )
+                }
+            }
+        }
+        if (uiState is MapUiState.Success) {
+            uiState.clickedCafe?.let {
+                MarkerDetailCard(
+                    cafe = it,
+                    onClick = { onClickCafeDetail() },
                 )
             }
         }
