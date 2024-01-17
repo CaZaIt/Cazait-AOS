@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.location.LocationDetails
 import org.cazait.cazaitandroid.core.location.usecase.GetLocationUseCase
+import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
@@ -29,13 +30,44 @@ internal class MapViewModel @Inject constructor(
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
 
-    private val _currentLocation = MutableStateFlow(LocationDetails(37.532600, 127.024612))
-    val currentLocation = _currentLocation.asStateFlow()
-
     private val _uiState: MutableStateFlow<MapUiState> = MutableStateFlow(MapUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    fun fetchCongestionCafes(
+    private val currentLocation = MutableStateFlow(LocationDetails(37.532600, 127.024612))
+
+    fun handlePermission(event: PermissionEvent) {
+        when (event) {
+            PermissionEvent.Granted -> {
+                viewModelScope.launch {
+                    var isFirstLocationCollected = false
+                    getLocationUseCase().collect { location ->
+                        currentLocation.update { location ?: LocationDetails(37.0, 126.0) }
+                        if (!isFirstLocationCollected) {
+                            fetchCongestionCafes()
+                            isFirstLocationCollected = true
+                        }
+                    }
+                }
+            }
+
+            PermissionEvent.Denied -> {
+                _uiState.update { MapUiState.DeniedPermissions }
+            }
+        }
+    }
+
+    fun onClickCafe(cafe: CongestionCafe) {
+        val state = _uiState.value
+        if (state !is MapUiState.Success) return
+
+        if (cafe == state.clickedCafe) {
+            _uiState.value = state.copy(clickedCafe = null)
+        } else {
+            _uiState.value = state.copy(clickedCafe = cafe)
+        }
+    }
+
+    private fun fetchCongestionCafes(
         sortBy: SortBy = SortBy.DISTANCE,
         limit: DistanceLimit = DistanceLimit(2000),
     ) {
@@ -45,42 +77,20 @@ internal class MapViewModel @Inject constructor(
             flow {
                 emit(
                     getCongestionCafesUseCase(
-                        latitude = Latitude(_currentLocation.value.latitude),
-                        longitude = Longitude(_currentLocation.value.longitude),
+                        latitude = Latitude(currentLocation.value.latitude),
+                        longitude = Longitude(currentLocation.value.longitude),
                         sortBy = sortBy,
                         limit = limit,
-                    )
+                    ),
                 )
             }
-                .map(MapUiState::Success)
+                .map { MapUiState.Success(cafes = it, clickedCafe = null) }
                 .catch {
                     it.printStackTrace()
                     _errorFlow.emit(it)
-                }
-                .collect { success ->
+                }.collect { success ->
                     _uiState.update { success }
                 }
-        }
-    }
-
-    fun handlePermission(event: PermissionEvent) {
-        when (event) {
-            PermissionEvent.Granted -> {
-                viewModelScope.launch {
-                    var isFirstLocationCollected = false
-                    getLocationUseCase().collect { location ->
-                        _currentLocation.update { location ?: LocationDetails(37.0, 126.0) }
-                        if (!isFirstLocationCollected) {
-                            fetchCongestionCafes()
-                            isFirstLocationCollected = true
-                        }
-                    }
-                }
-            }
-
-            PermissionEvent.Revoked -> {
-                _uiState.update { MapUiState.RevokedPermissions }
-            }
         }
     }
 }

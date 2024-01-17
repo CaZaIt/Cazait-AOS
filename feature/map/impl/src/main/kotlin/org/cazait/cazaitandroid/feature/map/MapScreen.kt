@@ -1,18 +1,17 @@
 package org.cazait.cazaitandroid.feature.map
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.compose.CameraPositionState
@@ -25,6 +24,7 @@ import com.naver.maps.map.compose.MarkerState
 import com.naver.maps.map.compose.NaverMap
 import com.naver.maps.map.compose.rememberCameraPositionState
 import com.naver.maps.map.compose.rememberFusedLocationSource
+import com.naver.maps.map.overlay.OverlayImage
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
@@ -32,66 +32,79 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 private val seoul = LatLng(37.532600, 127.024612)
 private val initialPosition = CameraPosition(seoul, 11.0)
 
-@OptIn(ExperimentalNaverMapApi::class)
 @Composable
 internal fun MapScreen(
     padding: PaddingValues,
-    mapUiState: MapUiState,
+    uiState: MapUiState,
+    onClickCafe: (CongestionCafe) -> Unit,
 ) {
-    var mapProperties by remember {
-        mutableStateOf(
-            MapProperties(
-                locationTrackingMode = LocationTrackingMode.Follow,
-            )
+    val context = LocalContext.current
+
+    Box(
+        modifier = Modifier
+            .padding(padding)
+            .fillMaxSize(),
+    ) {
+        MapScreen(
+            uiState = uiState,
+            onClickCafe = onClickCafe,
         )
-    }
-    var mapUiSettings by remember {
-        mutableStateOf(
-            MapUiSettings(
-                isLocationButtonEnabled = true,
-                isZoomGesturesEnabled = true,
+        if (uiState is MapUiState.DeniedPermissions) {
+            PermissionRequireBar(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 30.dp),
+                onClick = {
+                    val intent = Intent(
+                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.parse("package:" + context.packageName),
+                    )
+                    context.startActivity(intent)
+                },
             )
-        )
+        }
     }
+}
+
+@OptIn(ExperimentalNaverMapApi::class)
+@Composable
+internal fun MapScreen(
+    uiState: MapUiState,
+    onClickCafe: (CongestionCafe) -> Unit,
+) {
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
         position = initialPosition
     }
 
-    Box(
-        Modifier
-            .padding(padding)
-            .fillMaxSize()
+    NaverMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState,
+        locationSource = rememberFusedLocationSource(),
+        properties = MapProperties(locationTrackingMode = LocationTrackingMode.NoFollow),
+        uiSettings = MapUiSettings(
+            isLocationButtonEnabled = true,
+            isZoomGesturesEnabled = true,
+        ),
     ) {
-        NaverMap(
-            cameraPositionState = cameraPositionState,
-            locationSource = rememberFusedLocationSource(),
-            properties = mapProperties,
-            uiSettings = mapUiSettings,
-        ) {
-            if (mapUiState is MapUiState.Success) {
-                mapUiState.cafes.asList().forEach { store ->
-                    Marker(
-                        state = MarkerState(
-                            position = store.toLatLng()
-                        )
-                    )
-                }
-            }
-        }
-        Column {
-            Button(onClick = {
-                mapProperties = mapProperties.copy(
-                    isBuildingLayerGroupEnabled = !mapProperties.isBuildingLayerGroupEnabled
+        if (uiState is MapUiState.Success) {
+            uiState.cafes.asList().forEach { store ->
+                Marker(
+                    state = MarkerState(
+                        position = store.toLatLng(),
+                    ),
+                    icon = OverlayImage.fromResource(
+                        if (uiState.clickedCafe == store) {
+                            R.drawable.ic_marker_clicked
+                        } else {
+                            R.drawable.ic_marker
+                        },
+                    ),
+                    tag = store,
+                    onClick = {
+                        onClickCafe(it.tag as CongestionCafe)
+                        false
+                    },
                 )
-            }) {
-                Text(text = "Toggle isBuildingLayerGroupEnabled")
-            }
-            Button(onClick = {
-                mapUiSettings = mapUiSettings.copy(
-                    isLocationButtonEnabled = !mapUiSettings.isLocationButtonEnabled
-                )
-            }) {
-                Text(text = "Toggle isLocationButtonEnabled")
             }
         }
     }

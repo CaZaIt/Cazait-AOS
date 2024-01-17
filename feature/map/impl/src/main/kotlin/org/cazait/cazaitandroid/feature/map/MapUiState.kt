@@ -1,6 +1,7 @@
 package org.cazait.cazaitandroid.feature.map
 
 import androidx.compose.runtime.Stable
+import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 
 internal interface MapUiState {
@@ -9,12 +10,13 @@ internal interface MapUiState {
     @Stable
     data class Success(
         val cafes: CongestionCafes,
+        val clickedCafe: CongestionCafe?,
     ) : MapUiState
 
-    data object RevokedPermissions : MapUiState
+    data object DeniedPermissions : MapUiState
 }
 
 internal sealed interface PermissionEvent {
     data object Granted : PermissionEvent
-    data object Revoked : PermissionEvent
+    data object Denied : PermissionEvent
 }
