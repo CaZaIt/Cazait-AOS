@@ -23,6 +23,8 @@ include(
     ":core:repo:signin:impl",
     ":core:repo:home:api",
     ":core:repo:home:impl",
+    ":core:repo:cafedetail:api",
+    ":core:repo:cafedetail:impl",
 
     ":core:domain",
     ":core:data",
@@ -32,6 +34,7 @@ include(
     ":core:testing",
     ":core:location",
 
+    ":feature:main-nav-graph",
     ":feature:signin",
     ":feature:splash",
     ":feature:home",
@@ -39,4 +42,6 @@ include(
     ":feature:map:api",
     ":feature:mypage",
     ":feature:viewmore",
+    ":feature:cafedetail:impl",
+    ":feature:cafedetail:api",
 )

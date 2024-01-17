@@ -14,7 +14,7 @@ fun NavGraphBuilder.splashNavGraph(
     composable(route = SplashNav.route) {
         SplashRoute(
             onClickStart = onClickStart,
-            onUserInformationStored = onUserInformationStored
+            onUserInformationStored = onUserInformationStored,
         )
     }
 }

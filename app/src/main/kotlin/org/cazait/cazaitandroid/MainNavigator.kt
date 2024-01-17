@@ -8,21 +8,30 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavController
+import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavControllerInfo
+import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavController
+import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavControllerInfo
+import org.cazait.cazaitandroid.feature.home.HomeNav
 import org.cazait.cazaitandroid.feature.home.navigateHome
 import org.cazait.cazaitandroid.feature.map.navigateMap
 import org.cazait.cazaitandroid.feature.mypage.navigateMyPage
 import org.cazait.cazaitandroid.feature.signin.navigateSignIn
 import org.cazait.cazaitandroid.feature.splash.SplashNav
 import org.cazait.cazaitandroid.feature.viewmore.navigateViewMore
+import javax.inject.Inject
 
 internal class MainNavigator(
     val navController: NavHostController,
+    private val cafeDetailNavController: CafeDetailNavController,
+    private val reviewEditorNavController: ReviewEditorNavController,
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = SplashNav.route
+    var startDestination = SplashNav.route
+        private set
 
     val currentTab: MainTab?
         @Composable get() = currentDestination
@@ -46,30 +55,63 @@ internal class MainNavigator(
         }
     }
 
+    fun popBackStack() {
+        navController.popBackStack()
+    }
+
     fun navigateSignIn() {
         navController.navigateSignIn()
     }
 
+    fun navigateCafeDetail(cafeId: String) {
+        cafeDetailNavController.navigate(
+            navController = navController,
+            navInfo = CafeDetailNavControllerInfo(cafeId),
+        )
+    }
+
+    fun navigateReviewEditor(cafeId: String) {
+        reviewEditorNavController.navigate(
+            navController = navController,
+            navInfo = ReviewEditorNavControllerInfo(cafeId)
+        )
+    }
+
     fun navigateHome() {
+        startDestination = HomeNav.route
         navController.navigateHome(navOptions {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
+            popUpTo(HomeNav.route) {
+                inclusive = true
             }
             launchSingleTop = true
-            restoreState = true
         })
     }
+
 
     @Composable
     fun shouldShowBottomBar(): Boolean {
         val currentRoute = currentDestination?.route ?: return false
         return currentRoute in MainTab
     }
+
+    class Factory @Inject constructor(
+        private val cafeDetailNavController: CafeDetailNavController,
+        private val reviewEditorNavController: ReviewEditorNavController,
+    ) {
+        fun create(navController: NavHostController): MainNavigator {
+            return MainNavigator(
+                navController = navController,
+                cafeDetailNavController = cafeDetailNavController,
+                reviewEditorNavController = reviewEditorNavController,
+            )
+        }
+    }
 }
 
 @Composable
 internal fun rememberMainNavigator(
     navController: NavHostController = rememberNavController(),
+    mainNavigatorFactory: MainNavigator.Factory,
 ): MainNavigator = remember(navController) {
-    MainNavigator(navController)
+    mainNavigatorFactory.create(navController = navController)
 }

@@ -3,6 +3,7 @@ package org.cazait.cazaitandroid.feature.signin.component
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -26,6 +27,8 @@ internal fun SignInTextField(
         placeholder = placeholder,
         shape = RoundedCornerShape(50.dp),
         colors = TextFieldDefaults.colors(
+            unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            focusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,

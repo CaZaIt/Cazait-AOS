@@ -42,19 +42,21 @@ import org.cazait.cazaitandroid.MainNavigator
 import org.cazait.cazaitandroid.MainTab
 import org.cazait.cazaitandroid.R
 import org.cazait.cazaitandroid.core.designsystem.theme.surfaceDim
+import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavGraph
+import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavGraphInfo
 import org.cazait.cazaitandroid.feature.home.homeNavGraph
 import org.cazait.cazaitandroid.feature.map.mapNavGraph
 import org.cazait.cazaitandroid.feature.mypage.myPageNavGraph
 import org.cazait.cazaitandroid.feature.signin.signInNavGraph
 import org.cazait.cazaitandroid.feature.splash.splashNavGraph
 import org.cazait.cazaitandroid.feature.viewmore.viewMoreNavGraph
-import org.cazait.cazaitandroid.rememberMainNavigator
 import java.net.UnknownHostException
 
 @Composable
 internal fun MainScreen(
-    navigator: MainNavigator = rememberMainNavigator(),
+    navigator: MainNavigator,
     onChangeDarkTheme: (Boolean) -> Unit,
+    cafeDetailNavGraph: CafeDetailNavGraph,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -73,8 +75,7 @@ internal fun MainScreen(
     Scaffold(
         content = { padding ->
             Box(
-                modifier =
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.surfaceDim),
             ) {
@@ -84,7 +85,7 @@ internal fun MainScreen(
                 ) {
                     homeNavGraph(
                         padding = padding,
-//                        onCafeClick = {},
+                        onCafeClick = { navigator.navigateCafeDetail(it.id.asUUID().toString()) },
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     mapNavGraph(
@@ -108,6 +109,15 @@ internal fun MainScreen(
                     signInNavGraph(
                         onSignInSuccess = { navigator.navigateHome() },
                         onShowErrorSnackbar = onShowErrorSnackbar,
+                    )
+                    cafeDetailNavGraph.buildNavGraph(
+                        navGraphBuilder = this,
+                        navInfo = CafeDetailNavGraphInfo(
+                            onEditReviewClick = { navigator.navigateReviewEditor(it) },
+                            onBackButtonClick = { navigator.popBackStack() },
+                            onNavArgError = { navigator.popBackStack() },
+                            onShowErrorSnackbar = onShowErrorSnackbar,
+                        )
                     )
                 }
             }

@@ -1,7 +1,7 @@
 package org.cazait.cazaitandroid.feature.home.component
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,61 +37,59 @@ import java.util.UUID
 @Composable
 internal fun HomeCongestionCafeItem(
     congestionCafe: CongestionCafe,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = Modifier
+    CazaitCard(
+        modifier = modifier
             .fillMaxWidth()
+            .clickable { onClick() },
     ) {
-        CazaitCard(
-            modifier = modifier
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp),
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
+            NetworkImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(124.dp),
+                imageUrl = congestionCafe.cafe.cafeImages.asList().getOrNull(0)?.asString(),
+            )
+            Spacer(modifier = Modifier.height(12.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 12.dp)
+                    .padding(horizontal = 12.dp),
             ) {
-                Spacer(modifier = Modifier.height(20.dp))
-                NetworkImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(124.dp),
-                    imageUrl = congestionCafe.cafe.cafeImages.asList().getOrNull(0)?.asString()
+                Row {
+                    Text(
+                        text = congestionCafe.cafe.name.asString(),
+                        style = CazaitTheme.typography.titleLargeB,
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = congestionCafe.cafe.address.asString(),
+                    style = CazaitTheme.typography.bodyMediumR,
+                    minLines = 2,
+                    maxLines = 2,
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp)
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onClick,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    shape = RoundedCornerShape(48.dp),
                 ) {
-                    Row {
-                        Text(
-                            text = congestionCafe.cafe.name.asString(),
-                            style = CazaitTheme.typography.titleLargeB
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = congestionCafe.cafe.address.asString(),
-                        style = CazaitTheme.typography.bodyMediumR,
-                        minLines = 2,
-                        maxLines = 2,
+                        text = stringResource(id = congestionCafe.congestion.toStringRes()),
+                        style = CazaitTheme.typography.titleLargeB,
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = { /*TODO*/ },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                        ),
-                        shape = RoundedCornerShape(48.dp),
-                    ) {
-                        Text(
-                            text = stringResource(id = congestionCafe.congestion.toStringRes()),
-                            style = CazaitTheme.typography.titleLargeB
-                        )
-                    }
                 }
             }
         }
@@ -123,7 +121,8 @@ private fun PreviewHomeCongestionCafeItem() {
                 ),
                 congestion = Congestion.FREE,
                 distance = Distance(200)
-            )
+            ),
+            onClick = {},
         )
     }
 }
