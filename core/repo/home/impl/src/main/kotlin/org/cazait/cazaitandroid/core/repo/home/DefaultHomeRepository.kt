@@ -23,7 +23,7 @@ internal class DefaultHomeRepository @Inject constructor(
             latitude.asString(),
             longitude.asString(),
             sort.name,
-            limit.asString()
+            limit.asString(),
         ).data[0].toData()
     }
 }

@@ -3,6 +3,7 @@ package org.cazait.cazaitandroid.core.repo.home.api.model
 data class CongestionCafe(
     val cafe: Cafe,
     val congestion: Congestion,
+    val distance: Distance,
 )
 
 @JvmInline

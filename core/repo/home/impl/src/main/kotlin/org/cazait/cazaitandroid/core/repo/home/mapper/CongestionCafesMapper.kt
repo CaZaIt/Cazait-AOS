@@ -9,13 +9,14 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.CafeName
 import org.cazait.cazaitandroid.core.repo.home.api.model.Congestion
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
+import org.cazait.cazaitandroid.core.repo.home.api.model.Distance
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.network.model.CongestionCafeResponse
 import java.util.UUID
 
 internal fun List<CongestionCafeResponse>.toData(): CongestionCafes = CongestionCafes(
-    values = map(CongestionCafeResponse::toData)
+    values = map(CongestionCafeResponse::toData),
 )
 
 internal fun CongestionCafeResponse.toData(): CongestionCafe = CongestionCafe(
@@ -28,4 +29,5 @@ internal fun CongestionCafeResponse.toData(): CongestionCafe = CongestionCafe(
         longitude = Longitude(longitude.toDouble()),
     ),
     congestion = Congestion.valueOf(congestionStatus),
+    distance = Distance(distance),
 )
