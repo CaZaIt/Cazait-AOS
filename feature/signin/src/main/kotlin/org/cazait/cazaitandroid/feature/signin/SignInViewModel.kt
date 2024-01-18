@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
 import org.cazait.cazaitandroid.core.repo.signin.api.model.AccountName
 import org.cazait.cazaitandroid.core.repo.signin.api.model.Password
 import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
@@ -25,8 +26,16 @@ internal class SignInViewModel @Inject constructor(
     private val postSignInUseCase: PostSignInUseCase,
     private val updateUserInformationToLocalUseCase: UpdateUserInformationToLocalUseCase,
 ) : ViewModel() {
+    // 예상치 못한 에러가 발생했을 경우
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
+
+    // 예상되는 HTTP 에러가 발생하는 경우
+    private val _httpErrorFlow = MutableSharedFlow<CazaitHttpException>()
+    val httpErrorFlow = _httpErrorFlow.asSharedFlow()
+
+    // 로그인 중복 호출 방지
+    private var lastSignInAttempt: Long = 0
 
     private val _signInUiState = MutableStateFlow<SignInUiState>(SignInUiState.None())
     val signInUiState = _signInUiState.asStateFlow()
@@ -49,6 +58,10 @@ internal class SignInViewModel @Inject constructor(
         val state = _signInUiState.value
         if (state !is SignInUiState.None) return
 
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastSignInAttempt < 3000) return
+
+        lastSignInAttempt = currentTime
         viewModelScope.launch {
             flow {
                 emit(
@@ -60,9 +73,13 @@ internal class SignInViewModel @Inject constructor(
             }
                 .map(SignInUiState::Success)
                 .catch { throwable ->
-                    throwable.printStackTrace()
-                    _errorFlow.emit(throwable)
-                }.collect { success ->
+                    if (throwable is CazaitHttpException) {
+                        _httpErrorFlow.emit(throwable)
+                    } else {
+                        _errorFlow.emit(throwable)
+                    }
+                }
+                .collect { success ->
                     saveUserInformation(success.userInformation)
                     _signInUiState.update { success }
                 }

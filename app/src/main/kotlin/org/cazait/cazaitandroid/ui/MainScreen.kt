@@ -1,5 +1,6 @@
 package org.cazait.cazaitandroid.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -71,6 +72,13 @@ internal fun MainScreen(
             )
         }
     }
+    val onShowHttpErrorSnackbar: (stringResId: Int) -> Unit = { stringResId ->
+        coroutineScope.launch {
+            snackbarHostState.showSnackbar(
+                localContextResource.getString(stringResId)
+            )
+        }
+    }
 
     Scaffold(
         content = { padding ->
@@ -108,6 +116,7 @@ internal fun MainScreen(
                     )
                     signInNavGraph(
                         onSignInSuccess = { navigator.navigateHome() },
+                        onShowHttpErrorSnackbar = onShowHttpErrorSnackbar,
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )
                     cafeDetailNavGraph.buildNavGraph(

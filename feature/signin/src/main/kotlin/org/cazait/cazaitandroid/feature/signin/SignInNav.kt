@@ -21,11 +21,13 @@ fun NavController.navigateSignIn() {
 
 fun NavGraphBuilder.signInNavGraph(
     onSignInSuccess: () -> Unit,
+    onShowHttpErrorSnackbar: (Int) -> Unit,
     onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = SignInNav.route) {
         SignInRoute(
             onSignInSuccess = onSignInSuccess,
+            onShowHttpErrorSnackbar = onShowHttpErrorSnackbar,
             onShowErrorSnackbar = onShowErrorSnackbar,
         )
     }
