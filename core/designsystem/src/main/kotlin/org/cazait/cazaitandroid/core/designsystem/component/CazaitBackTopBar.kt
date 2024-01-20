@@ -18,6 +18,35 @@ import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun CazaitTopBar(
+    title: @Composable () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
+) {
+    CenterAlignedTopAppBar(
+        title = title,
+        scrollBehavior = scrollBehavior,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CazaitTopBar(
+    @StringRes title: Int,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
+) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = stringResource(id = title),
+                style = CazaitTheme.typography.titleLargeB,
+            )
+        },
+        scrollBehavior = scrollBehavior,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun CazaitBackTopBar(
     title: @Composable () -> Unit,
     onBackButtonClick: () -> Unit,
@@ -27,7 +56,7 @@ fun CazaitBackTopBar(
         title = title,
         navigationIcon = {
             IconButton(
-                onClick = onBackButtonClick
+                onClick = onBackButtonClick,
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
@@ -50,7 +79,7 @@ fun CazaitBackTopBar(
         title = {
             Text(
                 text = stringResource(id = title),
-                style = CazaitTheme.typography.titleLargeB
+                style = CazaitTheme.typography.titleLargeB,
             )
         },
         navigationIcon = {
@@ -76,6 +105,18 @@ private fun PreviewCazaitBackTopBar() {
         CazaitBackTopBar(
             title = { Text(text = "리뷰 쓰기", style = CazaitTheme.typography.titleLargeB) },
             onBackButtonClick = {},
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+private fun PreviewCazaitTopBar() {
+    CazaitTheme {
+        CazaitTopBar(
+            title = { Text(text = "리뷰 쓰기", style = CazaitTheme.typography.titleLargeB) },
         )
     }
 }
