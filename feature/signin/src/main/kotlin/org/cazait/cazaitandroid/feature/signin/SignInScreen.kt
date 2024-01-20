@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
@@ -69,8 +70,9 @@ internal fun SignInScreen(
             value = password,
             placeholder = { Text(text = "Password") },
             onValueChange = onPasswordChange,
+            visualTransform = PasswordVisualTransformation(),
         )
-        Spacer(modifier = Modifier.height(27.dp))
+        Spacer(modifier = Modifier.height(28.dp))
         Button(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -79,7 +81,7 @@ internal fun SignInScreen(
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
                 text = stringResource(id = R.string.do_login),
-                style = CazaitTheme.typography.titleMediumB,
+                style = CazaitTheme.typography.titleLargeB,
             )
         }
         Spacer(modifier = Modifier.height(9.dp))
@@ -97,7 +99,7 @@ private fun PreviewSignInScreen() {
     CazaitTheme {
         SignInScreen(
             accountName = "",
-            password = "",
+            password = "xxx",
             onAccountNameChange = {},
             onPasswordChange = {},
             onClickSignIn = {},

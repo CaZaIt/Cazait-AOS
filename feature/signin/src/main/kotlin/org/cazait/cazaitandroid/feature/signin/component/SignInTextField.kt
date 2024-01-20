@@ -4,11 +4,13 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
@@ -18,6 +20,7 @@ internal fun SignInTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     value: String = "",
+    visualTransform: VisualTransformation = VisualTransformation.None,
     placeholder: @Composable () -> Unit,
 ) {
     TextField(
@@ -34,6 +37,7 @@ internal fun SignInTextField(
             disabledIndicatorColor = Color.Transparent,
         ),
         singleLine = true,
+        visualTransformation = visualTransform,
     )
 }
 
@@ -45,8 +49,8 @@ private fun Preview() {
         SignInTextField(
             onValueChange = {},
             modifier = Modifier.fillMaxWidth(),
-            value = "Username",
-            placeholder = {},
+            value = "",
+            placeholder = { Text(text = "placeholer") },
         )
     }
 }

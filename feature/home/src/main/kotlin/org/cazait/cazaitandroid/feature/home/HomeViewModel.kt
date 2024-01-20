@@ -29,13 +29,38 @@ internal class HomeViewModel @Inject constructor(
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
 
-    private val _currentLocation = MutableStateFlow(LocationDetails(0.0, 0.0))
+    private val _currentLocation = MutableStateFlow(LocationDetails(37.5538202, 127.0832242))
     val currentLocation = _currentLocation.asStateFlow()
 
     private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    fun fetchCongestionCafes(
+    init {
+        fetchCongestionCafes()
+    }
+
+    fun handlePermission(event: PermissionEvent) {
+        when (event) {
+            PermissionEvent.Granted -> {
+                viewModelScope.launch {
+                    var isFirstLocationCollected = false
+                    getLocationUseCase().collect { location ->
+                        _currentLocation.update { location ?: LocationDetails(37.5538202, 127.0832242) }
+                        if (!isFirstLocationCollected) {
+                            fetchCongestionCafes()
+                            isFirstLocationCollected = true
+                        }
+                    }
+                }
+            }
+
+            PermissionEvent.Revoked -> {
+                _uiState.update { HomeUiState.RevokedPermissions }
+            }
+        }
+    }
+
+    private fun fetchCongestionCafes(
         sortBy: SortBy = SortBy.DISTANCE,
         limit: DistanceLimit = DistanceLimit(2000),
     ) {
@@ -60,27 +85,6 @@ internal class HomeViewModel @Inject constructor(
                 .collect { success ->
                     _uiState.update { success }
                 }
-        }
-    }
-
-    fun handlePermission(event: PermissionEvent) {
-        when (event) {
-            PermissionEvent.Granted -> {
-                viewModelScope.launch {
-                    var isFirstLocationCollected = false
-                    getLocationUseCase().collect { location ->
-                        _currentLocation.update { location ?: LocationDetails(37.0, 126.0) }
-                        if (!isFirstLocationCollected) {
-                            fetchCongestionCafes()
-                            isFirstLocationCollected = true
-                        }
-                    }
-                }
-            }
-
-            PermissionEvent.Revoked -> {
-                _uiState.update { HomeUiState.RevokedPermissions }
-            }
         }
     }
 }

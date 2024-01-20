@@ -1,0 +1,3 @@
+import org.cazait.cazaitandroid.configureCazaitException
+
+configureCazaitException()

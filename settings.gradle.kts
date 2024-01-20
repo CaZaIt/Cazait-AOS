@@ -33,6 +33,7 @@ include(
     ":core:http",
     ":core:testing",
     ":core:location",
+    ":core:http-handle",
 
     ":feature:main-nav-graph",
     ":feature:signin",

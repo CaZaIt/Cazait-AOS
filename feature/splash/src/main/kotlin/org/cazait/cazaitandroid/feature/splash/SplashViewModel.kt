@@ -21,9 +21,7 @@ internal class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getStoredUserInformationUseCase().collect { storedUser ->
-                storedUser?.let {
-                    _uiState.update { SplashUiState.Stored }
-                } ?: _uiState.update { SplashUiState.NotStored }
+                _uiState.update { if (storedUser != null) SplashUiState.Stored else SplashUiState.NotStored }
             }
         }
     }

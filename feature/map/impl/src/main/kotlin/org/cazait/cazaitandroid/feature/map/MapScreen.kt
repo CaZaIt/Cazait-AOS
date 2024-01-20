@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +27,7 @@ import com.naver.maps.map.compose.NaverMap
 import com.naver.maps.map.compose.rememberCameraPositionState
 import com.naver.maps.map.compose.rememberFusedLocationSource
 import com.naver.maps.map.overlay.OverlayImage
+import org.cazait.cazaitandroid.core.designsystem.component.CazaitTopBar
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
@@ -32,6 +35,7 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 private val seoul = LatLng(37.532600, 127.024612)
 private val initialPosition = CameraPosition(seoul, 11.0)
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MapScreen(
     padding: PaddingValues,
@@ -41,29 +45,36 @@ internal fun MapScreen(
 ) {
     val context = LocalContext.current
 
-    Box(
+    Scaffold(
         modifier = Modifier
             .padding(padding)
             .fillMaxSize(),
-    ) {
-        MapScreen(
-            uiState = uiState,
-            onClickCafe = onClickCafe,
-            onClickMap = onClickMap,
-        )
-        if (uiState is MapUiState.DeniedPermissions) {
-            PermissionRequireBar(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 30.dp),
-                onClick = {
-                    val intent = Intent(
-                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + context.packageName),
-                    )
-                    context.startActivity(intent)
-                },
+        topBar = {
+            CazaitTopBar(title = R.string.map_title)
+        },
+    ) { contentPadding ->
+        Box(
+            modifier = Modifier.padding(contentPadding).fillMaxSize(),
+        ) {
+            MapScreen(
+                uiState = uiState,
+                onClickCafe = onClickCafe,
+                onClickMap = onClickMap,
             )
+            if (uiState is MapUiState.DeniedPermissions) {
+                PermissionRequireBar(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 30.dp),
+                    onClick = {
+                        val intent = Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:" + context.packageName),
+                        )
+                        context.startActivity(intent)
+                    },
+                )
+            }
         }
     }
 }

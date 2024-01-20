@@ -28,6 +28,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -43,6 +48,7 @@ import me.onebone.toolbar.CollapsingToolbarScope
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 import org.cazait.cazaitandroid.core.designsystem.component.NetworkImage
+import org.cazait.cazaitandroid.core.designsystem.component.noRippleClickable
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.SunsetOrange
@@ -215,21 +221,30 @@ private fun MenuReviewContent(
     menus: CafeMenus,
     reviews: CafeReviews,
 ) {
-    val pagerState = rememberPagerState(initialPage = 0) { 2 }
-
+    var pageState by remember { mutableIntStateOf(0) }
+    val pagerState = rememberPagerState(initialPage = pageState) { 2 }
+    LaunchedEffect(pageState) {
+        pagerState.scrollToPage(pageState)
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.primaryContainer),
     ) {
-        MenuReviewTabs(pagerState)
+        MenuReviewTabs(
+            pagerState,
+            onClickTab = { pageState = it },
+        )
         MenuReviewPager(pagerState, menus, reviews)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun MenuReviewTabs(pagerState: PagerState) {
+private fun MenuReviewTabs(
+    pagerState: PagerState,
+    onClickTab: (tabNumber: Int) -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -239,10 +254,12 @@ private fun MenuReviewTabs(pagerState: PagerState) {
         TabItem(
             title = R.string.cafe_menu,
             isSelected = pagerState.currentPage == 0,
+            onClick = { onClickTab(0) },
         )
         TabItem(
             title = R.string.score_and_review,
             isSelected = pagerState.currentPage == 1,
+            onClick = { onClickTab(1) },
         )
     }
 }
@@ -251,11 +268,13 @@ private fun MenuReviewTabs(pagerState: PagerState) {
 private fun TabItem(
     title: Int,
     isSelected: Boolean,
+    onClick: () -> Unit,
 ) {
     Text(
         text = stringResource(title),
         style = CazaitTheme.typography.titleMediumB,
         color = if (isSelected) SunsetOrange else Black,
+        modifier = Modifier.noRippleClickable { onClick() },
     )
 }
 

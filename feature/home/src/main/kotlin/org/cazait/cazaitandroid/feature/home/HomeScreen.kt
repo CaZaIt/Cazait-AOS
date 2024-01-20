@@ -14,12 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyGridItemScope
-import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +32,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
@@ -57,7 +52,6 @@ internal fun HomeScreen(
             .padding(padding)
             .background(color = MaterialTheme.colorScheme.primaryContainer)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         HomeTopBar()
         HomeContent(
@@ -102,40 +96,46 @@ private fun HomeContent(
     uiState: HomeUiState,
     onClickCafe: (Cafe) -> Unit,
 ) {
-    when (uiState) {
-        is HomeUiState.Success -> CongestionCafeGrid(
-            cafes = uiState.congestionCafes.asList().toImmutableList(),
-            onClickCafe = onClickCafe,
-        )
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        item {
+            Spacer(modifier = Modifier.height(12.dp))
+            HomeColumnTitle()
+        }
 
-        else -> Unit
+        if (uiState is HomeUiState.Success) {
+            val cafes = uiState.congestionCafes.asList()
+            val chunks = cafes.chunked(2).toImmutableList()
+            items(chunks) { chunk ->
+                CafeRow(chunk = chunk, onClickCafe = onClickCafe)
+            }
+        }
     }
 }
 
 @Composable
-private fun CongestionCafeGrid(
-    cafes: ImmutableList<CongestionCafe>,
+private fun CafeRow(
+    chunk: List<CongestionCafe>,
     onClickCafe: (Cafe) -> Unit,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 20.dp)
+            .padding(bottom = 32.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
-        header { HomeColumnTitle() }
-        items(
-            items = cafes,
-            key = { item: CongestionCafe -> item.cafe.id.toString() },
-        ) { congestionCafe ->
+        chunk.forEach { congestionCafe ->
             HomeCongestionCafeItem(
                 congestionCafe = congestionCafe,
                 onClick = { onClickCafe(congestionCafe.cafe) },
+                modifier = Modifier.weight(1f),
             )
         }
-        footer { Spacer(modifier = Modifier.height(32.dp)) }
+        if (chunk.size == 1) {
+            Spacer(modifier = Modifier.weight(1f))
+        }
     }
 }
 
@@ -177,23 +177,12 @@ private fun SearchingTextField(
     }
 }
 
-private fun LazyGridScope.header(
-    content: @Composable LazyGridItemScope.() -> Unit,
-) {
-    item(span = { GridItemSpan(this.maxLineSpan) }, content = content)
-}
-
-private fun LazyGridScope.footer(
-    content: @Composable LazyGridItemScope.() -> Unit,
-) {
-    item(span = { GridItemSpan(this.maxLineSpan) }, content = content)
-}
-
 @Composable
 private fun HomeColumnTitle() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 20.dp)
             .padding(bottom = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

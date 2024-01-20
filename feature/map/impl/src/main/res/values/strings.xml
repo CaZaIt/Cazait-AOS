@@ -5,4 +5,5 @@
     <string name="normal">보통</string>
     <string name="crowded">혼잡</string>
     <string name="very_crowded">매우 혼잡</string>
+    <string name="map_title">카페 위치보기</string>
 </resources>
