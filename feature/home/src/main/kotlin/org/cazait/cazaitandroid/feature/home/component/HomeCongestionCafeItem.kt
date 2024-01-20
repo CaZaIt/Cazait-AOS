@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
 import org.cazait.cazaitandroid.core.designsystem.component.NetworkImage
@@ -39,10 +40,11 @@ internal fun HomeCongestionCafeItem(
     congestionCafe: CongestionCafe,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    height: Dp = 280.dp,
 ) {
     CazaitCard(
         modifier = modifier
-            .fillMaxWidth()
+            .height(height)
             .clickable { onClick() },
     ) {
         Column(
@@ -120,8 +122,9 @@ private fun PreviewHomeCongestionCafeItem() {
                     longitude = Longitude(0.0),
                 ),
                 congestion = Congestion.FREE,
-                distance = Distance(200)
+                distance = Distance(200),
             ),
+            height = 280.dp,
             onClick = {},
         )
     }
