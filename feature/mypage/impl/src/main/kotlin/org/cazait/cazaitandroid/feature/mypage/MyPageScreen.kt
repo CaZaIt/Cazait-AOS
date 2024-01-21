@@ -17,10 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -64,7 +62,7 @@ internal fun MyPageScreen(
         ) {
             TopSurface {}
             Column {
-                Spacer(Modifier.height(52.dp))
+                Spacer(Modifier.height(44.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.noRippleClickable {
@@ -86,7 +84,7 @@ internal fun MyPageScreen(
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 }
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(12.dp))
                 CazaitPaymentCard()
                 MyPageFeatures()
             }

@@ -9,5 +9,6 @@ android {
 dependencies {
     implementation(projects.feature.viewmore.api)
     implementation(projects.feature.mainNavGraph)
+    implementation(libs.oss.licenses)
     implementation(libs.kotlinx.immutable)
 }

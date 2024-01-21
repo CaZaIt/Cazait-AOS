@@ -14,7 +14,7 @@ fun TopSurface(
     content: @Composable () -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth().height(140.dp),
+        modifier = Modifier.fillMaxWidth().height(100.dp),
         color = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
         content = content,

@@ -71,7 +71,7 @@ internal fun HomeScreen(
 private fun HomeTopBar() {
     TopSurface {
         Row(
-            modifier = Modifier.padding(28.dp),
+            modifier = Modifier.padding(24.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Icon(

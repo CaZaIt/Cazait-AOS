@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="announcements">공지사항</string>
+    <string name="account_management">계정 관리</string>
+    <string name="customer_support">고객센터</string>
+    <string name="terms_policies">약관 및 정책</string>
+    <string name="open_source_libraries">오픈소스 라이브러리</string>
+</resources>
