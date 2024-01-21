@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recently_viewed_cafe_title">최근 본 매장</string>
+    <string name="congestion_free">원할</string>
+    <string name="congestion_close">영업 종료</string>
+    <string name="congestion_normal">보통</string>
+    <string name="congestion_crowded">혼잡</string>
+    <string name="congestion_very_crowded">매우 혼잡</string>
+    <string name="view_more_cafe">자세히 보기</string>
+</resources>

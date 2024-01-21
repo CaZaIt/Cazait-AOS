@@ -45,6 +45,7 @@ import org.cazait.cazaitandroid.core.designsystem.theme.SunsetOrange
 internal fun MyPageScreen(
     padding: PaddingValues,
     onSignIn: () -> Unit,
+    onRecentlyViewedCafeClick: () -> Unit,
     onShowErrorSnackbar: (Throwable?) -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
@@ -86,7 +87,9 @@ internal fun MyPageScreen(
                 }
                 Spacer(Modifier.height(12.dp))
                 CazaitPaymentCard()
-                MyPageFeatures()
+                MyPageFeatures(
+                    onRecentlyViewedCafeClick = onRecentlyViewedCafeClick,
+                )
             }
         }
     }
@@ -127,7 +130,9 @@ private fun CazaitPaymentCard() {
 }
 
 @Composable
-private fun MyPageFeatures() {
+private fun MyPageFeatures(
+    onRecentlyViewedCafeClick: () -> Unit,
+) {
     CazaitCard(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
     ) {
@@ -139,16 +144,19 @@ private fun MyPageFeatures() {
             MyPageFeature(
                 imageVectorId = R.drawable.ic_coupon,
                 featureNameId = R.string.coupon,
+                onClick = {},
             )
             VerticalLine()
             MyPageFeature(
                 imageVectorId = R.drawable.ic_payment_details,
                 featureNameId = R.string.payment_details,
+                onClick = {},
             )
             VerticalLine()
             MyPageFeature(
                 imageVectorId = R.drawable.ic_recent_seen_stores,
                 featureNameId = R.string.recent_seen_sotres,
+                onClick = onRecentlyViewedCafeClick,
             )
         }
     }
@@ -158,10 +166,12 @@ private fun MyPageFeatures() {
 private fun MyPageFeature(
     @DrawableRes imageVectorId: Int,
     @StringRes featureNameId: Int,
+    onClick: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.noRippleClickable { onClick() },
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = imageVectorId),
@@ -194,6 +204,7 @@ private fun MyPageScreenPreview() {
         MyPageScreen(
             padding = PaddingValues(0.dp),
             onSignIn = {},
+            onRecentlyViewedCafeClick = {},
             onShowErrorSnackbar = {},
         )
     }

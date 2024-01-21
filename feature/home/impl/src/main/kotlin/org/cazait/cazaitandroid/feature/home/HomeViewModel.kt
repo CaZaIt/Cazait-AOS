@@ -14,17 +14,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.location.LocationDetails
 import org.cazait.cazaitandroid.core.location.usecase.GetLocationUseCase
+import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCase
+import org.cazait.cazaitandroid.feature.home.usecase.StoreViewedCafeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 internal class HomeViewModel @Inject constructor(
-    private val getCongestionCafesUseCase: GetCongestionCafesUseCase,
     private val getLocationUseCase: GetLocationUseCase,
+    private val storeViewedCafeUseCase: StoreViewedCafeUseCase,
+    private val getCongestionCafesUseCase: GetCongestionCafesUseCase,
 ) : ViewModel() {
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
@@ -62,6 +65,12 @@ internal class HomeViewModel @Inject constructor(
             PermissionEvent.Revoked -> {
                 _uiState.update { HomeUiState.RevokedPermissions }
             }
+        }
+    }
+
+    fun storeViewedCafe(cafe: Cafe) {
+        viewModelScope.launch {
+            storeViewedCafeUseCase(cafe)
         }
     }
 

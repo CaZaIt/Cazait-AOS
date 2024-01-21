@@ -42,13 +42,14 @@ import org.cazait.cazaitandroid.core.designsystem.component.TopSurface
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
+import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.feature.home.component.HomeCongestionCafeItem
 
 @Composable
 internal fun HomeScreen(
     padding: PaddingValues,
-    onClickCafe: (cafeId: String) -> Unit,
+    onClickCafe: (cafe: Cafe) -> Unit,
     uiState: HomeUiState,
     modifier: Modifier = Modifier,
 ) {
@@ -96,7 +97,7 @@ private fun HomeTopBar() {
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
-    onClickCafe: (cafeId: String) -> Unit,
+    onClickCafe: (cafe: Cafe) -> Unit,
 ) {
     when (uiState) {
         is HomeUiState.Success -> CongestionCafeGrid(
@@ -111,7 +112,7 @@ private fun HomeContent(
 @Composable
 private fun CongestionCafeGrid(
     cafes: ImmutableList<CongestionCafe>,
-    onClickCafe: (cafeId: String) -> Unit,
+    onClickCafe: (cafe: Cafe) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -128,7 +129,7 @@ private fun CongestionCafeGrid(
         ) { congestionCafe ->
             HomeCongestionCafeItem(
                 congestionCafe = congestionCafe,
-                onClick = { onClickCafe(congestionCafe.cafe.id.asUUID().toString()) },
+                onClick = { onClickCafe(congestionCafe.cafe) },
             )
         }
         footer { Spacer(modifier = Modifier.height(32.dp)) }

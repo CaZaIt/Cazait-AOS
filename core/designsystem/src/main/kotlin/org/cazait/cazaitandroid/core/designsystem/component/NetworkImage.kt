@@ -33,7 +33,7 @@ fun NetworkImage(
             contentScale = contentScale,
             alignment = Alignment.Center,
             contentDescription = contentDescription,
-        )
+        ),
     )
 }
 
@@ -42,6 +42,6 @@ fun NetworkImage(
 private fun PreviewNetworkImage() {
     NetworkImage(
         imageUrl = "",
-        placeholder = painterResource(id = Color(0xFFFFFFFF).toArgb())
+        placeholder = painterResource(id = Color(0xFFFFFFFF).toArgb()),
     )
 }

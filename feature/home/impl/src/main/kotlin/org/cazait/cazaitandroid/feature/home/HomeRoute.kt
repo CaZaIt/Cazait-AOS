@@ -47,7 +47,10 @@ internal fun HomeRoute(
 
     HomeScreen(
         padding = padding,
-        onClickCafe = onCafeClick,
+        onClickCafe = { cafe ->
+            homeViewModel.storeViewedCafe(cafe)
+            onCafeClick(cafe.id.asUUID().toString())
+        },
         uiState = uiState,
     )
 }

@@ -49,6 +49,8 @@ import org.cazait.cazaitandroid.feature.map.api.MapNavGraphInfo
 import org.cazait.cazaitandroid.feature.mypage.api.MyPageNavGraph
 import org.cazait.cazaitandroid.feature.mypage.api.MyPageNavGraphInfo
 import org.cazait.cazaitandroid.feature.nav.CazaitTab
+import org.cazait.cazaitandroid.feature.recentlyview.api.RecentlyViewNavGraph
+import org.cazait.cazaitandroid.feature.recentlyview.api.RecentlyViewNavGraphInfo
 import org.cazait.cazaitandroid.feature.signin.signInNavGraph
 import org.cazait.cazaitandroid.feature.splash.splashNavGraph
 import org.cazait.cazaitandroid.feature.viewmore.api.ViewMoreNavGraph
@@ -64,6 +66,7 @@ internal fun MainScreen(
     cafeDetailNavGraph: CafeDetailNavGraph,
     myPageNavGraph: MyPageNavGraph,
     viewMoreNavGraph: ViewMoreNavGraph,
+    recentlyViewNavGraph: RecentlyViewNavGraph,
     mainTabs: MainTabs,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -119,6 +122,7 @@ internal fun MainScreen(
                         navInfo = MyPageNavGraphInfo(
                             padding = padding,
                             onSignIn = { navigator.navigateSignIn() },
+                            onRecentlyViewedCafeClick = { navigator.navigateRecentlyView() },
                             onShowErrorSnackbar = onShowErrorSnackbar,
                         ),
                     )
@@ -146,6 +150,13 @@ internal fun MainScreen(
                         navInfo = ViewMoreNavGraphInfo(
                             padding,
 //                            onShowErrorSnackbar,
+                        ),
+                    )
+                    recentlyViewNavGraph.buildNavGraph(
+                        navGraphBuilder = this,
+                        navInfo = RecentlyViewNavGraphInfo(
+                            onCafeClick = { navigator.navigateCafeDetail(it) },
+                            onBackButtonClick = { navigator.popBackStack() },
                         ),
                     )
                 }

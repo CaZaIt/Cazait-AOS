@@ -10,6 +10,7 @@ import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavGraph
 import org.cazait.cazaitandroid.feature.home.api.HomeNavGraph
 import org.cazait.cazaitandroid.feature.map.api.MapNavGraph
 import org.cazait.cazaitandroid.feature.mypage.api.MyPageNavGraph
+import org.cazait.cazaitandroid.feature.recentlyview.api.RecentlyViewNavGraph
 import org.cazait.cazaitandroid.feature.viewmore.api.ViewMoreNavGraph
 import javax.inject.Inject
 
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewMoreNavGraph: ViewMoreNavGraph
+
+    @Inject
+    lateinit var recentlyViewNavGraph: RecentlyViewNavGraph
 
     @Inject
     lateinit var mainTabs: MainTabs
@@ -57,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                     myPageNavGraph = myPageNavGraph,
                     cafeDetailNavGraph = cafeDetailNavGraph,
                     viewMoreNavGraph = viewMoreNavGraph,
+                    recentlyViewNavGraph = recentlyViewNavGraph,
                     mainTabs = mainTabs,
                 )
             }

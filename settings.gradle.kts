@@ -25,15 +25,18 @@ include(
     ":core:repo:home:impl",
     ":core:repo:cafedetail:api",
     ":core:repo:cafedetail:impl",
+    ":core:repo:recentlyview:api",
+    ":core:repo:recentlyview:impl",
 
     ":core:domain",
-    ":core:data",
     ":core:designsystem",
     ":core:ui",
     ":core:http",
     ":core:testing",
     ":core:location",
     ":core:http-handle",
+
+    ":core:local:recentview",
 
     ":feature:main",
     ":feature:main-nav-graph",
@@ -54,4 +57,7 @@ include(
 
     ":feature:viewmore:impl",
     ":feature:viewmore:api",
+
+    ":feature:recentlyview:impl",
+    ":feature:recentlyview:api",
 )
