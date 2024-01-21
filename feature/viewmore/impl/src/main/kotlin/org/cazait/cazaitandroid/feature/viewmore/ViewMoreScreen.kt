@@ -48,7 +48,7 @@ internal fun ViewMoreScreen(
         TopSurface {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "더보기",
+                    text = stringResource(R.string.view_more),
                     modifier = Modifier
                         .align(Alignment.TopCenter)
                         .padding(top = 24.dp),
