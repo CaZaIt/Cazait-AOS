@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -32,37 +33,47 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
+import org.cazait.cazaitandroid.core.designsystem.component.noRippleClickable
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.SunsetOrange
 
 @Composable
 internal fun MyPageScreen(
     padding: PaddingValues,
+    onSignIn: () -> Unit,
     onShowErrorSnackbar: (Throwable?) -> Unit,
+    viewModel: MyPageViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Column(
-        modifier = Modifier
-            .padding(padding)
-            .fillMaxSize()
+        modifier = Modifier.padding(padding).fillMaxSize()
             .background(color = MaterialTheme.colorScheme.primaryContainer),
     ) {
         Box(
             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
         ) {
             Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(140.dp),
+                modifier = Modifier.fillMaxWidth().height(140.dp),
                 color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
                 content = {},
             )
             Column {
-                Spacer(Modifier.height(44.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(Modifier.height(52.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.noRippleClickable {
+                        if (uiState.storedUser != null) viewModel.signOut() else onSignIn()
+                    },
+                ) {
                     Text(
-                        text = stringResource(R.string.sign_out),
+                        text = stringResource(
+                            if (uiState.storedUser != null) R.string.sign_out else R.string.sign_in,
+                        ),
                         style = CazaitTheme.typography.titleLargeB,
                         modifier = Modifier.padding(start = 40.dp, end = 4.dp),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -70,9 +81,7 @@ internal fun MyPageScreen(
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_circle_right),
                         contentDescription = null,
-                        modifier = Modifier
-                            .padding(top = 4.dp)
-                            .size(24.dp),
+                        modifier = Modifier.padding(top = 4.dp).size(24.dp),
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 }
@@ -87,16 +96,11 @@ internal fun MyPageScreen(
 @Composable
 private fun CazaitPaymentCard() {
     CazaitCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .padding(bottom = 16.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 16.dp),
         color = MaterialTheme.colorScheme.primary,
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Text(
@@ -126,14 +130,10 @@ private fun CazaitPaymentCard() {
 @Composable
 private fun MyPageFeatures() {
     CazaitCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -194,6 +194,7 @@ private fun MyPageScreenPreview() {
     CazaitTheme {
         MyPageScreen(
             padding = PaddingValues(0.dp),
+            onSignIn = {},
             onShowErrorSnackbar = {},
         )
     }

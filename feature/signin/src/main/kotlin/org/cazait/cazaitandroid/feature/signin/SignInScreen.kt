@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
@@ -69,6 +70,7 @@ internal fun SignInScreen(
             value = password,
             placeholder = { Text(text = "Password") },
             onValueChange = onPasswordChange,
+            visualTransformation = PasswordVisualTransformation(),
         )
         Spacer(modifier = Modifier.height(27.dp))
         Button(

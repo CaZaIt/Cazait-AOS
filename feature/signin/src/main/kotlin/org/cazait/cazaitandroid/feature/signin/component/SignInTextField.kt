@@ -9,6 +9,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
@@ -17,6 +19,7 @@ import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 internal fun SignInTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     value: String = "",
     placeholder: @Composable () -> Unit,
 ) {
@@ -33,6 +36,7 @@ internal fun SignInTextField(
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
         ),
+        visualTransformation = visualTransformation,
         singleLine = true,
     )
 }

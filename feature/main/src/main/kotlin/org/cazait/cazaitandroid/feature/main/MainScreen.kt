@@ -111,6 +111,7 @@ internal fun MainScreen(
                         navGraphBuilder = this,
                         navInfo = MyPageNavGraphInfo(
                             padding = padding,
+                            onSignIn = { navigator.navigateSignIn() },
                             onShowErrorSnackbar = onShowErrorSnackbar,
                         ),
                     )

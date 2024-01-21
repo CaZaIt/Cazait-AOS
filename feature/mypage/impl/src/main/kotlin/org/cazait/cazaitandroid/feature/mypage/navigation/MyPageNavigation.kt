@@ -17,11 +17,13 @@ internal object MyPageRoute {
 
 internal fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
+    onSignIn: () -> Unit,
     onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = MyPageRoute.route) {
         MyPageScreen(
             padding = padding,
+            onSignIn = onSignIn,
             onShowErrorSnackbar = onShowErrorSnackbar,
         )
     }
