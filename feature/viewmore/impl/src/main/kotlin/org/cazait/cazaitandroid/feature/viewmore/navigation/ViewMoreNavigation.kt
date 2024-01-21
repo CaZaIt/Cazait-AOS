@@ -10,17 +10,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
-internal object ViewMoreRoute {
-    const val route: String = "view_more"
-}
-
 internal fun NavController.navigateViewMore(navOptions: NavOptions) {
     navigate(ViewMoreRoute.route, navOptions)
 }
 
 internal fun NavGraphBuilder.viewMoreNavGraph(
     padding: PaddingValues,
-    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
+//    onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(route = ViewMoreRoute.route) {
         Box(
@@ -28,4 +24,8 @@ internal fun NavGraphBuilder.viewMoreNavGraph(
         ) {
         }
     }
+}
+
+internal object ViewMoreRoute {
+    const val route: String = "view_more"
 }

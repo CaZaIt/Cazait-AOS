@@ -7,5 +7,5 @@ interface ViewMoreNavGraph : CazaitNavGraph<ViewMoreNavGraphInfo>
 
 data class ViewMoreNavGraphInfo(
     val padding: PaddingValues,
-    val onShowErrorSnackbar: (Throwable?) -> Unit,
+//    val onShowErrorSnackbar: (Throwable?) -> Unit,
 )

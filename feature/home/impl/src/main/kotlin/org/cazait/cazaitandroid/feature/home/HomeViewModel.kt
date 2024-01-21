@@ -45,7 +45,12 @@ internal class HomeViewModel @Inject constructor(
                 viewModelScope.launch {
                     var isFirstLocationCollected = false
                     getLocationUseCase().collect { location ->
-                        _currentLocation.update { location ?: LocationDetails(37.5538202, 127.0832242) }
+                        _currentLocation.update {
+                            location ?: LocationDetails(
+                                37.5538202,
+                                127.0832242,
+                            )
+                        }
                         if (!isFirstLocationCollected) {
                             fetchCongestionCafes()
                             isFirstLocationCollected = true

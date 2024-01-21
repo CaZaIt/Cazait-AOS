@@ -1,6 +1,5 @@
 package org.cazait.cazaitandroid.feature.main
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -59,7 +58,7 @@ import java.net.UnknownHostException
 @Composable
 internal fun MainScreen(
     navigator: MainNavigator,
-    onChangeDarkTheme: (Boolean) -> Unit,
+//    onChangeDarkTheme: (Boolean) -> Unit,
     homeNavGraph: HomeNavGraph,
     mapNavGraph: MapNavGraph,
     cafeDetailNavGraph: CafeDetailNavGraph,
@@ -83,7 +82,7 @@ internal fun MainScreen(
     val onShowHttpErrorSnackbar: (stringResId: Int) -> Unit = { stringResId ->
         coroutineScope.launch {
             snackbarHostState.showSnackbar(
-                localContextResource.getString(stringResId)
+                localContextResource.getString(stringResId),
             )
         }
     }
@@ -146,7 +145,7 @@ internal fun MainScreen(
                         navGraphBuilder = this,
                         navInfo = ViewMoreNavGraphInfo(
                             padding,
-                            onShowErrorSnackbar,
+//                            onShowErrorSnackbar,
                         ),
                     )
                 }

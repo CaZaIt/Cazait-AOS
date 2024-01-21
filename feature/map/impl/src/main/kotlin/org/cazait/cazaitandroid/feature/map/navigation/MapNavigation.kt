@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.cazait.cazaitandroid.feature.map.MapRoute
-import org.cazait.cazaitandroid.feature.map.R
 
 internal fun NavController.navigateMap(navOptions: NavOptions) {
     navigate(MapRoute.route, navOptions)

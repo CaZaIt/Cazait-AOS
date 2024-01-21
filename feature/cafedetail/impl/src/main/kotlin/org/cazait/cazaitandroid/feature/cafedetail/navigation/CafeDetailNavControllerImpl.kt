@@ -18,6 +18,7 @@ internal class CafeDetailNavControllerImpl @Inject constructor() : CafeDetailNav
 internal class ReviewEditorNavControllerImpl @Inject constructor() : ReviewEditorNavController {
     override val route: String
         get() = ReviewEditorRoute.createRoute("")
+
     override fun navigate(navController: NavController, navInfo: ReviewEditorNavControllerInfo) {
         navController.navigateReviewEditor(navInfo.cafeId)
     }

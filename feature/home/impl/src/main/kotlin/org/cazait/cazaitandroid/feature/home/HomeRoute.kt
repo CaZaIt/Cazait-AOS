@@ -14,7 +14,6 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.collectLatest
 import org.cazait.cazaitandroid.core.location.extension.hasLocationPermission
-import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 
 private val permissions = persistentListOf(
     Manifest.permission.ACCESS_COARSE_LOCATION,
