@@ -25,25 +25,23 @@ android {
 }
 
 dependencies {
-    implementation(projects.feature.mypage)
-    implementation(projects.feature.home)
-    implementation(projects.feature.viewmore)
-    implementation(projects.feature.map.api)
-    implementation(projects.feature.map.impl)
+    implementation(projects.feature.main)
+
     implementation(projects.feature.signin)
     implementation(projects.feature.splash)
     implementation(projects.feature.mainNavGraph)
 
-    implementation(projects.feature.cafedetail.api)
+    implementation(projects.feature.home.impl)
+    implementation(projects.feature.map.impl)
     implementation(projects.feature.cafedetail.impl)
+    implementation(projects.feature.mypage.impl)
+    implementation(projects.feature.viewmore.impl)
 
     implementation(projects.core.repo.signin.impl)
-    implementation(projects.core.repo.home.api)
     implementation(projects.core.repo.home.impl)
     implementation(projects.core.repo.cafedetail.impl)
 
     implementation(projects.core.http)
-
     implementation(projects.core.designsystem)
 
     implementation(libs.androidx.appcompat)

@@ -70,7 +70,7 @@ internal fun SignInScreen(
             value = password,
             placeholder = { Text(text = "Password") },
             onValueChange = onPasswordChange,
-            visualTransform = PasswordVisualTransformation(),
+            visualTransformation = PasswordVisualTransformation(),
         )
         Spacer(modifier = Modifier.height(28.dp))
         Button(

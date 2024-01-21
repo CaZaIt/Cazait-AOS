@@ -8,11 +8,15 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import org.cazait.cazaitandroid.core.repo.signin.DefaultStoredUserRepository
 import org.cazait.cazaitandroid.core.repo.signin.StoredUserPreferencesDataSource
 import org.cazait.cazaitandroid.core.repo.signin.api.StoredUserRepository
+import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.repo.signin.usecase.GetStoredUserInformationUseCaseImpl
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -37,4 +41,14 @@ internal abstract class StoredUserRepoBindModule {
     abstract fun bindStoredUserRepository(
         dataSource: DefaultStoredUserRepository,
     ): StoredUserRepository
+}
+
+@Module
+@InstallIn(ViewModelComponent::class)
+internal abstract class StoredUserUseCaseModule {
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetStoredUserUseCase(
+        dataSource: GetStoredUserInformationUseCaseImpl,
+    ): GetStoredUserInformationUseCase
 }

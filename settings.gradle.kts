@@ -35,14 +35,23 @@ include(
     ":core:location",
     ":core:http-handle",
 
+    ":feature:main",
     ":feature:main-nav-graph",
     ":feature:signin",
     ":feature:splash",
-    ":feature:home",
+
+    ":feature:home:impl",
+    ":feature:home:api",
+
     ":feature:map:impl",
     ":feature:map:api",
-    ":feature:mypage",
-    ":feature:viewmore",
+
+    ":feature:mypage:impl",
+    ":feature:mypage:api",
+
     ":feature:cafedetail:impl",
     ":feature:cafedetail:api",
+
+    ":feature:viewmore:impl",
+    ":feature:viewmore:api",
 )
