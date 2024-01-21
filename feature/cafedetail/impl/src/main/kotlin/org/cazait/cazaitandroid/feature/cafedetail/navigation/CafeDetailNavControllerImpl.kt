@@ -8,12 +8,16 @@ import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavController
 import javax.inject.Inject
 
 internal class CafeDetailNavControllerImpl @Inject constructor() : CafeDetailNavController {
+    override val route: String = CafeDetailRoute.route
+
     override fun navigate(navController: NavController, navInfo: CafeDetailNavControllerInfo) {
         navController.navigateCafeDetail(navInfo.cafeId)
     }
 }
 
 internal class ReviewEditorNavControllerImpl @Inject constructor() : ReviewEditorNavController {
+    override val route: String
+        get() = ReviewEditorRoute.createRoute("")
     override fun navigate(navController: NavController, navInfo: ReviewEditorNavControllerInfo) {
         navController.navigateReviewEditor(navInfo.cafeId)
     }

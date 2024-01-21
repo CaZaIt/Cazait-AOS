@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.mainNavGraph)
 
     implementation(libs.androidx.compose.navigation)
 }
