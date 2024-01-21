@@ -155,7 +155,7 @@ internal fun MainScreen(
                     recentlyViewNavGraph.buildNavGraph(
                         navGraphBuilder = this,
                         navInfo = RecentlyViewNavGraphInfo(
-                            onCafeClick = { navigator.navigateRecentlyView() },
+                            onCafeClick = { navigator.navigateCafeDetail(it) },
                             onBackButtonClick = { navigator.popBackStack() },
                         ),
                     )

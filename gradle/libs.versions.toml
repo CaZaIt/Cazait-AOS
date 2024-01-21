@@ -105,6 +105,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 
 landscapist-bom = { group = "com.github.skydoves", name = "landscapist-bom", version.ref = "landscapist" }
 landscapist-coil = { group = "com.github.skydoves", name = "landscapist-coil" }
+landscapist-glide = { group = "com.github.skydoves", name = "landscapist-glide" }
 landscapist-placeholder = { group = "com.github.skydoves", name = "landscapist-placeholder" }
 landscapist-animation = { group = "com.github.skydoves", name = "landscapist-animation" }
 

@@ -12,6 +12,7 @@ dependencies {
 
     implementation(libs.landscapist.bom)
     implementation(libs.landscapist.coil)
+    implementation(libs.landscapist.glide)
     implementation(libs.landscapist.placeholder)
 
     implementation(libs.androidx.glance)

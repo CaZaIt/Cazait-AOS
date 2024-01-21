@@ -3,7 +3,7 @@ package org.cazait.cazaitandroid.feature.recentlyview.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import org.cazait.cazaitandroid.feature.recentlyview.RecentlyViewedCafeScreen
+import org.cazait.cazaitandroid.feature.recentlyview.RecentlyViewedCafeRoute
 
 internal fun NavController.navigateRecentlyView() {
     navigate(RecentlyViewRoute.route)
@@ -14,7 +14,7 @@ internal fun NavGraphBuilder.recentlyViewNavGraph(
     onBackButtonClick: () -> Unit,
 ) {
     composable(route = RecentlyViewRoute.route) {
-        RecentlyViewedCafeScreen(
+        RecentlyViewedCafeRoute(
             onCafeClick = onCafeClick,
             onBackButtonClick = onBackButtonClick,
         )
