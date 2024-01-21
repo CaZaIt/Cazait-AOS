@@ -38,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
 import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
+import org.cazait.cazaitandroid.core.designsystem.component.TopSurface
 import org.cazait.cazaitandroid.core.designsystem.component.noRippleClickable
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.SunsetOrange
@@ -61,12 +62,7 @@ internal fun MyPageScreen(
         Box(
             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
         ) {
-            Surface(
-                modifier = Modifier.fillMaxWidth().height(140.dp),
-                color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
-                content = {},
-            )
+            TopSurface {}
             Column {
                 Spacer(Modifier.height(52.dp))
                 Row(

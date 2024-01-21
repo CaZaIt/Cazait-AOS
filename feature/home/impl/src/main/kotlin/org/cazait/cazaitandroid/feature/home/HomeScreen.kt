@@ -38,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import org.cazait.cazaitandroid.core.designsystem.component.TopSurface
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.White
@@ -68,11 +69,7 @@ internal fun HomeScreen(
 
 @Composable
 private fun HomeTopBar() {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.background,
-        shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
-    ) {
+    TopSurface {
         Row(
             modifier = Modifier.padding(28.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
