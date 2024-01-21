@@ -24,9 +24,26 @@ interface RecentlyViewedCafeDao {
     @Query("SELECT * FROM CafeEntity ORDER BY storedDate DESC")
     suspend fun sortByDate(): List<CafeEntity>
 
+    @Query("SELECT COUNT(id) FROM CafeEntity")
+    suspend fun getRecentlyViewedCafeCount(): Int
+
+    @Query("DELETE FROM CafeEntity WHERE storedDate = (SELECT MIN(storedDate) FROM CafeEntity)")
+    suspend fun deleteOldestCafe()
+
     @Update
     suspend fun updateRecentlyViewedCafe(cafe: CafeEntity)
 
     @Delete
     suspend fun deleteRecentlyViewedCafe(cafe: CafeEntity)
+
+    suspend fun addRecentlyViewedCafeWithLimit(cafe: CafeEntity) {
+        if (getRecentlyViewedCafeCount() >= MAX_COUNT) {
+            deleteOldestCafe()
+        }
+        addRecentlyViewedCafe(cafe)
+    }
+
+    companion object {
+        private const val MAX_COUNT = 100
+    }
 }

@@ -33,7 +33,7 @@ internal class DefaultHomeRepository @Inject constructor(
     }
 
     override suspend fun addRecentlyViewedCafeToDB(cafe: Cafe) {
-        recentlyViewedCafeDao.addRecentlyViewedCafe(
+        recentlyViewedCafeDao.addRecentlyViewedCafeWithLimit(
             cafe.toEntity(date = Date()),
         )
     }
