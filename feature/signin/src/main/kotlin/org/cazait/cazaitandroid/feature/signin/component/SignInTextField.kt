@@ -19,8 +19,8 @@ import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 internal fun SignInTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     value: String = "",
-    visualTransform: VisualTransformation = VisualTransformation.None,
     placeholder: @Composable () -> Unit,
 ) {
     TextField(
@@ -36,8 +36,8 @@ internal fun SignInTextField(
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
         ),
+        visualTransformation = visualTransformation,
         singleLine = true,
-        visualTransformation = visualTransform,
     )
 }
 

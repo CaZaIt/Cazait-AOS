@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.cazait.cazaitandroid.feature.splash.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
 import javax.inject.Inject
 
 @HiltViewModel

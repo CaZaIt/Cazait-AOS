@@ -15,7 +15,7 @@ android {
         buildConfigField(
             type = "String",
             name = "naverMapsClientId",
-            value = properties.getProperty("naverMapsClientId")
+            value = properties.getProperty("naverMapsClientId"),
         )
     }
     buildFeatures {
@@ -26,6 +26,8 @@ android {
 dependencies {
     implementation(projects.core.repo.home.api)
     implementation(projects.core.location)
+    implementation(projects.feature.map.api)
+    implementation(projects.feature.mainNavGraph)
 
     implementation(libs.accompanist.permissions)
     implementation(libs.play.services.location)

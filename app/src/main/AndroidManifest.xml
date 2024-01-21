@@ -19,7 +19,7 @@
         tools:targetApi="34">
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".feature.main.MainActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:theme="@style/Theme.CazaitAndroid.TransparentSystemBar">

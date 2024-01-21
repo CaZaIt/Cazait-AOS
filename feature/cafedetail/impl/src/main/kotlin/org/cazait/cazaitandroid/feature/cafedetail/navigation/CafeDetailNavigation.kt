@@ -11,11 +11,11 @@ import org.cazait.cazaitandroid.feature.cafedetail.ReviewEditorScreen
 import java.util.UUID
 
 internal fun NavController.navigateCafeDetail(cafeId: String) {
-    navigate(CafeDetailNav.createRoute(cafeId), navOptions { restoreState = true })
+    navigate(CafeDetailRoute.createRoute(cafeId), navOptions { restoreState = true })
 }
 
 internal fun NavController.navigateReviewEditor(cafeId: String) {
-    navigate(ReviewEditorNav.createRoute(cafeId))
+    navigate(ReviewEditorRoute.createRoute(cafeId))
 }
 
 internal fun NavGraphBuilder.cafeDetailNavGraph(
@@ -25,7 +25,7 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
     onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 ) {
     composable(
-        route = CafeDetailNav.createRoute("{cafeId}"),
+        route = CafeDetailRoute.createRoute("{cafeId}"),
         arguments = listOf(
             navArgument("cafeId") {
                 type = NavType.StringType
@@ -47,7 +47,7 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
     }
 
     composable(
-        route = ReviewEditorNav.createRoute("{cafeId}"),
+        route = ReviewEditorRoute.createRoute("{cafeId}"),
         arguments = listOf(
             navArgument("cafeId") {
                 type = NavType.StringType
@@ -69,12 +69,12 @@ internal fun NavGraphBuilder.cafeDetailNavGraph(
     }
 }
 
-internal object CafeDetailNav {
-    private const val route: String = "cafeDetail"
+internal object CafeDetailRoute {
+    const val route: String = "cafeDetail"
     fun createRoute(cafeId: String): String = "$route/$cafeId"
 }
 
-internal object ReviewEditorNav {
+internal object ReviewEditorRoute {
     private const val route: String = "reviewEditor"
     fun createRoute(cafeId: String): String = "$route/$cafeId"
 }
