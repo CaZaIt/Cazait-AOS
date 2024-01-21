@@ -1,5 +1,6 @@
 package org.cazait.cazaitandroid.core.repo.home.api
 
+import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
@@ -13,4 +14,6 @@ interface HomeRepository {
         sort: SortBy,
         limit: DistanceLimit,
     ): CongestionCafes
+
+    suspend fun addRecentlyViewedCafeToDB(cafe: Cafe)
 }

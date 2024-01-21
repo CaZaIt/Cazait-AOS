@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.flow.Flow
 import org.cazait.cazaitandroid.core.local.recentview.model.CafeEntity
 import java.util.UUID
 
@@ -17,13 +16,13 @@ interface RecentlyViewedCafeDao {
     suspend fun addRecentlyViewedCafe(cafe: CafeEntity)
 
     @Query("SELECT * FROM CafeEntity")
-    fun getAllRecentlyViewedCafes(): Flow<List<CafeEntity>>
+    suspend fun getAllRecentlyViewedCafes(): List<CafeEntity>
 
     @Query("SELECT * FROM CafeEntity WHERE id = :cafeId")
     fun findRecentlyViewedCafeById(cafeId: UUID): CafeEntity
 
     @Query("SELECT * FROM CafeEntity ORDER BY storedDate DESC")
-    fun sortByDate(): Flow<List<CafeEntity>>
+    suspend fun sortByDate(): List<CafeEntity>
 
     @Update
     suspend fun updateRecentlyViewedCafe(cafe: CafeEntity)

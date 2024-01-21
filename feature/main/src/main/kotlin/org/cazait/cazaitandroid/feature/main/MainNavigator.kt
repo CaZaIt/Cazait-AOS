@@ -19,6 +19,7 @@ import org.cazait.cazaitandroid.feature.map.api.MapNavControllerInfo
 import org.cazait.cazaitandroid.feature.mypage.api.MyPageNavController
 import org.cazait.cazaitandroid.feature.mypage.api.MyPageNavControllerInfo
 import org.cazait.cazaitandroid.feature.nav.CazaitTab
+import org.cazait.cazaitandroid.feature.recentlyview.api.RecentlyViewNavController
 import org.cazait.cazaitandroid.feature.signin.navigateSignIn
 import org.cazait.cazaitandroid.feature.splash.SplashNav
 import org.cazait.cazaitandroid.feature.viewmore.api.ViewMoreNavController
@@ -33,6 +34,7 @@ internal class MainNavigator(
     private val cafeDetailNavController: CafeDetailNavController,
     private val reviewEditorNavController: ReviewEditorNavController,
     private val viewMoreNavController: ViewMoreNavController,
+    private val recentlyViewNavController: RecentlyViewNavController,
     private val mainTabs: MainTabs,
 ) {
     private val currentDestination: NavDestination?
@@ -105,6 +107,13 @@ internal class MainNavigator(
         )
     }
 
+    fun navigateRecentlyView() {
+        recentlyViewNavController.navigate(
+            navController = navController,
+            navInfo = Unit,
+        )
+    }
+
     @Composable
     fun shouldShowBottomBar(): Boolean {
         val currentRoute = currentDestination?.route ?: return false
@@ -118,6 +127,7 @@ internal class MainNavigator(
         private val viewMoreNavController: ViewMoreNavController,
         private val cafeDetailNavController: CafeDetailNavController,
         private val reviewEditorNavController: ReviewEditorNavController,
+        private val recentlyViewNavController: RecentlyViewNavController,
         private val mainTabs: MainTabs,
     ) {
         fun create(navController: NavHostController): MainNavigator {
@@ -129,6 +139,7 @@ internal class MainNavigator(
                 viewMoreNavController = viewMoreNavController,
                 cafeDetailNavController = cafeDetailNavController,
                 reviewEditorNavController = reviewEditorNavController,
+                recentlyViewNavController = recentlyViewNavController,
                 mainTabs = mainTabs,
             )
         }

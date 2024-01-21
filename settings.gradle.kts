@@ -57,4 +57,7 @@ include(
 
     ":feature:viewmore:impl",
     ":feature:viewmore:api",
+
+    ":feature:recentlyview:impl",
+    ":feature:recentlyview:api",
 )

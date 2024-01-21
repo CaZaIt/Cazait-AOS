@@ -8,5 +8,6 @@ interface MyPageNavGraph : CazaitNavGraph<MyPageNavGraphInfo>
 data class MyPageNavGraphInfo(
     val padding: PaddingValues,
     val onSignIn: () -> Unit,
+    val onRecentlyViewedCafeClick: () -> Unit,
     val onShowErrorSnackbar: (throwable: Throwable?) -> Unit,
 )

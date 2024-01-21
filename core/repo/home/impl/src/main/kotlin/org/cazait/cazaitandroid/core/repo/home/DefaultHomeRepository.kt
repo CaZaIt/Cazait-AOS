@@ -1,17 +1,22 @@
 package org.cazait.cazaitandroid.core.repo.home
 
+import org.cazait.cazaitandroid.core.local.recentview.RecentlyViewedCafeDao
 import org.cazait.cazaitandroid.core.repo.home.api.HomeRepository
+import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
 import org.cazait.cazaitandroid.core.repo.home.mapper.toData
+import org.cazait.cazaitandroid.core.repo.home.mapper.toEntity
 import org.cazait.cazaitandroid.core.repo.home.network.HomeApi
+import java.util.Date
 import javax.inject.Inject
 
 internal class DefaultHomeRepository @Inject constructor(
     private val homeApi: HomeApi,
+    private val recentlyViewedCafeDao: RecentlyViewedCafeDao,
 ) : HomeRepository {
     override suspend fun getAllCongestionCafes(
         latitude: Latitude,
@@ -25,5 +30,11 @@ internal class DefaultHomeRepository @Inject constructor(
             sort.name,
             limit.asString(),
         ).data[0].toData()
+    }
+
+    override suspend fun addRecentlyViewedCafeToDB(cafe: Cafe) {
+        recentlyViewedCafeDao.addRecentlyViewedCafe(
+            cafe.toEntity(date = Date()),
+        )
     }
 }

@@ -17,6 +17,7 @@ dependencies {
     implementation(projects.feature.mypage.api)
     implementation(projects.feature.map.api)
     implementation(projects.feature.viewmore.api)
+    implementation(projects.feature.recentlyview.api)
 
     implementation(libs.kotlinx.immutable)
     implementation(libs.androidx.appcompat)

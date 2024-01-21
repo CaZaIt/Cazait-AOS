@@ -10,6 +10,7 @@ internal class MyPageNavGraphImpl @Inject constructor() : MyPageNavGraph {
         navGraphBuilder.myPageNavGraph(
             navInfo.padding,
             navInfo.onSignIn,
+            navInfo.onRecentlyViewedCafeClick,
             navInfo.onShowErrorSnackbar,
         )
     }

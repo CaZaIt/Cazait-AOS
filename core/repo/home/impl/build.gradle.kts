@@ -13,6 +13,7 @@ android {
 
 dependencies {
     implementation(projects.core.repo.home.api)
+    implementation(projects.core.local.recentview)
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)

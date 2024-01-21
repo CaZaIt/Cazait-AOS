@@ -36,10 +36,12 @@ dependencies {
     implementation(projects.feature.cafedetail.impl)
     implementation(projects.feature.mypage.impl)
     implementation(projects.feature.viewmore.impl)
+    implementation(projects.feature.recentlyview.impl)
 
     implementation(projects.core.repo.signin.impl)
     implementation(projects.core.repo.home.impl)
     implementation(projects.core.repo.cafedetail.impl)
+    implementation(projects.core.repo.recentlyview.impl)
 
     implementation(projects.core.http)
     implementation(projects.core.designsystem)
