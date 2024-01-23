@@ -35,7 +35,7 @@ internal class HomeViewModel @Inject constructor(
     private val _currentLocation = MutableStateFlow(LocationDetails(37.5538202, 127.0832242))
     val currentLocation = _currentLocation.asStateFlow()
 
-    private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Loading)
+    private val _uiState: MutableStateFlow<HomeAllCafesUiState> = MutableStateFlow(HomeAllCafesUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -63,7 +63,7 @@ internal class HomeViewModel @Inject constructor(
             }
 
             PermissionEvent.Revoked -> {
-                _uiState.update { HomeUiState.RevokedPermissions }
+                _uiState.update { HomeAllCafesUiState.RevokedPermissions }
             }
         }
     }
@@ -78,7 +78,7 @@ internal class HomeViewModel @Inject constructor(
         sortBy: SortBy = SortBy.DISTANCE,
         limit: DistanceLimit = DistanceLimit(2000),
     ) {
-        _uiState.update { HomeUiState.Loading }
+        _uiState.update { HomeAllCafesUiState.Loading }
 
         viewModelScope.launch {
             flow {
@@ -91,7 +91,7 @@ internal class HomeViewModel @Inject constructor(
                     ),
                 )
             }
-                .map(HomeUiState::Success)
+                .map(HomeAllCafesUiState::Success)
                 .catch {
                     it.printStackTrace()
                     _errorFlow.emit(it)

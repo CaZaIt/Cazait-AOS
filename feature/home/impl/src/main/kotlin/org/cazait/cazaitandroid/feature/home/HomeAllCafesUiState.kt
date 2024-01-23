@@ -2,14 +2,14 @@ package org.cazait.cazaitandroid.feature.home
 
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 
-internal sealed interface HomeUiState {
-    data object Loading : HomeUiState
+internal sealed interface HomeAllCafesUiState {
+    data object Loading : HomeAllCafesUiState
 
     data class Success(
         val congestionCafes: CongestionCafes,
-    ) : HomeUiState
+    ) : HomeAllCafesUiState
 
-    data object RevokedPermissions : HomeUiState
+    data object RevokedPermissions : HomeAllCafesUiState
 }
 
 internal sealed interface PermissionEvent {

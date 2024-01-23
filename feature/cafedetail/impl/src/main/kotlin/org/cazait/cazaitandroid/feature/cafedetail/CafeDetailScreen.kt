@@ -1,6 +1,5 @@
 package org.cazait.cazaitandroid.feature.cafedetail
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,18 +34,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import kotlinx.collections.immutable.toImmutableList
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.CollapsingToolbarScope
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
+import org.cazait.cazaitandroid.core.designsystem.component.HorizontalDotLine
 import org.cazait.cazaitandroid.core.designsystem.component.NetworkImage
 import org.cazait.cazaitandroid.core.designsystem.component.noRippleClickable
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
@@ -155,62 +152,44 @@ private fun CollapsingToolbarScope.CafeBackgroundHeader(
         shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
         color = MaterialTheme.colorScheme.primaryContainer,
     ) {
-        ConstraintLayout {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 28.dp)
+                    .padding(top = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 28.dp)
-                        .padding(top = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Text(
-                        text = cafeName.asString(),
-                        modifier = Modifier.padding(end = 12.dp),
-                        style = CazaitTheme.typography.titleLargeBL,
-                    )
-
-                    Text(
-                        text = stringResource(R.string.check_store_address_with_map),
-                        modifier = Modifier.align(Alignment.Bottom),
-                        style = CazaitTheme.typography.bodySmallR,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-
-                    Spacer(modifier = Modifier.weight(1f))
-                    Image(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_heart_empty),
-                        contentDescription = "찜하기 버튼",
-                        modifier = Modifier
-                            .size(26.dp)
-                            .align(Alignment.CenterVertically),
-                    )
-                }
                 Text(
-                    text = address.asString(),
-                    modifier = Modifier.padding(start = 28.dp),
+                    text = cafeName.asString(),
+                    modifier = Modifier.padding(end = 12.dp),
+                    style = CazaitTheme.typography.titleLargeBL,
+                )
+
+                Text(
+                    text = stringResource(R.string.check_store_address_with_map),
+                    modifier = Modifier.align(Alignment.Bottom),
                     style = CazaitTheme.typography.bodySmallR,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+                Image(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_heart_empty),
+                    contentDescription = "찜하기 버튼",
+                    modifier = Modifier
+                        .size(26.dp)
+                        .align(Alignment.CenterVertically),
                 )
             }
-        }
-        Canvas(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 28.dp),
-        ) {
-            val canvasWidth = size.width
-            val yPosition = size.height
-            val pathEffect = PathEffect.dashPathEffect(floatArrayOf(30f, 15f), 0f)
-
-            drawLine(
-                color = SunsetOrange,
-                start = Offset(0f, yPosition),
-                end = Offset(canvasWidth, yPosition),
-                pathEffect = pathEffect,
-                strokeWidth = 1.dp.toPx(),
+            Text(
+                text = address.asString(),
+                modifier = Modifier.padding(start = 28.dp),
+                style = CazaitTheme.typography.bodySmallR,
             )
+            HorizontalDotLine()
         }
     }
 }
