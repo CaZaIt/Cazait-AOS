@@ -17,14 +17,14 @@ import org.cazait.cazaitandroid.core.model.AccountName
 import org.cazait.cazaitandroid.core.model.Password
 import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
 import org.cazait.cazaitandroid.core.repo.signin.api.model.UserInformation
+import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.feature.signin.usecase.PostSignInUseCase
-import org.cazait.cazaitandroid.feature.signin.usecase.UpdateUserInformationToLocalUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 internal class SignInViewModel @Inject constructor(
     private val postSignInUseCase: PostSignInUseCase,
-    private val updateUserInformationToLocalUseCase: UpdateUserInformationToLocalUseCase,
+    private val updateStoredUserInformationUseCase: UpdateStoredUserInformationUseCase,
 ) : ViewModel() {
     // 예상치 못한 에러가 발생했을 경우
     private val _errorFlow = MutableSharedFlow<Throwable>()
@@ -66,8 +66,8 @@ internal class SignInViewModel @Inject constructor(
             flow {
                 emit(
                     postSignInUseCase(
-                        org.cazait.cazaitandroid.core.model.AccountName(state.accountNameInput),
-                        org.cazait.cazaitandroid.core.model.Password(state.password),
+                        AccountName(state.accountNameInput),
+                        Password(state.password),
                     ),
                 )
             }
@@ -94,7 +94,7 @@ internal class SignInViewModel @Inject constructor(
             userInformation.refreshToken,
         )
         viewModelScope.launch {
-            updateUserInformationToLocalUseCase(storedUser)
+            updateStoredUserInformationUseCase(storedUser)
         }
     }
 }
