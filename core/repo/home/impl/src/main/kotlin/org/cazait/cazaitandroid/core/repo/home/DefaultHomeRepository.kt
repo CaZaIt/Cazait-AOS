@@ -2,12 +2,15 @@ package org.cazait.cazaitandroid.core.repo.home
 
 import org.cazait.cazaitandroid.core.local.recentview.RecentlyViewedCafeDao
 import org.cazait.cazaitandroid.core.repo.home.api.HomeRepository
+import org.cazait.cazaitandroid.core.repo.home.api.model.AccessToken
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
+import org.cazait.cazaitandroid.core.repo.home.api.model.FavoritedCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
+import org.cazait.cazaitandroid.core.repo.home.api.model.UserId
 import org.cazait.cazaitandroid.core.repo.home.mapper.toData
 import org.cazait.cazaitandroid.core.repo.home.mapper.toEntity
 import org.cazait.cazaitandroid.core.repo.home.network.HomeApi
@@ -36,5 +39,12 @@ internal class DefaultHomeRepository @Inject constructor(
         recentlyViewedCafeDao.addRecentlyViewedCafeWithLimit(
             cafe.toEntity(date = Date()),
         )
+    }
+
+    override suspend fun getAllFavoritedCafes(
+        userId: UserId,
+        accessToken: AccessToken
+    ): FavoritedCafes {
+        TODO("Not yet implemented")
     }
 }
