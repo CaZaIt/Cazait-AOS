@@ -14,6 +14,7 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.UserId
 import org.cazait.cazaitandroid.core.repo.home.mapper.toData
 import org.cazait.cazaitandroid.core.repo.home.mapper.toEntity
 import org.cazait.cazaitandroid.core.repo.home.network.HomeApi
+import org.cazait.cazaitandroid.core.repo.home.network.model.FavoritedCafeResponse
 import java.util.Date
 import javax.inject.Inject
 
@@ -43,8 +44,11 @@ internal class DefaultHomeRepository @Inject constructor(
 
     override suspend fun getAllFavoritedCafes(
         userId: UserId,
-        accessToken: AccessToken
-    ): FavoritedCafes {
-        TODO("Not yet implemented")
-    }
+        accessToken: AccessToken,
+    ): FavoritedCafes = FavoritedCafes(
+        homeApi.getAllFavoritedCafes(
+            userId = userId.asString(),
+            accessToken = homeApi.createTokenHeader(accessToken.asString()),
+        ).data.map(FavoritedCafeResponse::toData),
+    )
 }
