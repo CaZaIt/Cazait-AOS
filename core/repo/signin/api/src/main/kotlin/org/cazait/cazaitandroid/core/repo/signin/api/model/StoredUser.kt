@@ -5,7 +5,7 @@ import org.cazait.cazaitandroid.core.model.AccountName
 import org.cazait.cazaitandroid.core.model.RefreshToken
 import org.cazait.cazaitandroid.core.model.UserId
 
-class StoredUser(
+data class StoredUser(
     val userId: UserId,
     val accountName: AccountName,
     val accessToken: AccessToken,

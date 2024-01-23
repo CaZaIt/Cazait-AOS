@@ -9,8 +9,8 @@ import org.cazait.cazaitandroid.core.repo.signin.network.model.UserInformationRe
 import java.util.UUID
 
 internal fun UserInformationResponse.toData(): UserInformation = UserInformation(
-    userId = org.cazait.cazaitandroid.core.model.UserId(UUID.fromString(id)),
-    accountName = org.cazait.cazaitandroid.core.model.AccountName(accountName),
+    userId = UserId(UUID.fromString(id)),
+    accountName = AccountName(accountName),
     accessToken = AccessToken(accessToken),
     refreshToken = RefreshToken(refreshToken),
 )

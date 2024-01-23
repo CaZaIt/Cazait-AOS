@@ -16,7 +16,9 @@ import org.cazait.cazaitandroid.core.repo.signin.DefaultStoredUserRepository
 import org.cazait.cazaitandroid.core.repo.signin.StoredUserPreferencesDataSource
 import org.cazait.cazaitandroid.core.repo.signin.api.StoredUserRepository
 import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.core.repo.signin.usecase.GetStoredUserInformationUseCaseImpl
+import org.cazait.cazaitandroid.core.repo.signin.usecase.UpdateStoredUserInformationUseCaseImpl
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -51,4 +53,10 @@ internal abstract class StoredUserUseCaseModule {
     abstract fun bindGetStoredUserUseCase(
         dataSource: GetStoredUserInformationUseCaseImpl,
     ): GetStoredUserInformationUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUpdateStoredUserUseCase(
+        dataSource: UpdateStoredUserInformationUseCaseImpl,
+    ): UpdateStoredUserInformationUseCase
 }

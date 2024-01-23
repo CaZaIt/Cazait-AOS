@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
 import org.cazait.cazaitandroid.core.location.LocationDetails
 import org.cazait.cazaitandroid.core.location.usecase.GetLocationUseCase
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
@@ -22,8 +23,10 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
 import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetFavoritedCafesUseCase
+import org.cazait.cazaitandroid.feature.home.usecase.GetRefreshAccessTokenUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.StoreViewedCafeUseCase
 import javax.inject.Inject
 
@@ -33,7 +36,9 @@ internal class HomeViewModel @Inject constructor(
     private val storeViewedCafeUseCase: StoreViewedCafeUseCase,
     private val getFavoritedCafesUseCase: GetFavoritedCafesUseCase,
     private val getCongestionCafesUseCase: GetCongestionCafesUseCase,
+    private val getRefreshAccessTokenUseCase: GetRefreshAccessTokenUseCase,
     private val getStoredUserInformationUseCase: GetStoredUserInformationUseCase,
+    private val updateStoredUserInformationUseCase: UpdateStoredUserInformationUseCase,
 ) : ViewModel() {
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
@@ -82,17 +87,46 @@ internal class HomeViewModel @Inject constructor(
         }
     }
 
+    // 이 부분 UseCase로 추출
     fun fetchFavoritedCafes() {
         viewModelScope.launch {
             getStoredUserInformationUseCase().filterNotNull().collect { user ->
                 runCatching {
-                    val favoritedCafes = getFavoritedCafesUseCase(
+                    getFavoritedCafesUseCase(
                         userId = user.userId,
                         accessToken = user.accessToken,
-                    )
-                    Log.e("HomeViewModel", "${favoritedCafes.asList()}")
-                }.onFailure {
-                    it.printStackTrace()
+                    ).also {
+                        Log.e("HomeViewModel", "${it.asList()}")
+                    }
+                }.onFailure { exception ->
+                    if (exception is CazaitHttpException) {
+                        when (exception.code) {
+                            401 -> {
+                                flow {
+                                    emit(
+                                        getRefreshAccessTokenUseCase(
+                                            user.accessToken,
+                                            user.refreshToken,
+                                        ),
+                                    )
+                                }.catch { unexpectedError ->
+                                    _errorFlow.emit(unexpectedError)
+                                }.collect { userInformation ->
+                                    runCatching {
+                                        updateStoredUserInformationUseCase(
+                                            user.copy(
+                                                accessToken = userInformation.accessToken,
+                                                refreshToken = userInformation.refreshToken,
+                                            ),
+                                        )
+                                    }.onFailure {
+                                    }.onSuccess {
+                                        fetchFavoritedCafes()
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

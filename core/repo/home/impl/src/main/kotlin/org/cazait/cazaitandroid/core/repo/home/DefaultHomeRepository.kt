@@ -1,7 +1,9 @@
 package org.cazait.cazaitandroid.core.repo.home
 
+import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
 import org.cazait.cazaitandroid.core.local.recentview.RecentlyViewedCafeDao
 import org.cazait.cazaitandroid.core.model.AccessToken
+import org.cazait.cazaitandroid.core.model.UserId
 import org.cazait.cazaitandroid.core.repo.home.api.HomeRepository
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
@@ -14,6 +16,7 @@ import org.cazait.cazaitandroid.core.repo.home.mapper.toData
 import org.cazait.cazaitandroid.core.repo.home.mapper.toEntity
 import org.cazait.cazaitandroid.core.repo.home.network.HomeApi
 import org.cazait.cazaitandroid.core.repo.home.network.model.FavoritedCafeResponse
+import retrofit2.HttpException
 import java.util.Date
 import javax.inject.Inject
 
@@ -44,10 +47,14 @@ internal class DefaultHomeRepository @Inject constructor(
     override suspend fun getFavoritedCafes(
         userId: UserId,
         accessToken: AccessToken,
-    ): FavoritedCafes = FavoritedCafes(
-        homeApi.getAllFavoritedCafes(
-            userId = userId.asString(),
-            accessToken = homeApi.createTokenHeader(accessToken.asString()),
-        ).data.map(FavoritedCafeResponse::toData),
-    )
+    ): FavoritedCafes = try {
+        FavoritedCafes(
+            homeApi.getAllFavoritedCafes(
+                userId = userId.asString(),
+                accessToken = HomeApi.createTokenHeader(accessToken.asString()),
+            ).data.map(FavoritedCafeResponse::toData),
+        )
+    } catch (e: HttpException) {
+        throw CazaitHttpException(e.message(), e.code())
+    }
 }

@@ -10,8 +10,8 @@ internal class DefaultStoredUserRepository @Inject constructor(
 ) : StoredUserRepository {
     override fun getUser(): Flow<StoredUser?> = preferencesDataSource.storedUserData
 
-    override suspend fun updateStoredUser(user: StoredUser) {
-        preferencesDataSource.updateStoredUser(user)
+    override suspend fun updateStoredUser(user: StoredUser): StoredUser {
+        return preferencesDataSource.updateStoredUser(user)
     }
 
     override suspend fun deleteStoredUser() {

@@ -28,5 +28,7 @@ internal interface HomeApi {
         userId: String,
     ): GetAllFavoritedCafesResponse
 
-    fun createTokenHeader(accessToken: String): String = "Bearer $accessToken"
+    companion object {
+        fun createTokenHeader(accessToken: String): String = "Bearer $accessToken"
+    }
 }

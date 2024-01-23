@@ -14,6 +14,10 @@ import org.cazait.cazaitandroid.feature.home.navigation.HomeNavGraphImpl
 import org.cazait.cazaitandroid.feature.home.navigation.HomeTab
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCaseImpl
+import org.cazait.cazaitandroid.feature.home.usecase.GetFavoritedCafesUseCase
+import org.cazait.cazaitandroid.feature.home.usecase.GetFavoritedCafesUseCaseImpl
+import org.cazait.cazaitandroid.feature.home.usecase.GetRefreshAccessTokenUseCase
+import org.cazait.cazaitandroid.feature.home.usecase.GetRefreshAccessTokenUseCaseImpl
 import org.cazait.cazaitandroid.feature.home.usecase.StoreViewedCafeUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.StoreViewedCafeUseCaseImpl
 import org.cazait.cazaitandroid.feature.nav.CazaitTab
@@ -52,4 +56,16 @@ internal abstract class UseCaseBindModule {
     abstract fun bindStoreViewedCafeUseCase(
         dataSource: StoreViewedCafeUseCaseImpl,
     ): StoreViewedCafeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetFavoritedCafesUseCase(
+        dataSource: GetFavoritedCafesUseCaseImpl,
+    ): GetFavoritedCafesUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun getRefreshAccessTokenUseCase(
+        dataSource: GetRefreshAccessTokenUseCaseImpl,
+    ): GetRefreshAccessTokenUseCase
 }

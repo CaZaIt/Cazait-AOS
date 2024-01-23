@@ -1,6 +1,7 @@
 package org.cazait.cazaitandroid.core.repo.home.api
 
 import org.cazait.cazaitandroid.core.model.AccessToken
+import org.cazait.cazaitandroid.core.model.UserId
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
