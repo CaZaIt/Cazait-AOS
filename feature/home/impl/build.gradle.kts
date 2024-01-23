@@ -8,6 +8,7 @@ android {
 
 dependencies {
     implementation(projects.core.repo.home.api)
+    implementation(projects.core.repo.signin.api)
     implementation(projects.feature.home.api)
 
     implementation(projects.core.location)

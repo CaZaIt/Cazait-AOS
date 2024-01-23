@@ -13,6 +13,7 @@ android {
 
 dependencies {
     implementation(projects.core.repo.signin.api)
+    implementation(projects.core.model.token)
 
     implementation(libs.androidx.datastore)
 

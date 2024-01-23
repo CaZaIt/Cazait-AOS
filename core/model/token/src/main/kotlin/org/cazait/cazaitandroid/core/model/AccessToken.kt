@@ -1,4 +1,4 @@
-package org.cazait.cazaitandroid.core.repo.home.api.model
+package org.cazait.cazaitandroid.core.model
 
 @JvmInline
 value class AccessToken(private val token: String) {

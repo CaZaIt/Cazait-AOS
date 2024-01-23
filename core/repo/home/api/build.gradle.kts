@@ -4,6 +4,8 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core.model.token)
+
     api(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
 }

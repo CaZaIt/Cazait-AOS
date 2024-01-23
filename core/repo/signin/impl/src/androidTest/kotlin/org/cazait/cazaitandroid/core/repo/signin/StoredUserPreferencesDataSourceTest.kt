@@ -10,11 +10,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import org.cazait.cazaitandroid.core.repo.signin.api.model.AccessToken
-import org.cazait.cazaitandroid.core.repo.signin.api.model.AccountName
-import org.cazait.cazaitandroid.core.repo.signin.api.model.RefreshToken
+import org.cazait.cazaitandroid.core.model.AccessToken
+import org.cazait.cazaitandroid.core.model.AccountName
+import org.cazait.cazaitandroid.core.model.RefreshToken
 import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
-import org.cazait.cazaitandroid.core.repo.signin.api.model.UserId
+import org.cazait.cazaitandroid.core.model.UserId
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,8 +30,8 @@ class StoredUserPreferencesDataSourceTest {
         ) { testContext.preferencesDataStoreFile("test_datastore") }
     private val testDataSource = StoredUserPreferencesDataSource(testDataStore)
 
-    private val testUserId = UserId(UUID.randomUUID())
-    private val testAccountName = AccountName("TestUser")
+    private val testUserId = org.cazait.cazaitandroid.core.model.UserId(UUID.randomUUID())
+    private val testAccountName = org.cazait.cazaitandroid.core.model.AccountName("TestUser")
     private val testAccessToken = AccessToken("access-token-12345")
     private val testRefreshToken = RefreshToken("refresh-token-12345")
 

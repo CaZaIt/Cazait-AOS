@@ -1,5 +1,6 @@
 package org.cazait.cazaitandroid.feature.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
@@ -19,7 +21,9 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
+import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCase
+import org.cazait.cazaitandroid.feature.home.usecase.GetFavoritedCafesUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.StoreViewedCafeUseCase
 import javax.inject.Inject
 
@@ -27,7 +31,9 @@ import javax.inject.Inject
 internal class HomeViewModel @Inject constructor(
     private val getLocationUseCase: GetLocationUseCase,
     private val storeViewedCafeUseCase: StoreViewedCafeUseCase,
+    private val getFavoritedCafesUseCase: GetFavoritedCafesUseCase,
     private val getCongestionCafesUseCase: GetCongestionCafesUseCase,
+    private val getStoredUserInformationUseCase: GetStoredUserInformationUseCase,
 ) : ViewModel() {
     private val _errorFlow = MutableSharedFlow<Throwable>()
     val errorFlow = _errorFlow.asSharedFlow()
@@ -35,11 +41,13 @@ internal class HomeViewModel @Inject constructor(
     private val _currentLocation = MutableStateFlow(LocationDetails(37.5538202, 127.0832242))
     val currentLocation = _currentLocation.asStateFlow()
 
-    private val _uiState: MutableStateFlow<HomeAllCafesUiState> = MutableStateFlow(HomeAllCafesUiState.Loading)
+    private val _uiState: MutableStateFlow<HomeAllCafesUiState> =
+        MutableStateFlow(HomeAllCafesUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     init {
         fetchCongestionCafes()
+        fetchFavoritedCafes()
     }
 
     fun handlePermission(event: PermissionEvent) {
@@ -71,6 +79,22 @@ internal class HomeViewModel @Inject constructor(
     fun storeViewedCafe(cafe: Cafe) {
         viewModelScope.launch {
             storeViewedCafeUseCase(cafe)
+        }
+    }
+
+    fun fetchFavoritedCafes() {
+        viewModelScope.launch {
+            getStoredUserInformationUseCase().filterNotNull().collect { user ->
+                runCatching {
+                    val favoritedCafes = getFavoritedCafesUseCase(
+                        userId = user.userId,
+                        accessToken = user.accessToken,
+                    )
+                    Log.e("HomeViewModel", "${favoritedCafes.asList()}")
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package org.cazait.cazaitandroid.core.repo.home.api
 
-import org.cazait.cazaitandroid.core.repo.home.api.model.AccessToken
+import org.cazait.cazaitandroid.core.model.AccessToken
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
@@ -8,7 +8,6 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.FavoritedCafes
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
-import org.cazait.cazaitandroid.core.repo.home.api.model.UserId
 
 interface HomeRepository {
     suspend fun getAllCongestionCafes(
@@ -20,7 +19,7 @@ interface HomeRepository {
 
     suspend fun addRecentlyViewedCafeToDB(cafe: Cafe)
 
-    suspend fun getAllFavoritedCafes(
+    suspend fun getFavoritedCafes(
         userId: UserId,
         accessToken: AccessToken,
     ): FavoritedCafes

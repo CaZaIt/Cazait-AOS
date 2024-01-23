@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
-import org.cazait.cazaitandroid.core.repo.signin.api.model.AccountName
-import org.cazait.cazaitandroid.core.repo.signin.api.model.Password
+import org.cazait.cazaitandroid.core.model.AccountName
+import org.cazait.cazaitandroid.core.model.Password
 import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
 import org.cazait.cazaitandroid.core.repo.signin.api.model.UserInformation
 import org.cazait.cazaitandroid.feature.signin.usecase.PostSignInUseCase
@@ -66,8 +66,8 @@ internal class SignInViewModel @Inject constructor(
             flow {
                 emit(
                     postSignInUseCase(
-                        AccountName(state.accountNameInput),
-                        Password(state.password),
+                        org.cazait.cazaitandroid.core.model.AccountName(state.accountNameInput),
+                        org.cazait.cazaitandroid.core.model.Password(state.password),
                     ),
                 )
             }

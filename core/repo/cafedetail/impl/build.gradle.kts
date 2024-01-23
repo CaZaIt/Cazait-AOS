@@ -13,6 +13,8 @@ android {
 
 dependencies {
     implementation(projects.core.repo.cafedetail.api)
+    implementation(projects.core.model.token)
+
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)

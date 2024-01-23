@@ -18,6 +18,8 @@ dependencyResolutionManagement {
 rootProject.name = "CazaitAndroid"
 include(
     ":app",
+    ":core:model:token",
+    ":core:model:user",
 
     ":core:repo:signin:api",
     ":core:repo:signin:impl",

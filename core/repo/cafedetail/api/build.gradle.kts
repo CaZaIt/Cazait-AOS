@@ -4,5 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core.model.token)
+
     implementation(libs.kotlinx.serialization.json)
 }
