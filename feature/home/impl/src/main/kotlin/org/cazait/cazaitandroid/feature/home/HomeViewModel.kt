@@ -4,17 +4,20 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
+import org.cazait.cazaitandroid.core.local.user.StoredUser
 import org.cazait.cazaitandroid.core.local.user.usecase.GetStoredUserInformationUseCase
 import org.cazait.cazaitandroid.core.local.user.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.core.location.LocationDetails
@@ -51,7 +54,8 @@ internal class HomeViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        fetchCongestionCafes()
+        Log.e("HomeViewModel", "init")
+//        fetchCongestionCafes()
         fetchFavoritedCafes()
     }
 
@@ -87,48 +91,32 @@ internal class HomeViewModel @Inject constructor(
         }
     }
 
-    // 이 부분 UseCase로 추출
-    fun fetchFavoritedCafes() {
+    private fun fetchFavoritedCafes() {
         viewModelScope.launch {
-            getStoredUserInformationUseCase().filterNotNull().collect { user ->
-                runCatching {
-                    getFavoritedCafesUseCase(
-                        userId = user.userId,
-                        accessToken = user.accessToken,
-                    ).also {
-                        Log.e("HomeViewModel", "${it.asList()}")
-                    }
-                }.onFailure { exception ->
-                    if (exception is CazaitHttpException) {
-                        when (exception.code) {
-                            401 -> {
-                                flow {
-                                    emit(
-                                        getRefreshAccessTokenUseCase(
-                                            user.accessToken,
-                                            user.refreshToken,
-                                        ),
-                                    )
-                                }.catch { unexpectedError ->
-                                    _errorFlow.emit(unexpectedError)
-                                }.collect { userInformation ->
-                                    runCatching {
-                                        updateStoredUserInformationUseCase(
-                                            user.copy(
-                                                accessToken = userInformation.accessToken,
-                                                refreshToken = userInformation.refreshToken,
-                                            ),
-                                        )
-                                    }.onFailure {
-                                    }.onSuccess {
-                                        fetchFavoritedCafes()
-                                    }
-                                }
-                            }
-                        }
-                    }
+            val user: StoredUser = getStoredUserInformationUseCase().filterNotNull().first()
+            try {
+                val cafes = getFavoritedCafesUseCase(user.userId, user.accessToken)
+                Log.e("HomeViewModel", "cafes = ${cafes.asList()}")
+            } catch (e: CazaitHttpException) {
+                if (e.code == 401) {
+                    handleTokenExpired(user) { fetchFavoritedCafes() }
                 }
             }
+        }
+    }
+
+    private suspend fun handleTokenExpired(user: StoredUser, onRefreshed: () -> Unit) {
+        try {
+            val updatedUser = getRefreshAccessTokenUseCase(user.accessToken, user.refreshToken)
+            updateStoredUserInformationUseCase(
+                user.copy(
+                    accessToken = updatedUser.accessToken,
+                    refreshToken = updatedUser.refreshToken,
+                ),
+            )
+            onRefreshed()
+        } catch (e: Exception) {
+            _errorFlow.emit(e)
         }
     }
 
