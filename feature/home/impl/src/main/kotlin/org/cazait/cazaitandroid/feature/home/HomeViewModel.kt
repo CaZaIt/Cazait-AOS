@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
+import org.cazait.cazaitandroid.core.local.user.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.local.user.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.core.location.LocationDetails
 import org.cazait.cazaitandroid.core.location.usecase.GetLocationUseCase
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
@@ -22,8 +24,6 @@ import org.cazait.cazaitandroid.core.repo.home.api.model.DistanceLimit
 import org.cazait.cazaitandroid.core.repo.home.api.model.Latitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.Longitude
 import org.cazait.cazaitandroid.core.repo.home.api.model.SortBy
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetCongestionCafesUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetFavoritedCafesUseCase
 import org.cazait.cazaitandroid.feature.home.usecase.GetRefreshAccessTokenUseCase

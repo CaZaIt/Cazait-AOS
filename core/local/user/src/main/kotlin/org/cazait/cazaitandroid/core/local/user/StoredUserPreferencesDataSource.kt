@@ -1,4 +1,4 @@
-package org.cazait.cazaitandroid.core.repo.signin
+package org.cazait.cazaitandroid.core.local.user
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -10,7 +10,6 @@ import org.cazait.cazaitandroid.core.model.AccessToken
 import org.cazait.cazaitandroid.core.model.AccountName
 import org.cazait.cazaitandroid.core.model.RefreshToken
 import org.cazait.cazaitandroid.core.model.UserId
-import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Named
@@ -59,7 +58,12 @@ internal class StoredUserPreferencesDataSource @Inject constructor(
         return if (userId == null || accountName == null || accessToken == null || refreshToken == null) {
             null
         } else {
-            StoredUser(userId, accountName, accessToken, refreshToken)
+            StoredUser(
+                userId,
+                accountName,
+                accessToken,
+                refreshToken,
+            )
         }
     }
 }

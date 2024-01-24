@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.cazait.cazaitandroid.core.httphandle.CazaitHttpException
+import org.cazait.cazaitandroid.core.local.user.StoredUser
+import org.cazait.cazaitandroid.core.local.user.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.core.model.AccountName
 import org.cazait.cazaitandroid.core.model.Password
-import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
 import org.cazait.cazaitandroid.core.repo.signin.api.model.UserInformation
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
 import org.cazait.cazaitandroid.feature.signin.usecase.PostSignInUseCase
 import javax.inject.Inject
 

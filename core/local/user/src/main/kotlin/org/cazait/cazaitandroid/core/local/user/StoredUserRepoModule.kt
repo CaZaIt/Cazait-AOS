@@ -1,4 +1,4 @@
-package org.cazait.cazaitandroid.core.repo.signin.di
+package org.cazait.cazaitandroid.core.local.user
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -12,13 +12,10 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
-import org.cazait.cazaitandroid.core.repo.signin.DefaultStoredUserRepository
-import org.cazait.cazaitandroid.core.repo.signin.StoredUserPreferencesDataSource
-import org.cazait.cazaitandroid.core.repo.signin.api.StoredUserRepository
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
-import org.cazait.cazaitandroid.core.repo.signin.usecase.GetStoredUserInformationUseCaseImpl
-import org.cazait.cazaitandroid.core.repo.signin.usecase.UpdateStoredUserInformationUseCaseImpl
+import org.cazait.cazaitandroid.core.local.user.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.local.user.usecase.GetStoredUserInformationUseCaseImpl
+import org.cazait.cazaitandroid.core.local.user.usecase.UpdateStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.local.user.usecase.UpdateStoredUserInformationUseCaseImpl
 import javax.inject.Named
 import javax.inject.Singleton
 

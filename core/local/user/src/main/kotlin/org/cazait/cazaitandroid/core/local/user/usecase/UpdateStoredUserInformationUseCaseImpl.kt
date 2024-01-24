@@ -1,8 +1,7 @@
-package org.cazait.cazaitandroid.core.repo.signin.usecase
+package org.cazait.cazaitandroid.core.local.user.usecase
 
-import org.cazait.cazaitandroid.core.repo.signin.api.StoredUserRepository
-import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.UpdateStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.local.user.StoredUser
+import org.cazait.cazaitandroid.core.local.user.StoredUserRepository
 import javax.inject.Inject
 
 internal class UpdateStoredUserInformationUseCaseImpl @Inject constructor(

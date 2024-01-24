@@ -1,8 +1,6 @@
-package org.cazait.cazaitandroid.core.repo.signin
+package org.cazait.cazaitandroid.core.local.user
 
 import kotlinx.coroutines.flow.Flow
-import org.cazait.cazaitandroid.core.repo.signin.api.StoredUserRepository
-import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
 import javax.inject.Inject
 
 internal class DefaultStoredUserRepository @Inject constructor(

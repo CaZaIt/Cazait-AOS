@@ -8,7 +8,7 @@ android {
 
 dependencies {
     implementation(projects.core.repo.cafedetail.api)
-
+    implementation(projects.core.local.user)
     implementation(projects.feature.mainNavGraph)
     implementation(projects.feature.cafedetail.api)
 

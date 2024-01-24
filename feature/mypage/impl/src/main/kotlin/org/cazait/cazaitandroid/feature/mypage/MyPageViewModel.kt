@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.cazait.cazaitandroid.core.repo.signin.api.usecase.GetStoredUserInformationUseCase
+import org.cazait.cazaitandroid.core.local.user.usecase.GetStoredUserInformationUseCase
 import org.cazait.cazaitandroid.feature.mypage.usecase.SignOutUseCase
 import javax.inject.Inject
 

@@ -11,10 +11,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.cazait.cazaitandroid.core.model.AccessToken
-import org.cazait.cazaitandroid.core.model.AccountName
 import org.cazait.cazaitandroid.core.model.RefreshToken
-import org.cazait.cazaitandroid.core.repo.signin.api.model.StoredUser
-import org.cazait.cazaitandroid.core.model.UserId
+import org.cazait.cazaitandroid.core.local.user.StoredUser
+import org.cazait.cazaitandroid.core.local.user.StoredUserPreferencesDataSource
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

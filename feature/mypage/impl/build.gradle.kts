@@ -8,6 +8,7 @@ android {
 
 dependencies {
     implementation(projects.core.repo.signin.api)
+    implementation(projects.core.local.user)
 
     implementation(projects.feature.mainNavGraph)
     implementation(projects.feature.mypage.api)

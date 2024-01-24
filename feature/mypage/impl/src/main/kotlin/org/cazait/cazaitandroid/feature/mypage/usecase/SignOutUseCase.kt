@@ -1,6 +1,6 @@
 package org.cazait.cazaitandroid.feature.mypage.usecase
 
-import org.cazait.cazaitandroid.core.repo.signin.api.StoredUserRepository
+import org.cazait.cazaitandroid.core.local.user.StoredUserRepository
 import javax.inject.Inject
 
 interface SignOutUseCase {

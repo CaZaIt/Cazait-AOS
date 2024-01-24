@@ -39,6 +39,7 @@ include(
     ":core:http-handle",
 
     ":core:local:recentview",
+    ":core:local:user",
 
     ":feature:main",
     ":feature:main-nav-graph",
