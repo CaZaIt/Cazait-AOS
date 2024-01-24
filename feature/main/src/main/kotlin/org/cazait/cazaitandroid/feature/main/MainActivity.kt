@@ -3,6 +3,7 @@ package org.cazait.cazaitandroid.feature.main
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme

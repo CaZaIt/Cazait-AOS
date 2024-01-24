@@ -8,6 +8,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavController
 import org.cazait.cazaitandroid.feature.cafedetail.api.CafeDetailNavControllerInfo
 import org.cazait.cazaitandroid.feature.cafedetail.api.ReviewEditorNavController
@@ -41,8 +44,8 @@ internal class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    var startDestination = SplashNav.route
-        private set
+    private val _startNavigate = MutableStateFlow(SplashNav.route)
+    val startDestination = _startNavigate.asStateFlow()
 
     val currentTab: CazaitTab?
         @Composable get() = currentDestination
@@ -90,7 +93,8 @@ internal class MainNavigator(
     }
 
     fun navigateHome() {
-        mainTabs.find(homeNavController.route)?.let(::navigate)
+        _startNavigate.update { mainTabs.startDestination }
+//        mainTabs.find(homeNavController.route)?.let(::navigate)
     }
 
     fun navigateCafeDetail(cafeId: String) {

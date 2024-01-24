@@ -25,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -34,6 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import com.cazait.cazaitandroid.feature.main.R
 import kotlinx.collections.immutable.PersistentList
@@ -69,6 +71,7 @@ internal fun MainScreen(
     recentlyViewNavGraph: RecentlyViewNavGraph,
     mainTabs: MainTabs,
 ) {
+    val startDestination by navigator.startDestination.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val localContextResource = LocalContext.current.resources
@@ -99,7 +102,7 @@ internal fun MainScreen(
             ) {
                 NavHost(
                     navController = navigator.navController,
-                    startDestination = navigator.startDestination,
+                    startDestination = startDestination,
                 ) {
                     homeNavGraph.buildNavGraph(
                         navGraphBuilder = this,
@@ -129,10 +132,16 @@ internal fun MainScreen(
 
                     splashNavGraph(
                         onClickStart = { navigator.navigateSignIn() },
-                        onUserInformationStored = { navigator.navigateHome() },
+                        onUserInformationStored = {
+                            navigator.popBackStack()
+                            navigator.navigateHome()
+                        },
                     )
                     signInNavGraph(
-                        onSignInSuccess = { navigator.navigateHome() },
+                        onSignInSuccess = {
+                            navigator.popBackStack()
+                            navigator.navigateHome()
+                        },
                         onShowHttpErrorSnackbar = onShowHttpErrorSnackbar,
                         onShowErrorSnackbar = onShowErrorSnackbar,
                     )

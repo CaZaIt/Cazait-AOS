@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -54,8 +53,6 @@ internal class HomeViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        Log.e("HomeViewModel", "init")
-//        fetchCongestionCafes()
         fetchFavoritedCafes()
     }
 
@@ -94,14 +91,15 @@ internal class HomeViewModel @Inject constructor(
     private fun fetchFavoritedCafes() {
         viewModelScope.launch {
             val user: StoredUser = getStoredUserInformationUseCase().filterNotNull().first()
-            try {
-                val cafes = getFavoritedCafesUseCase(user.userId, user.accessToken)
-                Log.e("HomeViewModel", "cafes = ${cafes.asList()}")
-            } catch (e: CazaitHttpException) {
-                if (e.code == 401) {
-                    handleTokenExpired(user) { fetchFavoritedCafes() }
+            flow { emit(getFavoritedCafesUseCase(user.userId, user.accessToken)) }
+                .catch {
+                    if (it is CazaitHttpException && it.code == 401) {
+                        handleTokenExpired(user) { fetchFavoritedCafes() }
+                    }
                 }
-            }
+                .collect { cafes ->
+                    Log.e("HomeViewModel", "cafes = ${cafes.asList()}")
+                }
         }
     }
 
@@ -124,8 +122,6 @@ internal class HomeViewModel @Inject constructor(
         sortBy: SortBy = SortBy.DISTANCE,
         limit: DistanceLimit = DistanceLimit(2000),
     ) {
-        _uiState.update { HomeAllCafesUiState.Loading }
-
         viewModelScope.launch {
             flow {
                 emit(
