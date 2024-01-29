@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeId
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
 import java.util.UUID
 
 @Composable

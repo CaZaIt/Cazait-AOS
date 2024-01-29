@@ -23,10 +23,10 @@ import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
 import org.cazait.cazaitandroid.core.designsystem.component.NetworkImage
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeAddress
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeId
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeImages
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeName
+import org.cazait.cazaitandroid.core.model.cafe.CafeAddress
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
+import org.cazait.cazaitandroid.core.model.cafe.CafeImages
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
 import org.cazait.cazaitandroid.core.repo.home.api.model.Congestion
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.Distance
@@ -114,10 +114,10 @@ private fun PreviewHomeCongestionCafeItem() {
         HomeCongestionCafeItem(
             congestionCafe = CongestionCafe(
                 cafe = Cafe(
-                    id = CafeId(UUID.randomUUID()),
-                    name = CafeName("카자잇"),
-                    address = CafeAddress("서울시 광진구 광나루로 111-1 1층"),
-                    cafeImages = CafeImages(emptyList()),
+                    id = org.cazait.cazaitandroid.core.model.cafe.CafeId(UUID.randomUUID()),
+                    name = org.cazait.cazaitandroid.core.model.cafe.CafeName("카자잇"),
+                    address = org.cazait.cazaitandroid.core.model.cafe.CafeAddress("서울시 광진구 광나루로 111-1 1층"),
+                    cafeImages = org.cazait.cazaitandroid.core.model.cafe.CafeImages(emptyList()),
                     latitude = Latitude(0.0),
                     longitude = Longitude(0.0),
                 ),

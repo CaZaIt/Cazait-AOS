@@ -1,7 +1,7 @@
 package org.cazait.cazaitandroid.feature.cafedetail.usecase
 
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.CafeDetailRepository
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeId
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeMenus
 import javax.inject.Inject
 

@@ -1,5 +1,10 @@
 package org.cazait.cazaitandroid.core.repo.home.api.model
 
+import org.cazait.cazaitandroid.core.model.cafe.CafeAddress
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
+import org.cazait.cazaitandroid.core.model.cafe.CafeImages
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
+
 data class Cafe(
     val id: CafeId,
     val name: CafeName,

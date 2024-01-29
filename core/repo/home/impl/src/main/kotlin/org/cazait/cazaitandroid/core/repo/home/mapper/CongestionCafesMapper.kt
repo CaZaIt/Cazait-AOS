@@ -1,11 +1,11 @@
 package org.cazait.cazaitandroid.core.repo.home.mapper
 
+import org.cazait.cazaitandroid.core.model.cafe.CafeAddress
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
+import org.cazait.cazaitandroid.core.model.cafe.CafeImage
+import org.cazait.cazaitandroid.core.model.cafe.CafeImages
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeAddress
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeId
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeImage
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeImages
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeName
 import org.cazait.cazaitandroid.core.repo.home.api.model.Congestion
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.CongestionCafes
@@ -24,7 +24,13 @@ internal fun CongestionCafeResponse.toData(): CongestionCafe = CongestionCafe(
         id = CafeId(UUID.fromString(cafeId)),
         name = CafeName(name),
         address = CafeAddress(address),
-        cafeImages = CafeImages(cafeImages.map { CafeImage(it) }),
+        cafeImages = CafeImages(
+            cafeImages.map {
+                CafeImage(
+                    it,
+                )
+            },
+        ),
         latitude = Latitude(latitude.toDouble()),
         longitude = Longitude(longitude.toDouble()),
     ),

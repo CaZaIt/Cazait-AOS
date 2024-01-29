@@ -20,6 +20,7 @@ include(
     ":app",
     ":core:model:token",
     ":core:model:user",
+    ":core:model:cafe",
 
     ":core:repo:signin:api",
     ":core:repo:signin:impl",

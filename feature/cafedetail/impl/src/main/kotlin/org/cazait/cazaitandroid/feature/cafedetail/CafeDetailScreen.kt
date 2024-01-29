@@ -49,11 +49,11 @@ import org.cazait.cazaitandroid.core.designsystem.component.noRippleClickable
 import org.cazait.cazaitandroid.core.designsystem.theme.Black
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
 import org.cazait.cazaitandroid.core.designsystem.theme.SunsetOrange
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeAddress
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeImage
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeImages
+import org.cazait.cazaitandroid.core.model.cafe.CafeAddress
+import org.cazait.cazaitandroid.core.model.cafe.CafeImage
+import org.cazait.cazaitandroid.core.model.cafe.CafeImages
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeMenus
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeName
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeReviews
 
 @Composable

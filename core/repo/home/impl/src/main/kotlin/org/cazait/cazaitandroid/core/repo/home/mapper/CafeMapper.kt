@@ -1,8 +1,8 @@
 package org.cazait.cazaitandroid.core.repo.home.mapper
 
 import org.cazait.cazaitandroid.core.local.recentview.model.CafeEntity
+import org.cazait.cazaitandroid.core.model.cafe.CafeImage
 import org.cazait.cazaitandroid.core.repo.home.api.model.Cafe
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeImage
 import java.util.Date
 
 internal fun Cafe.toEntity(date: Date): CafeEntity = CafeEntity(

@@ -1,9 +1,9 @@
 package org.cazait.cazaitandroid.core.repo.home.mapper
 
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeAddress
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeId
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeImage
-import org.cazait.cazaitandroid.core.repo.home.api.model.CafeName
+import org.cazait.cazaitandroid.core.model.cafe.CafeAddress
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
+import org.cazait.cazaitandroid.core.model.cafe.CafeImage
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
 import org.cazait.cazaitandroid.core.repo.home.api.model.Congestion
 import org.cazait.cazaitandroid.core.repo.home.api.model.FavoritedCafe
 import org.cazait.cazaitandroid.core.repo.home.api.model.FavoritesId

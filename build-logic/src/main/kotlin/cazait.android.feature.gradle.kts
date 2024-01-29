@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:model:token"))
     implementation(project(":core:model:user"))
+    implementation(project(":core:model:cafe"))
 
     testImplementation(project(":core:testing"))
 

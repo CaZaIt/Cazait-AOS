@@ -1,4 +1,4 @@
-package org.cazait.cazaitandroid.core.repo.home.api.model
+package org.cazait.cazaitandroid.core.model.cafe
 
 @JvmInline
 value class CafeImage(private val url: String) {

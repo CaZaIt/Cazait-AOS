@@ -16,13 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.cazait.cazaitandroid.core.designsystem.component.CazaitCard
 import org.cazait.cazaitandroid.core.designsystem.theme.CazaitTheme
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeName
+import org.cazait.cazaitandroid.core.model.UserId
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeReview
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.ReviewContent
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.ReviewId
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.ReviewScore
 import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.ReviewerNickname
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.UserId
 import java.util.UUID
 
 @Composable

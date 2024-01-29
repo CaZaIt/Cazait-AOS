@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.core.local.recentview)
     implementation(projects.core.model.token)
     implementation(projects.core.model.user)
+    implementation(projects.core.model.cafe)
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)

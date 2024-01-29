@@ -1,5 +1,8 @@
 package org.cazait.cazaitandroid.core.repo.cafedetail.api.model
 
+import org.cazait.cazaitandroid.core.model.UserId
+import org.cazait.cazaitandroid.core.model.cafe.CafeName
+
 data class CafeReview(
     val userId: UserId,
     val reviewId: ReviewId,

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.cazait.cazaitandroid.core.repo.cafedetail.api.model.CafeId
+import org.cazait.cazaitandroid.core.model.cafe.CafeId
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeByIdUseCase
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeMenusUseCase
 import org.cazait.cazaitandroid.feature.cafedetail.usecase.GetCafeReviewsUseCase
@@ -52,7 +52,6 @@ internal class CafeDetailViewModel @Inject constructor(
 
     fun toggleFavorite() {
         viewModelScope.launch {
-
         }
     }
 }

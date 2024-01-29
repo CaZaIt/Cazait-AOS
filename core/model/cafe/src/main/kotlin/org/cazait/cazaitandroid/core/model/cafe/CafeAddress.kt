@@ -1,4 +1,4 @@
-package org.cazait.cazaitandroid.core.repo.cafedetail.api.model
+package org.cazait.cazaitandroid.core.model.cafe
 
 @JvmInline
 value class CafeAddress(private val address: String) {
