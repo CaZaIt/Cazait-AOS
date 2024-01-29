@@ -49,4 +49,10 @@ internal class CafeDetailViewModel @Inject constructor(
             }
         }
     }
+
+    fun toggleFavorite() {
+        viewModelScope.launch {
+
+        }
+    }
 }
